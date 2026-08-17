@@ -5,7 +5,7 @@
 */
 const APP_CONFIG = {
   // Replace this after deploying Code.gs as a Web App.
-  APPS_SCRIPT_WEB_APP_URL: "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE",
+  APPS_SCRIPT_WEB_APP_URL: "https://script.google.com/macros/s/AKfycbwyqbaWppPGo-c9WCbGTppHIMRg2jkafAx--Wh4YdkplrNiR8rppx8IQF9Cnuvim2B5IA/exec",
 
   childName: "Marcus Cloud Gaitero",
   eventDateISO: "2026-09-29T11:00:00+08:00",
