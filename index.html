@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f7f1e8">
+  <title>Marcus Cloud Gaitero — Christening & Birthday</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="opening" id="opening">
+    <div class="opening-card">
+      <div class="tiny-flower">✿</div>
+      <p>With grateful hearts</p>
+      <h1>Marcus Cloud</h1>
+      <span>Christening & 1st Birthday</span>
+      <button class="btn primary" onclick="closeOpening()">Open Invitation</button>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero section">
+      <div class="floral floral-a">✿</div><div class="floral floral-b">❀</div>
+      <p class="eyebrow">A day of faith, love & joy</p>
+      <h1>Christening &<br><em>Birthday Celebration</em></h1>
+      <div class="name">Marcus Cloud Gaitero</div>
+      <p class="hero-copy">Please join us as we celebrate a beautiful milestone — the Christening and Birthday of our beloved Marcus Cloud. Your presence will make this special day even more meaningful to our family.</p>
+      <div class="date-pill">September 29, 2026 · 11:00 AM</div>
+      <div class="actions">
+        <a class="btn primary" href="rsvp.html">RSVP NOW</a>
+        <a class="btn ghost" href="#details">View Details</a>
+      </div>
+    </section>
+
+    <section class="countdown section">
+      <p class="eyebrow">Counting Down to Our Special Day!</p>
+      <div id="countdown" class="count-grid"></div>
+    </section>
+
+    <section id="details" class="section details">
+      <p class="eyebrow">The Celebration</p>
+      <h2>A precious milestone</h2>
+      <div class="detail-grid">
+        <article><span>✝</span><h3>Christening</h3><p>September 29, 2026<br>11:00 AM</p><strong>Our Lady of the Miraculous Medal Parish</strong><small>Calumpang, Molo, Iloilo City</small><a href="https://www.google.com/maps/search/?api=1&query=Our+Lady+of+the+Miraculous+Medal+Parish+Calumpang+Molo+Iloilo+City" target="_blank">📍 View Location</a></article>
+        <article><span>🎂</span><h3>1st Birthday</h3><p>Birthday Theme<br><strong>JolliTown Carnival</strong></p><strong>Jollibee Molo</strong><small>Avanceña St, Molo, Iloilo City</small><a href="https://www.google.com/maps/search/?api=1&query=Jollibee+Molo+Iloilo+City" target="_blank">📍 View Location</a></article>
+        <article><span>🤍</span><h3>Dress Code</h3><p>Presentable</p><small>Come dressed comfortably and celebration-ready.</small></article>
+      </div>
+    </section>
+
+    <section class="qr-section section">
+      <div>
+        <p class="eyebrow">Your presence means the world</p>
+        <h2>Scan to RSVP</h2>
+        <p>Use your phone camera to open the registration form, or tap the button below.</p>
+        <a class="btn primary" href="rsvp.html">RSVP NOW</a>
+      </div>
+      <div class="qr-card">
+        <div id="qrcode"></div>
+        <strong>SCAN TO RSVP</strong>
+        <button class="text-btn" id="downloadQR">Download QR as PNG</button>
+      </div>
+    </section>
+
+    <section class="section extras">
+      <div class="extra-grid">
+        <button class="extra" onclick="addCalendar()">📅<span>Add to Calendar</span></button>
+        <a class="extra" href="tel:+639000000000">📞<span>Contact Organizer</span></a>
+        <a class="extra" href="https://m.me/" target="_blank">💬<span>Messenger</span></a>
+        <button class="extra" onclick="alert('Gift/Registry details can be added here in config.js.')">🎁<span>Gift / Registry</span></button>
+        <button class="extra" onclick="alert('Photo gallery placeholder — add your photos here.')">📸<span>Photo Gallery</span></button>
+      </div>
+    </section>
+
+    <footer>
+      <p>With love, for Marcus Cloud 🤍</p>
+      <small>Your information will be used only for event registration and guest coordination. We will not sell or share your personal information for marketing purposes.</small>
+    </footer>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js" onerror="this.onerror=null;var s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';document.head.appendChild(s)"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

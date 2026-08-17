@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Organizer Dashboard</title><link rel="stylesheet" href="styles.css">
+<style>.dash{width:min(1200px,94%);margin:auto;padding:40px 0}.cards{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.card{background:#fff;border:1px solid var(--line);padding:20px;border-radius:18px}.card b{font-size:2rem;display:block}.table-wrap{overflow:auto;margin-top:25px}table{width:100%;border-collapse:collapse;background:#fff}th,td{padding:10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}.toolbar{display:flex;gap:10px;margin:20px 0}.toolbar input{flex:1;padding:12px;border:1px solid var(--line);border-radius:12px}@media(max-width:800px){.cards{grid-template-columns:repeat(2,1fr)}} </style>
+</head><body><main class="dash"><a href="index.html">← Invitation</a><h1>Organizer Dashboard</h1>
+<p>For best privacy, keep this page private and use the Google Sheet as the authoritative organizer record.</p>
+<div class="cards" id="cards"></div><div class="toolbar"><input id="search" placeholder="Search Guest"><button class="btn primary" onclick="location.href='https://docs.google.com/spreadsheets/'">Open Google Sheet</button></div>
+<div class="table-wrap"><table><thead><tr><th>Timestamp</th><th>Name</th><th>Contact</th><th>Email</th><th>Guests</th><th>Attendance</th><th>Godparent</th><th>Message</th></tr></thead><tbody id="rows"></tbody></table></div>
+</main><script>
+/*
+This static dashboard intentionally does not fetch guest data. Exposing a
+read endpoint plus a token in a public website would not be strong privacy.
+Use the Google Sheet for the secure organizer view, or move this dashboard
+into an authenticated Apps Script/Google Workspace environment.
+*/
+document.getElementById("cards").innerHTML=["Total registered guests","Confirmed attendees","Cannot attend","People attending","Godparent yes"].map(x=>`<div class="card"><small>${x}</small><b>—</b></div>`).join("");
+</script></body></html>

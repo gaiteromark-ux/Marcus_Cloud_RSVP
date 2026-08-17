@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f7f1e8">
+  <title>RSVP — Marcus Cloud Gaitero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main>
+  <section class="form-shell section">
+    <a class="back" href="index.html">← Invitation</a>
+    <p class="eyebrow">Marcus Cloud Gaitero</p>
+    <h1>RSVP</h1>
+    <p>We would be delighted to celebrate with you.</p>
+
+    <form id="rsvpForm" class="rsvp-form">
+      <label>Full Name *<input name="fullName" required minlength="2" autocomplete="name"></label>
+      <label>Contact Number *<input name="contactNumber" required inputmode="tel" pattern="^[0-9+() .-]{7,20}$" placeholder="+63 9XX XXX XXXX"></label>
+      <label>Email Address *<input name="email" type="email" required autocomplete="email"></label>
+      <label>Number of Guests *<input name="numberOfGuests" type="number" required min="1" max="50" value="1"></label>
+
+      <fieldset><legend>Attendance *</legend>
+        <label class="choice"><input type="radio" name="attendance" value="Yes, I will attend" required> Yes, I will attend</label>
+        <label class="choice"><input type="radio" name="attendance" value="Sorry, I cannot attend"> Sorry, I cannot attend</label>
+      </fieldset>
+
+      <fieldset><legend>Would you like to be my Godparent? *</legend>
+        <label class="choice"><input type="radio" name="godparentResponse" value="Yes, I would be honored!" required> Yes, I would be honored!</label>
+        <label class="choice"><input type="radio" name="godparentResponse" value="I’m sorry, I cannot"> I’m sorry, I cannot</label>
+        <label class="choice"><input type="radio" name="godparentResponse" value="I’d like to discuss it with the parents"> I’d like to discuss it with the parents</label>
+      </fieldset>
+
+      <label>Message / Note <textarea name="message" rows="4" maxlength="500" placeholder="Optional"></textarea></label>
+      <div class="privacy">🔒 Your information will be used only for event registration and guest coordination. We will not sell or share your personal information for marketing purposes.</div>
+      <button class="btn primary full" type="submit" id="submitBtn">Submit RSVP</button>
+      <p id="formStatus" class="status"></p>
+    </form>
+
+    <section id="confirmation" class="confirmation hidden">
+      <div class="success-icon">✓</div>
+      <p class="eyebrow">RSVP received</p>
+      <h2>Thank You, <span id="guestName"></span>!</h2>
+      <p>Your RSVP has been successfully received. We are excited to celebrate this special Christening & Birthday with you!</p>
+      <div class="event-summary">
+        <strong>September 29, 2026</strong>
+        <span>11:00 AM</span>
+        <span>Our Lady of the Miraculous Medal Parish</span>
+        <span>Reception: Jollibee Molo</span>
+      </div>
+      <p id="godparentThanks" class="godparent-thanks hidden">Thank you for saying yes! Your love and guidance will mean so much to Marcus Cloud. 🤍</p>
+      <a class="btn ghost" href="index.html">Back to Invitation</a>
+    </section>
+  </section>
+</main>
+<script src="config.js"></script>
+<script src="rsvp.js"></script>
+</body>
+</html>
