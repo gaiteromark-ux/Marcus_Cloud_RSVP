@@ -9,6 +9,6 @@ const APP_CONFIG = {
 
   childName: "Marcus Cloud Gaitero",
   eventDateISO: "2026-09-29T11:00:00+08:00",
-  organizerPhone: "+639000000000",
+  organizerPhone: "+639647544914",
   giftRegistryUrl: ""
 };
