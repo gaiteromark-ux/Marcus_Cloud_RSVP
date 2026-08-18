@@ -68,4 +68,30 @@ function addCalendar(){
   window.open(url,"_blank");
 }
 
-document.addEventListener("DOMContentLoaded",()=>{countdown();makeQR();});
+function setupOrganizerContact() {
+  const phone = APP_CONFIG.organizerPhone;
+
+  if (!phone) return;
+
+  // Find the Contact Organizer button
+  const buttons = document.querySelectorAll("a, button");
+
+  buttons.forEach((button) => {
+    const text = button.textContent.trim().toLowerCase();
+
+    if (text.includes("contact organizer")) {
+      if (button.tagName.toLowerCase() === "a") {
+        button.href = "tel:" + phone;
+      } else {
+        button.addEventListener("click", () => {
+          window.location.href = "tel:" + phone;
+        });
+      }
+    }
+  });
+}
+document.addEventListener("DOMContentLoaded", () => {
+  countdown();
+  makeQR();
+  setupOrganizerContact();
+});
