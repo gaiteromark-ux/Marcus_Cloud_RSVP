@@ -1,1 +1,184 @@
 :root{--ink:#263746;--muted:#6d767b;--cream:#fbf7f0;--paper:#fffdf9;--gold:#b99b62;--line:#e8dfd1;--blue:#dcebf2;--pink:#f2dfe2}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font-family:Inter,system-ui,sans-serif}h1,h2,h3{font-family:"Cormorant Garamond",serif;font-weight:600;line-height:.95;margin:0}h1{font-size:clamp(3.2rem,11vw,7rem)}h2{font-size:clamp(2.4rem,7vw,4.4rem)}h3{font-size:2rem}p{line-height:1.7}.section{width:min(1080px,92%);margin:auto;padding:88px 0}.eyebrow{text-transform:uppercase;letter-spacing:.2em;font-size:.72rem;color:var(--gold);font-weight:700}.hero{text-align:center;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;background:radial-gradient(circle at 20% 20%,#f2dfe255,transparent 25%),radial-gradient(circle at 80% 70%,#dcebf288,transparent 28%)}.hero em{font-style:normal;color:var(--gold)}.name{font-family:"Cormorant Garamond";font-size:clamp(2rem,6vw,3.8rem);margin:22px 0}.hero-copy{max-width:670px;color:var(--muted)}.date-pill{border:1px solid var(--gold);border-radius:99px;padding:12px 20px;margin:12px 0 26px;background:#fff9}.actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}.btn{display:inline-flex;justify-content:center;align-items:center;text-decoration:none;border:0;border-radius:999px;padding:14px 24px;font-weight:700;cursor:pointer;transition:.25s}.btn:hover{transform:translateY(-2px)}.primary{background:var(--ink);color:white}.ghost{border:1px solid var(--ink);color:var(--ink);background:transparent}.full{width:100%}.floral{position:absolute;color:#c8ae78;font-size:4rem;opacity:.45}.floral-a{left:5%;top:14%;transform:rotate(-20deg)}.floral-b{right:5%;bottom:14%;transform:rotate(25deg)}.countdown{text-align:center;background:var(--paper);border-radius:40px;padding-left:6%;padding-right:6%}.count-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:700px;margin:30px auto}.count-grid div{background:var(--cream);padding:20px 8px;border-radius:20px}.count-grid b{display:block;font-family:"Cormorant Garamond";font-size:2.6rem}.count-grid span{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}.details{text-align:center}.detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}.detail-grid article{background:var(--paper);border:1px solid var(--line);border-radius:28px;padding:32px;box-shadow:0 10px 30px #2637460a}.detail-grid article>span{font-size:2rem}.detail-grid p{color:var(--muted)}.detail-grid strong,.detail-grid small{display:block;margin-top:10px}.detail-grid small{color:var(--muted)}.detail-grid a{display:inline-block;margin-top:18px;color:var(--gold);font-weight:700;text-decoration:none}.qr-section{display:grid;grid-template-columns:1fr auto;gap:60px;align-items:center;background:linear-gradient(135deg,#dcebf2,#fffaf2);border-radius:40px;padding-left:6%;padding-right:6%}.qr-card{text-align:center;background:white;padding:22px;border-radius:26px;box-shadow:0 15px 40px #26374614}.qr-card strong{display:block;margin:14px}.text-btn{border:0;background:none;color:var(--gold);font-weight:700;cursor:pointer}.extra-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.extra{min-height:110px;border:1px solid var(--line);background:var(--paper);border-radius:22px;padding:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--ink);text-decoration:none;font:inherit;cursor:pointer}.extra:first-letter{font-size:1.4rem}.extra span{font-size:.8rem;font-weight:700}footer{text-align:center;padding:50px 20px;color:var(--muted)}footer small{display:block;max-width:680px;margin:auto}.opening{position:fixed;inset:0;z-index:20;display:grid;place-items:center;background:var(--cream);transition:.5s}.opening.closed{opacity:0;pointer-events:none}.opening-card{text-align:center;padding:30px}.opening-card h1{font-size:4rem}.opening-card span{display:block;margin:20px 0 30px;color:var(--muted)}.tiny-flower{color:var(--gold);font-size:3rem}.form-shell{max-width:720px}.back{color:var(--gold);text-decoration:none;font-weight:700}.form-shell>h1{margin:10px 0}.rsvp-form{background:var(--paper);border:1px solid var(--line);padding:clamp(22px,5vw,44px);border-radius:30px;margin-top:30px}.rsvp-form>label{display:block;margin:0 0 18px;font-weight:700}.rsvp-form input,.rsvp-form textarea{width:100%;display:block;margin-top:8px;padding:14px 15px;border:1px solid var(--line);border-radius:14px;background:#fff;font:inherit;color:var(--ink)}fieldset{border:0;padding:0;margin:24px 0}legend{font-weight:700;margin-bottom:10px}.choice{display:flex!important;align-items:center;gap:10px;margin:10px 0;font-weight:500!important}.choice input{width:auto!important;margin:0!important}.privacy{font-size:.78rem;color:var(--muted);background:var(--cream);padding:13px;border-radius:12px;margin-bottom:18px}.status{min-height:1.4em;font-size:.9rem}.error{color:#a33}.confirmation{text-align:center;background:var(--paper);padding:45px 25px;border-radius:30px;border:1px solid var(--line);margin-top:30px}.success-icon{width:58px;height:58px;border-radius:50%;background:#e4f0e5;display:grid;place-items:center;margin:auto auto 18px;color:#42734a;font-size:1.7rem}.event-summary{display:grid;gap:6px;background:var(--cream);border-radius:18px;padding:18px;margin:24px 0}.godparent-thanks{background:#fff6f4;padding:16px;border-radius:16px}.hidden{display:none!important}@media(max-width:760px){.section{padding:65px 0}.detail-grid,.qr-section{grid-template-columns:1fr}.extra-grid{grid-template-columns:repeat(2,1fr)}.count-grid{grid-template-columns:repeat(2,1fr)}.qr-card{justify-self:center}.hero{min-height:92svh}.floral{font-size:2.5rem}}
+/* ==========================================
+   GIFT / REGISTRY POPUP
+   ========================================== */
+
+#giftRegistryModal {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.gift-modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(38, 55, 70, 0.58);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.gift-modal-box {
+  position: relative;
+  z-index: 2;
+
+  width: min(90%, 430px);
+
+  box-sizing: border-box;
+
+  padding: 38px 28px 30px;
+
+  background: #fffdf9;
+
+  border: 1px solid #eadfce;
+
+  border-radius: 26px;
+
+  text-align: center;
+
+  box-shadow:
+    0 25px 70px rgba(38, 55, 70, 0.28);
+
+  animation:
+    giftModalIn 0.35s ease;
+}
+
+@keyframes giftModalIn {
+
+  from {
+    opacity: 0;
+    transform:
+      translateY(25px)
+      scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+}
+
+.gift-modal-icon {
+  width: 70px;
+  height: 70px;
+
+  margin: 0 auto 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #f7ecdc;
+
+  font-size: 32px;
+}
+
+.gift-modal-box h2 {
+  margin: 0 0 18px;
+
+  color: #263746;
+
+  font-size: 27px;
+
+  font-weight: 700;
+}
+
+.gift-modal-box p {
+  margin: 0 auto 14px;
+
+  color: #5d6570;
+
+  font-size: 15px;
+
+  line-height: 1.7;
+}
+
+.gift-modal-close {
+  position: absolute;
+
+  top: 12px;
+  right: 14px;
+
+  width: 38px;
+  height: 38px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: transparent;
+
+  color: #263746;
+
+  font-size: 28px;
+
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.gift-modal-close:hover {
+  background: #f1e9de;
+}
+
+.gift-contact-button {
+  width: 100%;
+
+  margin-top: 15px;
+
+  padding: 14px 20px;
+
+  border: none;
+
+  border-radius: 30px;
+
+  background: #263746;
+
+  color: white;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.gift-contact-button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 20px rgba(38, 55, 70, 0.2);
+}
+
+@media (max-width: 480px) {
+
+  .gift-modal-box {
+    width: 92%;
+
+    padding:
+      35px 22px 25px;
+
+    border-radius: 23px;
+  }
+
+  .gift-modal-box h2 {
+    font-size: 24px;
+  }
+
+  .gift-modal-box p {
+    font-size: 14px;
+  }
+
+}
