@@ -1,19 +1,889 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Organizer Dashboard</title><link rel="stylesheet" href="styles.css">
-<style>.dash{width:min(1200px,94%);margin:auto;padding:40px 0}.cards{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.card{background:#fff;border:1px solid var(--line);padding:20px;border-radius:18px}.card b{font-size:2rem;display:block}.table-wrap{overflow:auto;margin-top:25px}table{width:100%;border-collapse:collapse;background:#fff}th,td{padding:10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}.toolbar{display:flex;gap:10px;margin:20px 0}.toolbar input{flex:1;padding:12px;border:1px solid var(--line);border-radius:12px}@media(max-width:800px){.cards{grid-template-columns:repeat(2,1fr)}} </style>
-</head><body><main class="dash"><a href="index.html">← Invitation</a><h1>Organizer Dashboard</h1>
-<p>For best privacy, keep this page private and use the Google Sheet as the authoritative organizer record.</p>
-<div class="cards" id="cards"></div><div class="toolbar"><input id="search" placeholder="Search Guest"><button class="btn primary" onclick="location.href='https://docs.google.com/spreadsheets/'">Open Google Sheet</button></div>
-<div class="table-wrap"><table><thead><tr><th>Timestamp</th><th>Name</th><th>Contact</th><th>Email</th><th>Guests</th><th>Attendance</th><th>Godparent</th><th>Message</th></tr></thead><tbody id="rows"></tbody></table></div>
-</main><script>
-/*
-This static dashboard intentionally does not fetch guest data. Exposing a
-read endpoint plus a token in a public website would not be strong privacy.
-Use the Google Sheet for the secure organizer view, or move this dashboard
-into an authenticated Apps Script/Google Workspace environment.
-*/
-document.getElementById("cards").innerHTML=["Total registered guests","Confirmed attendees","Cannot attend","People attending","Godparent yes"].map(x=>`<div class="card"><small>${x}</small><b>—</b></div>`).join("");
-</script></body></html>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>Marcus Cloud RSVP Dashboard</title>
+
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f7f0e7;
+  color: #3c3935;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background: #263746;
+  color: white;
+  padding: 25px;
+}
+
+header h1 {
+  margin: 0 0 6px;
+}
+
+.container {
+  width: min(1200px, 94%);
+  margin: 30px auto;
+}
+
+.card {
+  background: white;
+  border-radius: 18px;
+  padding: 22px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.08);
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font: inherit;
+}
+
+button {
+  border: 0;
+  border-radius: 10px;
+  padding: 12px 18px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.primary {
+  background: #263746;
+  color: white;
+}
+
+.warning {
+  background: #b79862;
+  color: white;
+}
+
+.danger {
+  background: #9b4039;
+  color: white;
+}
+
+.login {
+  max-width: 450px;
+  margin: 80px auto;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+}
+
+.stat {
+  padding: 20px;
+  border: 1px solid #e4d9cb;
+  border-radius: 15px;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.stat-label {
+  color: #777;
+  margin-top: 5px;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  white-space: nowrap;
+}
+
+th {
+  background: #f5efe7;
+}
+
+.search {
+  margin-bottom: 15px;
+}
+
+.notice {
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 15px;
+}
+
+.success {
+  background: #edf7ee;
+  color: #37633c;
+}
+
+.error {
+  background: #fff0ef;
+  color: #8a403b;
+}
+
+.hidden {
+  display: none;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Marcus Cloud RSVP Dashboard</h1>
+
+<div>
+Christening & 1st Birthday Celebration
+</div>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- LOGIN -->
+
+<div
+  id="loginCard"
+  class="card login"
+>
+
+<h2>Organizer Login</h2>
+
+<p>
+Enter your private organizer code.
+</p>
+
+<input
+  id="adminCode"
+  type="password"
+  placeholder="Organizer Code"
+>
+
+<br><br>
+
+<button
+  class="primary"
+  onclick="login()"
+>
+Open Dashboard
+</button>
+
+<div
+  id="loginStatus"
+  class="notice error hidden"
+></div>
+
+</div>
+
+
+<!-- DASHBOARD -->
+
+<div
+  id="dashboard"
+  class="hidden"
+>
+
+
+<!-- STATS -->
+
+<div class="stats">
+
+<div class="card stat">
+<div
+  id="totalRegistered"
+  class="stat-number"
+>0</div>
+<div class="stat-label">
+Total Registered
+</div>
+</div>
+
+
+<div class="card stat">
+<div
+  id="confirmed"
+  class="stat-number"
+>0</div>
+<div class="stat-label">
+Confirmed Attendees
+</div>
+</div>
+
+
+<div class="card stat">
+<div
+  id="cannotAttend"
+  class="stat-number"
+>0</div>
+<div class="stat-label">
+Cannot Attend
+</div>
+</div>
+
+
+<div class="card stat">
+<div
+  id="totalPeople"
+  class="stat-number"
+>0</div>
+<div class="stat-label">
+Total People Attending
+</div>
+</div>
+
+
+<div class="card stat">
+<div
+  id="godparentYes"
+  class="stat-number"
+>0</div>
+<div class="stat-label">
+Godparent — Yes
+</div>
+</div>
+
+
+<div class="card stat">
+<div
+  id="godparentNo"
+  class="stat-number"
+>0</div>
+<div class="stat-label">
+Godparent — Declined
+</div>
+</div>
+
+
+<div class="card stat">
+<div
+  id="godparentDiscuss"
+  class="stat-number"
+>0</div>
+<div class="stat-label">
+Godparent — Discuss
+</div>
+</div>
+
+</div>
+
+
+<!-- VENUE UPDATE -->
+
+<div class="card">
+
+<h2>📢 Update Reception Venue</h2>
+
+<p>
+Change the venue below and automatically notify
+registered guests by email.
+</p>
+
+
+<label>
+New Reception Venue
+</label>
+
+<br>
+
+<input
+  id="newVenue"
+  placeholder="Example: Jollibee Molo"
+>
+
+
+<br><br>
+
+
+<label>
+New Reception Address
+</label>
+
+<br>
+
+<input
+  id="newAddress"
+  placeholder="Example: Avanceña St, Molo, Iloilo City"
+>
+
+
+<br><br>
+
+
+<label>
+Message to Guests (Optional)
+</label>
+
+<br>
+
+<textarea
+  id="venueMessage"
+  placeholder="Example: Please note that our reception venue has changed."
+></textarea>
+
+
+<br><br>
+
+
+<button
+  class="warning"
+  onclick="updateVenue()"
+>
+📢 Update Venue & Notify Guests
+</button>
+
+
+<div
+  id="venueStatus"
+  class="notice hidden"
+></div>
+
+</div>
+
+
+<!-- GUEST LIST -->
+
+<div class="card">
+
+<h2>Guest List</h2>
+
+<input
+  id="search"
+  class="search"
+  placeholder="Search guest name, email or phone..."
+  oninput="filterGuests()"
+>
+
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Timestamp</th>
+<th>Name</th>
+<th>Contact</th>
+<th>Email</th>
+<th>Guests</th>
+<th>Attendance</th>
+<th>Godparent</th>
+<th>Message</th>
+
+</tr>
+
+</thead>
+
+<tbody id="guestTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<script>
+
+const API_URL =
+"https://script.google.com/macros/s/AKfycbzPkF3A-OFU765mICjvzKwkZByyqfzGKOCaNNPkt0IKiO861-FuuDftJ4ecKAU04uV_xA/exec";
+
+
+let guests = [];
+
+let adminCode = "";
+
+
+async function request(data) {
+
+  const response =
+    await fetch(
+      API_URL,
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type":
+            "text/plain;charset=utf-8"
+        },
+
+        body:
+          JSON.stringify(data)
+      }
+    );
+
+
+  return await response.json();
+}
+
+
+async function login() {
+
+  const code =
+    document
+      .getElementById("adminCode")
+      .value
+      .trim();
+
+
+  if (!code) {
+
+    showLoginError(
+      "Please enter your organizer code."
+    );
+
+    return;
+  }
+
+
+  try {
+
+    const result =
+      await request({
+
+        action: "dashboard",
+
+        adminCode: code
+
+      });
+
+
+    if (!result.ok) {
+
+      showLoginError(
+        result.message ||
+        "Unable to open dashboard."
+      );
+
+      return;
+    }
+
+
+    adminCode = code;
+
+    guests = result.guests || [];
+
+
+    document
+      .getElementById("loginCard")
+      .classList.add("hidden");
+
+
+    document
+      .getElementById("dashboard")
+      .classList.remove("hidden");
+
+
+    displayStats(result.stats);
+
+    displayGuests(guests);
+
+
+    const settings =
+      result.settings || {};
+
+
+    document
+      .getElementById("newVenue")
+      .value =
+        settings["Reception Venue"] || "";
+
+
+    document
+      .getElementById("newAddress")
+      .value =
+        settings["Reception Address"] || "";
+
+
+  } catch (error) {
+
+    showLoginError(
+      "Could not connect to the RSVP server."
+    );
+  }
+}
+
+
+function showLoginError(message) {
+
+  const box =
+    document.getElementById(
+      "loginStatus"
+    );
+
+  box.textContent = message;
+
+  box.classList.remove("hidden");
+}
+
+
+function displayStats(stats) {
+
+  document.getElementById(
+    "totalRegistered"
+  ).textContent =
+    stats.totalRegistered || 0;
+
+
+  document.getElementById(
+    "confirmed"
+  ).textContent =
+    stats.confirmedAttendees || 0;
+
+
+  document.getElementById(
+    "cannotAttend"
+  ).textContent =
+    stats.cannotAttend || 0;
+
+
+  document.getElementById(
+    "totalPeople"
+  ).textContent =
+    stats.totalPeopleAttending || 0;
+
+
+  document.getElementById(
+    "godparentYes"
+  ).textContent =
+    stats.godparentYes || 0;
+
+
+  document.getElementById(
+    "godparentNo"
+  ).textContent =
+    stats.godparentNo || 0;
+
+
+  document.getElementById(
+    "godparentDiscuss"
+  ).textContent =
+    stats.godparentDiscuss || 0;
+}
+
+
+function displayGuests(list) {
+
+  const tbody =
+    document.getElementById(
+      "guestTable"
+    );
+
+
+  tbody.innerHTML = "";
+
+
+  list.forEach(guest => {
+
+    const row =
+      document.createElement("tr");
+
+
+    row.innerHTML = `
+
+      <td>
+        ${escapeHTML(
+          formatDate(guest.timestamp)
+        )}
+      </td>
+
+      <td>
+        ${escapeHTML(guest.name)}
+      </td>
+
+      <td>
+        ${escapeHTML(guest.phone)}
+      </td>
+
+      <td>
+        ${escapeHTML(guest.email)}
+      </td>
+
+      <td>
+        ${escapeHTML(
+          String(guest.guests)
+        )}
+      </td>
+
+      <td>
+        ${escapeHTML(
+          guest.attendance
+        )}
+      </td>
+
+      <td>
+        ${escapeHTML(
+          guest.godparent
+        )}
+      </td>
+
+      <td>
+        ${escapeHTML(
+          guest.message || ""
+        )}
+      </td>
+
+    `;
+
+
+    tbody.appendChild(row);
+
+  });
+}
+
+
+function filterGuests() {
+
+  const query =
+    document
+      .getElementById("search")
+      .value
+      .toLowerCase();
+
+
+  const filtered =
+    guests.filter(guest => {
+
+      return (
+
+        String(guest.name)
+          .toLowerCase()
+          .includes(query)
+
+        ||
+
+        String(guest.email)
+          .toLowerCase()
+          .includes(query)
+
+        ||
+
+        String(guest.phone)
+          .toLowerCase()
+          .includes(query)
+
+      );
+
+    });
+
+
+  displayGuests(filtered);
+}
+
+
+async function updateVenue() {
+
+  const venue =
+    document
+      .getElementById("newVenue")
+      .value
+      .trim();
+
+
+  const address =
+    document
+      .getElementById("newAddress")
+      .value
+      .trim();
+
+
+  const message =
+    document
+      .getElementById("venueMessage")
+      .value
+      .trim();
+
+
+  if (!venue || !address) {
+
+    showVenueStatus(
+      "Please enter both the new venue and address.",
+      false
+    );
+
+    return;
+  }
+
+
+  const confirmed =
+    confirm(
+
+      "Are you sure you want to change the reception venue and email all registered guests?"
+
+    );
+
+
+  if (!confirmed) return;
+
+
+  showVenueStatus(
+    "Updating venue and notifying guests...",
+    true
+  );
+
+
+  try {
+
+    const result =
+      await request({
+
+        action:
+          "updateVenue",
+
+        adminCode:
+          adminCode,
+
+        venue:
+          venue,
+
+        address:
+          address,
+
+        message:
+          message
+
+      });
+
+
+    if (!result.ok) {
+
+      showVenueStatus(
+        result.message ||
+        "Unable to update venue.",
+        false
+      );
+
+      return;
+    }
+
+
+    showVenueStatus(
+
+      `Venue updated successfully. ${result.sent} guest(s) were notified by email.`,
+
+      true
+
+    );
+
+
+    document
+      .getElementById(
+        "venueMessage"
+      )
+      .value = "";
+
+
+  } catch (error) {
+
+    showVenueStatus(
+      "Could not connect to the RSVP server.",
+      false
+    );
+  }
+}
+
+
+function showVenueStatus(
+  message,
+  success
+) {
+
+  const box =
+    document.getElementById(
+      "venueStatus"
+    );
+
+
+  box.textContent = message;
+
+  box.className =
+    "notice " +
+    (success
+      ? "success"
+      : "error");
+
+}
+
+
+function formatDate(value) {
+
+  if (!value) return "";
+
+  const date =
+    new Date(value);
+
+  if (
+    Number.isNaN(
+      date.getTime()
+    )
+  ) {
+    return value;
+  }
+
+
+  return date.toLocaleString();
+}
+
+
+function escapeHTML(value) {
+
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+</script>
+
+</body>
+
+</html>
