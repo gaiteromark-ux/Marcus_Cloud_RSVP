@@ -9,7 +9,7 @@ const APP_CONFIG = {
 
   // Google Apps Script Web App
   APPS_SCRIPT_WEB_APP_URL:
-    "https://script.google.com/macros/s/AKfycbzPkF3A-OFU765mICjvzKwkZByyqfzGKOCaNNPkt0IKiO861-FuuDftJ4ecKAU04uV_xA/exec",
+    "https://script.google.com/macros/s/AKfycbyKYTZoPJqJselnj55UAVkv05heA0MQRrp9IeDv9HbOR5IES41c81nTqk7QC8HbKT2I3Q/exec",
 
   // Child
   childName:
