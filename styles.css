@@ -1372,21 +1372,17 @@ footer {
   }
 }
 
-
 /* =========================================================
-   MARCUS + QR RSVP CARD — FIXED
+   MARCUS + QR RSVP CARD — CLEAN FINAL VERSION
 ========================================================= */
 
 .qr-card.qr-card-with-photo {
   width: 100%;
   max-width: 720px;
-
   padding: 30px;
-
   overflow: hidden;
 
   border: 1px solid rgba(184, 137, 47, 0.65);
-
   border-radius: 28px;
 
   background:
@@ -1402,7 +1398,7 @@ footer {
 
 
 /* =========================================================
-   TWO COLUMNS
+   TWO-COLUMN LAYOUT
 ========================================================= */
 
 .qr-photo-layout {
@@ -1584,10 +1580,10 @@ footer {
 ========================================================= */
 
 .qr-code-side {
+  width: 100%;
   min-width: 0;
 
   display: flex;
-
   flex-direction: column;
 
   align-items: center;
@@ -1596,18 +1592,26 @@ footer {
 }
 
 
+/* =========================================================
+   QR WHITE FRAME
+========================================================= */
+
 .qr-code-frame {
-  width: 250px;
-  height: 250px;
+  box-sizing: border-box;
+
+  width: 260px;
+  height: 260px;
 
   max-width: 100%;
 
-  padding: 10px;
+  padding: 14px;
 
   display: flex;
 
   align-items: center;
   justify-content: center;
+
+  overflow: hidden;
 
   background: #ffffff;
 
@@ -1620,27 +1624,45 @@ footer {
 }
 
 
-.qr-code-side #qrcode {
-  width: 100%;
-  height: 100%;
+/* =========================================================
+   GENERATED QR
+========================================================= */
 
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-}
-
-
-.qr-code-side #qrcode canvas,
-.qr-code-side #qrcode img {
-  display: block;
+.qr-code-frame #qrcode {
+  box-sizing: border-box;
 
   width: 100% !important;
   height: 100% !important;
 
-  object-fit: contain;
+  min-width: 0 !important;
+  min-height: 0 !important;
 
-  margin: 0;
+  display: flex !important;
+
+  align-items: center !important;
+  justify-content: center !important;
+
+  overflow: hidden !important;
+}
+
+
+.qr-code-frame #qrcode canvas,
+.qr-code-frame #qrcode img {
+  display: block !important;
+
+  width: 100% !important;
+  height: 100% !important;
+
+  max-width: 100% !important;
+  max-height: 100% !important;
+
+  min-width: 0 !important;
+  min-height: 0 !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  object-fit: contain !important;
 }
 
 
@@ -1649,19 +1671,24 @@ footer {
 ========================================================= */
 
 .scan-row {
-  width: 250px;
+  width: 260px;
   max-width: 100%;
 
-  margin-top: 14px;
+  margin-top: 16px;
 
   display: flex;
 
   align-items: center;
   justify-content: center;
 
-  gap: 8px;
+  gap: 9px;
 
   color: #c28e31;
+}
+
+
+.scan-row > span {
+  flex: 0 0 auto;
 }
 
 
@@ -1696,16 +1723,18 @@ footer {
 
   font-weight: 800;
 
+  line-height: 1;
+
   white-space: nowrap;
 }
 
 
 /* =========================================================
-   DOWNLOAD BUTTON
+   DOWNLOAD QR
 ========================================================= */
 
 .qr-download {
-  margin-top: 10px;
+  margin-top: 11px;
 
   padding: 6px;
 
@@ -1716,16 +1745,26 @@ footer {
 
   gap: 6px;
 
+  border: 0;
+
+  background: transparent;
+
   color: #8b2035;
+
+  font-family:
+    Inter,
+    sans-serif;
 
   font-size: 0.82rem;
 
   font-weight: 700;
+
+  cursor: pointer;
 }
 
 
 .qr-download span {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
 }
 
 
@@ -1744,8 +1783,8 @@ footer {
 
   .qr-photo-layout {
     grid-template-columns:
-      1fr
-      1fr;
+      minmax(0, 1fr)
+      minmax(0, 1fr);
 
     gap: 18px;
   }
@@ -1761,6 +1800,8 @@ footer {
   .qr-code-frame {
     width: 205px;
     height: 205px;
+
+    padding: 9px;
   }
 
 
@@ -1786,7 +1827,6 @@ footer {
   .qr-marcus-text > span {
     font-size: 0.52rem;
   }
-
 }
 
 
@@ -1802,6 +1842,10 @@ footer {
 
 
   .qr-photo-layout {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(0, 1fr);
+
     gap: 8px;
   }
 
@@ -1817,7 +1861,9 @@ footer {
     width: 145px;
     height: 145px;
 
-    padding: 5px;
+    padding: 7px;
+
+    border-radius: 10px;
   }
 
 
@@ -1827,8 +1873,7 @@ footer {
 
 
   .qr-name-divider {
-    margin:
-      6px auto 5px;
+    margin: 6px auto 5px;
   }
 
 
@@ -1842,7 +1887,9 @@ footer {
   .scan-row {
     width: 145px;
 
-    margin-top: 8px;
+    margin-top: 9px;
+
+    gap: 4px;
   }
 
 
@@ -1854,78 +1901,25 @@ footer {
   .scan-title {
     width: 100%;
 
-    min-height: 29px;
+    min-height: 30px;
 
     padding: 5px 7px;
 
-    font-size: 0.57rem;
+    font-size: 0.58rem;
   }
 
 
   .qr-download {
-    margin-top: 4px;
+    margin-top: 5px;
 
-    font-size: 0.52rem;
+    font-size: 0.53rem;
 
     gap: 3px;
   }
 
-}
 
-/* =========================================================
-   FIX QR CODE OVERFLOW
-========================================================= */
-
-.qr-code-frame {
-  box-sizing: border-box;
-  overflow: hidden;
-}
-
-.qr-code-frame #qrcode {
-  width: 100% !important;
-  height: auto !important;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.qr-code-frame #qrcode canvas,
-.qr-code-frame #qrcode img {
-  display: block !important;
-
-  width: 100% !important;
-  height: auto !important;
-
-  max-width: 100% !important;
-
-  margin: 0 auto !important;
-
-  object-fit: contain;
-}
-
-
-/* MOBILE */
-
-@media (max-width: 480px) {
-
-  .qr-code-frame {
-    width: 145px;
-    height: auto;
-
-    aspect-ratio: 1 / 1;
-
-    padding: 6px;
+  .qr-download span {
+    font-size: 0.8rem;
   }
-
-  .qr-code-frame #qrcode {
-    width: 100% !important;
-  }
-
-  .qr-code-frame #qrcode canvas,
-  .qr-code-frame #qrcode img {
-    width: 100% !important;
-    height: auto !important;
-  }
-
 }
+
