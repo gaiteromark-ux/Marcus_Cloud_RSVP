@@ -1,147 +1,245 @@
+/* =========================================================
+   MARCUS CLOUD GAITERO
+   CHRISTENING & 1ST BIRTHDAY
+   MAIN APP.JS
+========================================================= */
+
+
+/* =========================================================
+   OPENING
+========================================================= */
+
 const opening = document.getElementById("opening");
 
 function closeOpening() {
-  if (opening) {
-    opening.classList.add("closed");
-    setTimeout(() => opening.remove(), 500);
-  }
+
+  if (!opening) return;
+
+  opening.classList.add("closed");
+
+  setTimeout(() => {
+    if (opening) {
+      opening.remove();
+    }
+  }, 500);
 }
 
 
-// ==========================================
-// COUNTDOWN
-// ==========================================
+/* =========================================================
+   COUNTDOWN
+========================================================= */
 
 function countdown() {
-  const target = new Date(APP_CONFIG.eventDateISO).getTime();
-  const el = document.getElementById("countdown");
+
+  const target =
+    new Date(APP_CONFIG.eventDateISO).getTime();
+
+  const el =
+    document.getElementById("countdown");
 
   if (!el) return;
 
   const tick = () => {
-    const diff = Math.max(0, target - Date.now());
 
-    const d = Math.floor(diff / 86400000);
-    const h = Math.floor(diff / 3600000) % 24;
-    const m = Math.floor(diff / 60000) % 60;
-    const s = Math.floor(diff / 1000) % 60;
+    const diff =
+      Math.max(0, target - Date.now());
+
+    const d =
+      Math.floor(diff / 86400000);
+
+    const h =
+      Math.floor(diff / 3600000) % 24;
+
+    const m =
+      Math.floor(diff / 60000) % 60;
+
+    const s =
+      Math.floor(diff / 1000) % 60;
+
 
     el.innerHTML = [
+
       ["Days", d],
+
       ["Hours", h],
+
       ["Minutes", m],
+
       ["Seconds", s]
+
     ]
+
       .map(
         x =>
-          `<div><b>${String(x[1]).padStart(2, "0")}</b><span>${x[0]}</span></div>`
+          `<div>
+            <b>${String(x[1]).padStart(2, "0")}</b>
+            <span>${x[0]}</span>
+          </div>`
       )
+
       .join("");
   };
 
+
   tick();
+
   setInterval(tick, 1000);
 }
 
 
-// ==========================================
-// RSVP URL
-// ==========================================
+/* =========================================================
+   RSVP URL
+========================================================= */
 
 function rsvpUrl() {
-  return new URL("rsvp.html", window.location.href).href;
+
+  return new URL(
+    "rsvp.html",
+    window.location.href
+  ).href;
 }
 
 
-// ==========================================
-// QR CODE
-// ==========================================
+/* =========================================================
+   QR CODE
+========================================================= */
 
 function makeQR() {
-  const box = document.getElementById("qrcode");
+
+  const box =
+    document.getElementById("qrcode");
 
   if (!box) return;
 
-  const url = rsvpUrl();
+  const url =
+    rsvpUrl();
 
   box.innerHTML = "";
 
-  // Primary method: QRCode.js
+
+  /* -------------------------------------------------------
+     PRIMARY METHOD — QRCode.js
+  ------------------------------------------------------- */
+
   if (typeof QRCode !== "undefined") {
+
     try {
+
       new QRCode(box, {
+
         text: url,
+
         width: 220,
+
         height: 220,
+
         colorDark: "#263746",
+
         colorLight: "#ffffff",
+
         correctLevel: QRCode.C
+
       });
 
+
       setupQRDownload(() => {
-        const canvas = box.querySelector("canvas");
+
+        const canvas =
+          box.querySelector("canvas");
 
         return canvas
           ? canvas.toDataURL("image/png")
           : null;
+
       });
 
       return;
 
-    } catch (e) {
+    }
+
+    catch (error) {
+
       console.warn(
-        "QRCode.js failed; using image fallback.",
-        e
+        "QRCode.js failed. Using image fallback.",
+        error
       );
+
     }
   }
 
-  // Reliable fallback
-  const img = document.createElement("img");
 
-  img.alt = "QR code to RSVP";
+  /* -------------------------------------------------------
+     FALLBACK QR IMAGE
+  ------------------------------------------------------- */
+
+  const img =
+    document.createElement("img");
+
+  img.alt =
+    "QR code to RSVP";
+
   img.width = 220;
+
   img.height = 220;
+
   img.loading = "eager";
+
 
   img.src =
     "https://api.qrserver.com/v1/create-qr-code/?size=500x500&margin=12&data=" +
     encodeURIComponent(url);
 
+
   box.appendChild(img);
+
 
   setupQRDownload(() => img.src);
 }
 
 
-// ==========================================
-// DOWNLOAD QR
-// ==========================================
+/* =========================================================
+   DOWNLOAD QR
+========================================================= */
 
 function setupQRDownload(getSource) {
-  const dl = document.getElementById("downloadQR");
+
+  const dl =
+    document.getElementById("downloadQR");
 
   if (!dl) return;
 
+
   dl.onclick = async () => {
-    const source = getSource();
+
+    const source =
+      getSource();
 
     if (!source) return;
 
+
     try {
-      const response = await fetch(source);
-      const blob = await response.blob();
+
+      const response =
+        await fetch(source);
+
+      const blob =
+        await response.blob();
+
 
       const objectUrl =
         URL.createObjectURL(blob);
 
+
       const a =
         document.createElement("a");
+
 
       a.download =
         "marcus-cloud-rsvp-qr.png";
 
-      a.href = objectUrl;
+      a.href =
+        objectUrl;
+
 
       document.body.appendChild(a);
 
@@ -149,46 +247,64 @@ function setupQRDownload(getSource) {
 
       a.remove();
 
+
       setTimeout(
-        () => URL.revokeObjectURL(objectUrl),
+        () =>
+          URL.revokeObjectURL(objectUrl),
         1000
       );
 
-    } catch (e) {
+    }
 
-      // Some browsers block cross-origin downloads.
+    catch (error) {
+
+      console.warn(
+        "QR download failed. Opening image instead.",
+        error
+      );
+
+
       window.open(
         source,
         "_blank",
         "noopener"
       );
-
     }
   };
 }
 
 
-// ==========================================
-// ADD TO GOOGLE CALENDAR
-// ==========================================
+/* =========================================================
+   GOOGLE CALENDAR
+========================================================= */
 
 function addCalendar() {
 
-  const start = "20260929T030000Z";
-  const end = "20260929T050000Z";
+  const start =
+    "20260929T030000Z";
+
+  const end =
+    "20260929T050000Z";
+
 
   const url =
+
     `https://calendar.google.com/calendar/render?action=TEMPLATE` +
+
     `&text=${encodeURIComponent(
       "Marcus Cloud — Christening & 1st Birthday"
     )}` +
+
     `&dates=${start}/${end}` +
+
     `&details=${encodeURIComponent(
       "Christening & Birthday Celebration of Marcus Cloud Gaitero"
     )}` +
+
     `&location=${encodeURIComponent(
       "Our Lady of the Miraculous Medal Parish, Calumpang, Molo, Iloilo City; Reception: Jollibee Molo"
     )}`;
+
 
   window.open(
     url,
@@ -198,19 +314,22 @@ function addCalendar() {
 }
 
 
-// ==========================================
-// CONTACT ORGANIZER
-// ==========================================
+/* =========================================================
+   CONTACT ORGANIZER
+========================================================= */
 
 function setupOrganizerContact() {
 
   const phone =
-    APP_CONFIG.organizerPhone;
+    APP_CONFIG?.organizerPhone || "";
+
 
   if (!phone) return;
 
+
   const buttons =
     document.querySelectorAll("a, button");
+
 
   buttons.forEach((button) => {
 
@@ -219,12 +338,14 @@ function setupOrganizerContact() {
         .trim()
         .toLowerCase();
 
+
     if (
       text.includes("contact organizer")
     ) {
 
-      // Remove any existing click behavior
-      // attached by previous code.
+      /*
+        If it is an <a>, set the telephone link.
+      */
 
       if (
         button.tagName.toLowerCase() === "a"
@@ -233,11 +354,15 @@ function setupOrganizerContact() {
         button.href =
           "tel:" + phone;
 
-        button.removeAttribute(
-          "onclick"
-        );
+        button.removeAttribute("onclick");
 
-      } else {
+      }
+
+      /*
+        If it is a <button>, use tel:
+      */
+
+      else {
 
         button.onclick = function () {
 
@@ -245,355 +370,87 @@ function setupOrganizerContact() {
             "tel:" + phone;
 
         };
-
       }
-
     }
 
   });
 }
 
-
-// ==========================================
-// GIFT / REGISTRY
-// ==========================================
-
-function openGiftRegistry() {
-
-  /*
-   * If an actual Gift / Registry URL has
-   * been configured, open it.
-   */
-
-  if (
-    APP_CONFIG.giftRegistryUrl &&
-    APP_CONFIG.giftRegistryUrl.trim() !== ""
-  ) {
-
-    window.open(
-      APP_CONFIG.giftRegistryUrl,
-      "_blank",
-      "noopener"
-    );
-
-    return;
-  }
-
-
-  /*
-   * No registry URL yet.
-   *
-   * Show a friendly message instead of
-   * the old "Gift/Registry details can
-   * be added here in config.js" alert.
-   */
-
-  showGiftMessage();
-}
-
-
-// ==========================================
-// GIFT / REGISTRY MESSAGE
-// ==========================================
-
-function showGiftMessage() {
-
-  // Remove an existing popup if there is one.
-
-  const oldModal =
-    document.getElementById(
-      "giftRegistryModal"
-    );
-
-  if (oldModal) {
-    oldModal.remove();
-  }
-
-
-  const modal =
-    document.createElement("div");
-
-  modal.id =
-    "giftRegistryModal";
-
-
-  modal.innerHTML = `
-
-    <div class="gift-modal-overlay"></div>
-
-    <div class="gift-modal-box">
-
-      <button
-        type="button"
-        class="gift-modal-close"
-        aria-label="Close"
-      >
-        ×
-      </button>
-
-      <div class="gift-modal-icon">
-        🎁
-      </div>
-
-      <h2>
-        Gift / Registry
-      </h2>
-
-      <p>
-        Your presence is already the greatest
-        gift to Marcus and our family. 🤍
-      </p>
-
-      <p>
-        If you would like to bless Marcus
-        with a gift, please contact the
-        organizer for details.
-      </p>
-
-      <button
-        type="button"
-        class="gift-contact-button"
-      >
-        📞 Contact Organizer
-      </button>
-
-    </div>
-
-  `;
-
-
-  document.body.appendChild(modal);
-
-
-  // Close button
-
-  const closeButton =
-    modal.querySelector(
-      ".gift-modal-close"
-    );
-
-
-  closeButton.addEventListener(
-    "click",
-    () => {
-      modal.remove();
-    }
-  );
-
-
-  // Click outside the box
-
-  const overlay =
-    modal.querySelector(
-      ".gift-modal-overlay"
-    );
-
-
-  overlay.addEventListener(
-    "click",
-    () => {
-      modal.remove();
-    }
-  );
-
-
-  // Contact organizer
-
-  const contactButton =
-    modal.querySelector(
-      ".gift-contact-button"
-    );
-
-
-  contactButton.addEventListener(
-    "click",
-    () => {
-
-      const phone =
-        APP_CONFIG.organizerPhone;
-
-      if (!phone) {
-
-        alert(
-          "Organizer phone number is not configured."
-        );
-
-        return;
-      }
-
-      window.location.href =
-        "tel:" + phone;
-
-    }
-  );
-
-
-  // Allow ESC to close
-
-  const escHandler = (event) => {
-
-    if (event.key === "Escape") {
-
-      modal.remove();
-
-      document.removeEventListener(
-        "keydown",
-        escHandler
-      );
-
-    }
-
-  };
-
-
-  document.addEventListener(
-    "keydown",
-    escHandler
-  );
-
-}
-
-
-// ==========================================
-// SETUP GIFT / REGISTRY BUTTON
-// ==========================================
-
-function setupGiftRegistry() {
-
-  const buttons =
-    document.querySelectorAll("a, button");
-
-
-  buttons.forEach((button) => {
-
-    const text =
-      button.textContent
-        .trim()
-        .toLowerCase();
-
-
-    /*
-     * Find the existing button based on
-     * the words "Gift" and "Registry".
-     */
-
-    if (
-      text.includes("gift") &&
-      text.includes("registry")
-    ) {
-
-      /*
-       * IMPORTANT:
-       *
-       * Using onclick replaces the old
-       * placeholder alert that your current
-       * button is showing.
-       */
-
-      button.onclick = function (event) {
-
-        if (event) {
-          event.preventDefault();
-        }
-
-        openGiftRegistry();
-
-      };
-
-
-      /*
-       * If this is an <a>, remove the old
-       * placeholder href so it doesn't
-       * navigate somewhere else.
-       */
-
-      if (
-        button.tagName.toLowerCase() === "a"
-      ) {
-
-        button.removeAttribute("href");
-
-      }
-
-    }
-
-  });
-
-}
-
-
-// ==========================================
-// INITIALIZE
-// ==========================================
-
-document.addEventListener(
-  "DOMContentLoaded",
-  () => {
-
-    countdown();
-
-    makeQR();
-
-    setupOrganizerContact();
-
-    setupGiftRegistry();
-
-    closeOpening();
-
-  }
-);
 
 /* =========================================================
-   GIFT / REGISTRY
+   GIFT / REGISTRY POPUP
 ========================================================= */
 
 function openGiftModal() {
 
-  const modal = document.getElementById("giftModal");
+  const modal =
+    document.getElementById("giftModal");
 
   if (!modal) return;
 
+
   modal.classList.remove("hidden");
 
-  document.body.classList.add("modal-open");
+
+  document.body.classList.add(
+    "modal-open"
+  );
+
 
   loadGiftList();
 }
 
 
+/* =========================================================
+   CLOSE GIFT POPUP
+========================================================= */
+
 function closeGiftModal() {
 
-  const modal = document.getElementById("giftModal");
+  const modal =
+    document.getElementById("giftModal");
 
   if (!modal) return;
 
+
   modal.classList.add("hidden");
 
-  document.body.classList.remove("modal-open");
+
+  document.body.classList.remove(
+    "modal-open"
+  );
 }
 
+
+/* =========================================================
+   GIFT LIST
+========================================================= */
 
 function loadGiftList() {
 
   const giftList =
     document.getElementById("giftList");
 
+
   const onlineRegistry =
-    document.getElementById("onlineRegistry");
+    document.getElementById(
+      "onlineRegistry"
+    );
+
 
   const registryButton =
-    document.getElementById("giftRegistryButtonOnline");
+    document.getElementById(
+      "giftRegistryButtonOnline"
+    );
 
 
   if (!giftList) return;
 
 
   /*
-    ========================================================
-    GIFT LIST
-
-    Edit these items whenever you want.
-    ========================================================
+   ----------------------------------------------------------
+   EDIT YOUR GIFT LIST HERE
+   ----------------------------------------------------------
   */
 
   const gifts = [
@@ -605,12 +462,14 @@ function loadGiftList() {
         "Clothes for Marcus, size 12–18 months"
     },
 
+
     {
       icon: "🧸",
       name: "Toys",
       description:
         "Age-appropriate toys and learning toys"
     },
+
 
     {
       icon: "📚",
@@ -619,12 +478,14 @@ function loadGiftList() {
         "Story books and educational books"
     },
 
+
     {
       icon: "🍼",
       name: "Baby Essentials",
       description:
         "Useful everyday items for Marcus"
     },
+
 
     {
       icon: "💰",
@@ -636,52 +497,50 @@ function loadGiftList() {
   ];
 
 
-  /*
-    ========================================================
-    CREATE GIFT LIST
-    ========================================================
-  */
+  /* -------------------------------------------------------
+     CREATE GIFT LIST
+  ------------------------------------------------------- */
 
   giftList.innerHTML =
-    gifts.map(gift => `
+    gifts
+      .map(
+        gift => `
 
-      <div class="gift-item">
+          <div class="gift-item">
 
-        <div class="gift-item-icon">
-          ${gift.icon}
-        </div>
+            <div class="gift-item-icon">
+              ${gift.icon}
+            </div>
 
-        <div class="gift-item-info">
+            <div class="gift-item-info">
 
-          <strong>
-            ${gift.name}
-          </strong>
+              <strong>
+                ${gift.name}
+              </strong>
 
-          <span>
-            ${gift.description}
-          </span>
+              <span>
+                ${gift.description}
+              </span>
 
-        </div>
+            </div>
 
-      </div>
+          </div>
 
-    `).join("");
+        `
+      )
+      .join("");
 
 
-  /*
-    ========================================================
-    ONLINE REGISTRY
-
-    Uses giftRegistryUrl from config.js
-    ========================================================
-  */
+  /* -------------------------------------------------------
+     ONLINE GIFT REGISTRY
+  ------------------------------------------------------- */
 
   const registryUrl =
     APP_CONFIG?.giftRegistryUrl || "";
 
 
   if (
-    registryUrl &&
+    registryUrl.trim() !== "" &&
     onlineRegistry &&
     registryButton
   ) {
@@ -689,33 +548,34 @@ function loadGiftList() {
     registryButton.href =
       registryUrl;
 
+
     onlineRegistry.classList.remove(
       "hidden"
     );
 
-  } else {
+  }
+
+  else {
 
     if (onlineRegistry) {
 
       onlineRegistry.classList.add(
         "hidden"
       );
-
     }
-
   }
-
 }
 
 
 /* =========================================================
-   CONTACT ORGANIZER
+   CONTACT ORGANIZER FROM GIFT POPUP
 ========================================================= */
 
 function contactOrganizer() {
 
   const phone =
     APP_CONFIG?.organizerPhone || "";
+
 
   if (!phone) {
 
@@ -726,23 +586,27 @@ function contactOrganizer() {
     return;
   }
 
+
   window.location.href =
     "tel:" + phone;
 }
 
 
 /* =========================================================
-   CLOSE GIFT POPUP WHEN CLICKING OUTSIDE
+   CLOSE GIFT POPUP
+   WHEN CLICKING OUTSIDE
 ========================================================= */
 
 document.addEventListener(
   "click",
-  function(event) {
+  function (event) {
 
     const modal =
       document.getElementById("giftModal");
 
+
     if (!modal) return;
+
 
     if (
       event.target === modal
@@ -757,18 +621,58 @@ document.addEventListener(
 
 
 /* =========================================================
-   ESC KEY CLOSES POPUP
+   ESC KEY CLOSES GIFT POPUP
 ========================================================= */
 
 document.addEventListener(
   "keydown",
-  function(event) {
+  function (event) {
 
-    if (event.key === "Escape") {
+    if (
+      event.key === "Escape"
+    ) {
 
-      closeGiftModal();
+      const modal =
+        document.getElementById("giftModal");
+
+
+      if (
+        modal &&
+        !modal.classList.contains("hidden")
+      ) {
+
+        closeGiftModal();
+
+      }
 
     }
+
+  }
+);
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+
+    countdown();
+
+    makeQR();
+
+    setupOrganizerContact();
+
+    /*
+      IMPORTANT:
+
+      Do NOT call closeOpening() here.
+
+      The "Open Invitation" button in index.html
+      already calls closeOpening().
+    */
 
   }
 );
