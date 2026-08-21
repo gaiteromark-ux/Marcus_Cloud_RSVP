@@ -47,37 +47,8 @@
 
   <link
     rel="stylesheet"
-    href="styles.css?v=13"
+    href="styles.css?v=14"
   >
-
-
-  <style>
-    /* =====================================================
-       MARCUS PHOTO BESIDE QR CODE
-    ====================================================== */
-    .qr-card.qr-card-with-photo{width:100%;max-width:640px;padding:28px 30px;overflow:hidden}
-    .qr-photo-layout{display:flex;align-items:center;justify-content:center;gap:32px}
-    .qr-marcus-side,.qr-code-side{flex:1 1 0;min-width:0;text-align:center}
-    .qr-marcus-image{display:block;width:220px;height:260px;max-width:100%;margin:0 auto;object-fit:contain;object-position:center bottom;background:transparent;filter:drop-shadow(0 10px 14px rgba(38,55,70,.14))}
-    .qr-marcus-text{margin-top:8px;text-align:center}
-    .qr-marcus-text strong{display:block;margin:0;font-family:"Cormorant Garamond",serif;font-size:1.55rem;color:var(--ink,#263746)}
-    .qr-marcus-text span{display:block;margin-top:3px;color:var(--gold,#b99b62);font-size:.67rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
-    .qr-code-side #qrcode{display:flex;align-items:center;justify-content:center}
-    .qr-code-side #qrcode canvas,.qr-code-side #qrcode img{display:block;width:220px!important;height:220px!important;max-width:100%;margin:auto}
-    .scan-title{display:block;margin:16px 0 8px!important;font-family:Inter,sans-serif;font-size:1rem;font-weight:700;color:var(--ink,#263746)}
-    .qr-code-side .text-btn{display:inline-block;margin-top:4px}
-    @media(max-width:600px){
-      .qr-card.qr-card-with-photo{padding:20px 12px}
-      .qr-photo-layout{flex-direction:row;gap:10px}
-      .qr-marcus-side,.qr-code-side{flex:1 1 50%;width:50%}
-      .qr-marcus-image{width:140px;height:180px}
-      .qr-code-side #qrcode canvas,.qr-code-side #qrcode img{width:150px!important;height:150px!important}
-      .qr-marcus-text strong{font-size:1.15rem}
-      .qr-marcus-text span{font-size:.52rem}
-      .scan-title{margin-top:10px!important;font-size:.75rem}
-      .qr-code-side .text-btn{font-size:.65rem}
-    }
-  </style>
 
 </head>
 
@@ -423,48 +394,51 @@
 
 
       <div class="qr-card qr-card-with-photo">
-
         <div class="qr-photo-layout">
 
-          <!-- MARCUS CLOUD PHOTO -->
           <div class="qr-marcus-side">
+            <div class="qr-photo-decor" aria-hidden="true">
+              <span class="spark spark-a">✦</span>
+              <span class="spark spark-b">✧</span>
+              <span class="spark spark-c">✦</span>
+              <span class="leaf leaf-a">❧</span>
+              <span class="leaf leaf-b">❧</span>
+            </div>
 
-            <img
-              src="images/marcus-qr.png"
-              alt="Marcus Cloud"
-              class="qr-marcus-image"
-            >
+            <img src="images/marcus-qr.png"
+                 alt="Marcus Cloud"
+                 class="qr-marcus-image">
 
             <div class="qr-marcus-text">
               <strong>Marcus Cloud</strong>
-              <span>Christening & 1st Birthday</span>
+              <div class="qr-name-divider" aria-hidden="true">
+                <span></span><b>✦</b><span></span>
+              </div>
+              <span>Christening &amp; 1st Birthday</span>
             </div>
-
           </div>
 
-          <!-- QR CODE -->
           <div class="qr-code-side">
+            <div class="qr-code-frame">
+              <div id="qrcode"></div>
+            </div>
 
-            <div id="qrcode"></div>
+            <div class="scan-row">
+              <span aria-hidden="true">✦</span>
+              <strong class="scan-title">SCAN TO RSVP</strong>
+              <span aria-hidden="true">✦</span>
+            </div>
 
-            <strong class="scan-title">
-              SCAN TO RSVP
-            </strong>
-
-            <button
-              class="text-btn"
-              id="downloadQR"
-              type="button"
-            >
+            <button class="text-btn qr-download"
+                    id="downloadQR"
+                    type="button">
+              <span aria-hidden="true">⇩</span>
               Download QR as PNG
             </button>
-
           </div>
 
         </div>
-
       </div>
-
 
     </section>
 
@@ -755,7 +729,7 @@
        MAIN JAVASCRIPT
   ====================================================== -->
 
-  <script src="app.js?v=13"></script>
+  <script src="app.js?v=14"></script>
 
 
 </body>
