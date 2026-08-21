@@ -449,3 +449,124 @@ body.modal-open {
   }
 
 }
+
+/* =========================================================
+   RSVP RECEIVED - MARCUS PHOTO
+========================================================= */
+
+.baby-portrait-wrap {
+  position: relative;
+  width: 230px;
+  margin: 0 auto 28px;
+  text-align: center;
+}
+
+.baby-portrait {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  padding: 7px;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f4dba8,
+      #ffffff,
+      #dcecf2
+    );
+
+  box-shadow:
+    0 14px 40px rgba(38, 55, 70, 0.15);
+}
+
+.baby-portrait img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+
+  border-radius: 50%;
+
+  background: #fbe5e5;
+}
+
+.baby-portrait-name {
+  position: relative;
+  z-index: 5;
+
+  display: inline-block;
+
+  margin-top: -14px;
+  padding: 7px 22px;
+
+  background: #fffdf9;
+
+  border: 1px solid #ead8bb;
+  border-radius: 999px;
+
+  color: #263746;
+
+  font-family: "Cormorant Garamond", serif;
+  font-size: 19px;
+  font-weight: 700;
+
+  box-shadow:
+    0 5px 15px rgba(38, 55, 70, 0.10);
+}
+
+.baby-portrait-decor {
+  position: absolute;
+  z-index: 4;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 38px;
+  height: 38px;
+
+  border-radius: 50%;
+
+  background: #fff7eb;
+  color: #c99a4a;
+
+  box-shadow:
+    0 5px 15px rgba(38, 55, 70, 0.08);
+}
+
+.baby-portrait-decor.decor-left {
+  left: 0;
+  top: 35px;
+}
+
+.baby-portrait-decor.decor-right {
+  right: 0;
+  top: 110px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 480px) {
+
+  .baby-portrait-wrap {
+    width: 190px;
+  }
+
+  .baby-portrait {
+    width: 165px;
+    height: 165px;
+  }
+
+  .baby-portrait-name {
+    font-size: 17px;
+    padding: 6px 18px;
+  }
+
+}
