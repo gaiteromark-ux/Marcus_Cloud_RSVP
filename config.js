@@ -53,8 +53,7 @@ const APP_CONFIG = {
     }
  ],
 
-  // Photo Gallery
-  // Paste your shared Google Drive folder link here
+   // Google Drive Photo Gallery
   photoGalleryUrl:
     "https://drive.google.com/drive/folders/1US1PMHg5F03pwFPquPSyFH6u_lOon9ko?usp=drive_link"
 };
