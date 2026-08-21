@@ -1559,3 +1559,344 @@ footer small {
     font-size: 0.52rem;
   }
 }
+
+/* =========================================================
+   RSVP PAGE — CLEAN FIX
+========================================================= */
+
+.form-shell {
+  width: min(760px, 92%);
+  margin: 0 auto;
+  padding: 70px 0;
+}
+
+.form-shell .back {
+  display: inline-block;
+  margin-bottom: 18px;
+
+  color: #b8892f;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.form-shell .eyebrow {
+  margin-bottom: 10px;
+}
+
+.form-shell > h1 {
+  margin-bottom: 14px;
+
+  color: #f6e7c2;
+
+  font-size: clamp(3rem, 9vw, 5.5rem);
+}
+
+.form-shell > p {
+  margin-bottom: 30px;
+
+  color: #d8c9aa;
+}
+
+
+/* =========================================================
+   RSVP FORM CARD
+========================================================= */
+
+.rsvp-form {
+  width: 100%;
+
+  padding: 28px;
+
+  border: 1px solid rgba(184, 137, 47, 0.55);
+  border-radius: 24px 6px 24px 6px;
+
+  background:
+    linear-gradient(
+      rgba(248, 239, 217, 0.97),
+      rgba(248, 239, 217, 0.97)
+    );
+
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.24);
+
+  color: #18213b;
+}
+
+
+/* =========================================================
+   LABELS / INPUTS
+========================================================= */
+
+.rsvp-form > label {
+  display: block;
+
+  margin-bottom: 18px;
+
+  color: #18213b;
+  font-weight: 700;
+}
+
+.rsvp-form input,
+.rsvp-form textarea,
+.rsvp-form select {
+  width: 100%;
+
+  margin-top: 8px;
+  padding: 14px 15px;
+
+  border: 1px solid #c9ad76;
+  border-radius: 12px;
+
+  background: #fffdf7;
+
+  color: #18213b;
+
+  font: inherit;
+
+  outline: none;
+}
+
+.rsvp-form input:focus,
+.rsvp-form textarea:focus,
+.rsvp-form select:focus {
+  border-color: #b8892f;
+
+  box-shadow:
+    0 0 0 3px rgba(184, 137, 47, 0.16);
+}
+
+.rsvp-form textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+
+/* =========================================================
+   FIELDSETS / RADIO OPTIONS
+========================================================= */
+
+.rsvp-form fieldset {
+  margin: 22px 0;
+  padding: 18px;
+
+  border: 1px solid #c9ad76;
+  border-radius: 14px;
+
+  background: rgba(255, 250, 236, 0.7);
+}
+
+.rsvp-form legend {
+  padding: 0 8px;
+
+  color: #18213b;
+  font-weight: 700;
+}
+
+.choice {
+  display: flex !important;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin: 10px 0;
+
+  color: #18213b;
+
+  font-weight: 500 !important;
+}
+
+.choice input {
+  width: auto !important;
+  margin: 0 !important;
+
+  accent-color: #651c31;
+}
+
+
+/* =========================================================
+   PRIVACY NOTICE
+========================================================= */
+
+.privacy {
+  margin: 18px 0;
+
+  padding: 14px 16px;
+
+  border-radius: 12px;
+
+  background: #f4ead5;
+
+  color: #5f5548;
+
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   SUBMIT BUTTON
+========================================================= */
+
+#submitBtn {
+  width: 100%;
+
+  margin-top: 8px;
+
+  padding: 15px 22px;
+
+  border: 1px solid #b8892f;
+  border-radius: 14px 4px 14px 4px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #111b34,
+      #24385f
+    );
+
+  color: #fff2d0;
+
+  font-family: "Cinzel", serif;
+  font-size: 1rem;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+#submitBtn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   STATUS MESSAGE
+========================================================= */
+
+.status {
+  min-height: 1.5em;
+
+  margin-top: 12px;
+
+  font-size: 0.9rem;
+}
+
+.status.error,
+.error {
+  color: #a13030;
+}
+
+.status.success {
+  color: #2f6a3c;
+}
+
+
+/* =========================================================
+   CONFIRMATION CARD
+========================================================= */
+
+.confirmation {
+  margin-top: 30px;
+  padding: 35px 25px;
+
+  text-align: center;
+
+  border: 1px solid rgba(184, 137, 47, 0.55);
+  border-radius: 24px 6px 24px 6px;
+
+  background: #fffaf0;
+
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.2);
+}
+
+.confirmation h2 {
+  margin: 10px 0 16px;
+
+  color: #18213b;
+
+  font-size: clamp(2rem, 6vw, 3.4rem);
+}
+
+.confirmation p {
+  color: #5f5548;
+}
+
+.success-icon {
+  width: 58px;
+  height: 58px;
+
+  margin: 0 auto 18px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: #e4f0e5;
+
+  color: #42734a;
+
+  font-size: 1.7rem;
+}
+
+.event-summary {
+  margin: 24px 0;
+  padding: 18px;
+
+  display: grid;
+
+  gap: 6px;
+
+  border-radius: 16px;
+
+  background: #f4ead5;
+
+  color: #18213b;
+}
+
+.godparent-thanks {
+  margin-top: 18px;
+
+  padding: 15px;
+
+  border-radius: 14px;
+
+  background: #fff2ef;
+
+  color: #651c31;
+}
+
+
+/* =========================================================
+   MOBILE RSVP
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .form-shell {
+    width: calc(100% - 24px);
+    padding: 35px 0 50px;
+  }
+
+  .form-shell > h1 {
+    font-size: 3.2rem;
+  }
+
+  .rsvp-form {
+    padding: 20px 16px;
+  }
+
+  .rsvp-form fieldset {
+    padding: 14px;
+  }
+
+  .choice {
+    align-items: flex-start;
+  }
+
+  .confirmation {
+    padding: 28px 18px;
+  }
+}
