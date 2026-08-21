@@ -1374,48 +1374,500 @@ footer {
 
 
 /* =========================================================
-   PREMIUM MARCUS + LIVE QR RSVP CARD
+   MARCUS + QR RSVP CARD — FIXED
 ========================================================= */
-.qr-card.qr-card-with-photo{
-  width:min(100%,760px);max-width:760px;padding:clamp(24px,4vw,42px);overflow:hidden;
-  border:1px solid rgba(184,137,47,.65);border-radius:34px 8px 34px 8px;
-  background:radial-gradient(circle at 24% 42%,rgba(214,174,84,.10),transparent 31%),
-  linear-gradient(145deg,rgba(255,251,239,.98),rgba(246,234,205,.98));
-  box-shadow:0 22px 55px rgba(41,29,12,.16),inset 0 0 50px rgba(184,137,47,.07)
+
+.qr-card.qr-card-with-photo {
+  width: 100%;
+  max-width: 720px;
+
+  padding: 30px;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(184, 137, 47, 0.65);
+
+  border-radius: 28px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #fffaf0,
+      #f7edd4
+    );
+
+  box-shadow:
+    0 18px 45px rgba(41, 29, 12, 0.14);
 }
-.qr-photo-layout{display:grid;grid-template-columns:minmax(0,.95fr) minmax(250px,1.05fr);align-items:center;gap:clamp(30px,5vw,58px)}
-.qr-marcus-side,.qr-code-side{min-width:0;text-align:center}
-.qr-marcus-side{position:relative;isolation:isolate;padding-top:8px}
-.qr-photo-decor{position:absolute;inset:0;z-index:-1;pointer-events:none;color:#b8892f}
-.qr-photo-decor .spark,.qr-photo-decor .leaf{position:absolute;opacity:.88}
-.qr-photo-decor .spark{font-size:clamp(1.25rem,2.5vw,2rem)}
-.spark-a{left:4%;top:19%}.spark-b{right:2%;top:10%}.spark-c{right:3%;bottom:31%}
-.qr-photo-decor .leaf{color:#5c7690;font-size:clamp(2rem,4vw,3.5rem);opacity:.75}
-.leaf-a{left:-1%;bottom:24%;transform:rotate(-34deg)}.leaf-b{right:-3%;top:37%;transform:rotate(142deg)}
-.qr-marcus-image{display:block;width:min(100%,310px);height:310px;margin:0 auto;object-fit:contain;object-position:center bottom;background:transparent;filter:drop-shadow(0 14px 13px rgba(40,30,18,.14))}
-.qr-marcus-text{margin-top:-2px;text-align:center}
-.qr-marcus-text strong{display:block;margin:0;color:#10264a;font-family:"Cormorant Garamond",serif;font-size:clamp(2rem,4vw,3rem);font-weight:600;line-height:1}
-.qr-name-divider{width:min(100%,250px);margin:11px auto 8px;display:flex;align-items:center;gap:10px;color:#c28e31}
-.qr-name-divider span{height:1px;flex:1;background:#c28e31}.qr-name-divider b{font-size:.95rem;font-weight:400}
-.qr-marcus-text>span{display:block;color:#b68129;font-family:"Cinzel",serif;font-size:clamp(.62rem,1.4vw,.82rem);font-weight:700;letter-spacing:.17em;line-height:1.45;text-transform:uppercase}
-.qr-code-side{display:flex;flex-direction:column;align-items:center}
-.qr-code-frame{width:min(100%,330px);aspect-ratio:1;padding:clamp(10px,1.5vw,15px);display:grid;place-items:center;background:#fff;border:1px solid rgba(184,137,47,.72);border-radius:14px;box-shadow:0 8px 22px rgba(38,31,21,.07)}
-.qr-code-side #qrcode{width:100%;height:100%;display:grid;place-items:center}
-.qr-code-side #qrcode canvas,.qr-code-side #qrcode img{display:block;width:100%!important;height:100%!important;max-width:100%;object-fit:contain;margin:0 auto}
-.scan-row{width:min(100%,330px);margin-top:18px;display:flex;align-items:center;justify-content:center;gap:12px;color:#c28e31}
-.scan-title{display:inline-flex!important;align-items:center;justify-content:center;min-height:48px;margin:0!important;padding:9px 28px;border-radius:999px;color:#10264a;background:linear-gradient(90deg,#d9e7f6,#c9dcf1);font-family:Inter,sans-serif;font-size:clamp(.95rem,2vw,1.25rem);font-weight:800;letter-spacing:.02em;white-space:nowrap}
-.qr-download{display:inline-flex;align-items:center;justify-content:center;gap:9px;margin-top:14px;padding:8px 4px;color:#8b2035;font-size:clamp(.78rem,1.5vw,1rem)}
-.qr-download span{font-size:1.5em;line-height:1}
-@media(max-width:760px){
- .qr-card.qr-card-with-photo{width:100%;max-width:650px;padding:26px 18px}
- .qr-photo-layout{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}
- .qr-marcus-image{width:min(100%,220px);height:225px}.qr-code-frame{width:min(100%,245px)}
- .scan-row{width:min(100%,245px);gap:6px}.scan-title{min-height:40px;padding:8px 15px;font-size:.78rem}.qr-download{font-size:.72rem}
+
+
+/* =========================================================
+   TWO COLUMNS
+========================================================= */
+
+.qr-photo-layout {
+  display: grid;
+
+  grid-template-columns:
+    minmax(190px, 0.9fr)
+    minmax(220px, 1fr);
+
+  align-items: center;
+
+  gap: 34px;
 }
-@media(max-width:480px){
- .qr-card.qr-card-with-photo{padding:20px 10px;border-radius:24px 5px 24px 5px}.qr-photo-layout{gap:9px}
- .qr-marcus-image{height:175px}.qr-photo-decor .leaf{display:none}.qr-marcus-text strong{font-size:1.35rem}
- .qr-marcus-text>span{font-size:.48rem;letter-spacing:.08em}.qr-name-divider{margin:7px auto 5px;gap:5px}
- .qr-code-frame{padding:6px;border-radius:8px}.scan-row{margin-top:10px}.scan-row>span{display:none}
- .scan-title{min-height:32px;width:100%;padding:6px 8px;font-size:.65rem}.qr-download{margin-top:6px;font-size:.58rem;gap:4px}
+
+
+/* =========================================================
+   MARCUS SIDE
+========================================================= */
+
+.qr-marcus-side {
+  position: relative;
+
+  min-width: 0;
+
+  text-align: center;
+}
+
+
+.qr-marcus-image {
+  display: block;
+
+  width: 100%;
+  max-width: 245px;
+
+  height: 260px;
+
+  margin: 0 auto;
+
+  object-fit: contain;
+  object-position: center bottom;
+
+  background: transparent;
+
+  border: 0;
+
+  filter:
+    drop-shadow(
+      0 12px 12px rgba(38, 55, 70, 0.13)
+    );
+}
+
+
+.qr-marcus-text {
+  margin-top: 6px;
+}
+
+
+.qr-marcus-text strong {
+  display: block;
+
+  margin: 0;
+
+  color: #10264a;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size: 2.1rem;
+
+  font-weight: 600;
+
+  line-height: 1;
+}
+
+
+.qr-name-divider {
+  width: 210px;
+  max-width: 90%;
+
+  margin: 10px auto 8px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  color: #c28e31;
+}
+
+
+.qr-name-divider span {
+  flex: 1;
+
+  height: 1px;
+
+  background: #c28e31;
+}
+
+
+.qr-name-divider b {
+  font-size: 0.85rem;
+
+  font-weight: 400;
+}
+
+
+.qr-marcus-text > span {
+  display: block;
+
+  color: #b68129;
+
+  font-family:
+    "Cinzel",
+    serif;
+
+  font-size: 0.65rem;
+
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+
+  line-height: 1.5;
+
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   DECORATIONS
+========================================================= */
+
+.qr-photo-decor {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: -1;
+
+  pointer-events: none;
+}
+
+
+.qr-photo-decor .spark {
+  position: absolute;
+
+  color: #c28e31;
+
+  font-size: 1.4rem;
+}
+
+
+.spark-a {
+  left: 3%;
+  top: 20%;
+}
+
+
+.spark-b {
+  right: 3%;
+  top: 13%;
+}
+
+
+.spark-c {
+  right: 6%;
+  bottom: 35%;
+}
+
+
+.qr-photo-decor .leaf {
+  display: none;
+}
+
+
+/* =========================================================
+   QR SIDE
+========================================================= */
+
+.qr-code-side {
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  text-align: center;
+}
+
+
+.qr-code-frame {
+  width: 250px;
+  height: 250px;
+
+  max-width: 100%;
+
+  padding: 10px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background: #ffffff;
+
+  border: 1px solid #d7aa54;
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 8px 20px rgba(38, 31, 21, 0.08);
+}
+
+
+.qr-code-side #qrcode {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+
+.qr-code-side #qrcode canvas,
+.qr-code-side #qrcode img {
+  display: block;
+
+  width: 100% !important;
+  height: 100% !important;
+
+  object-fit: contain;
+
+  margin: 0;
+}
+
+
+/* =========================================================
+   SCAN TO RSVP
+========================================================= */
+
+.scan-row {
+  width: 250px;
+  max-width: 100%;
+
+  margin-top: 14px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  color: #c28e31;
+}
+
+
+.scan-title {
+  display: inline-flex !important;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 42px;
+
+  margin: 0 !important;
+
+  padding: 8px 22px;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #dceaf7,
+      #c9dcf1
+    );
+
+  color: #10264a;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size: 0.95rem;
+
+  font-weight: 800;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   DOWNLOAD BUTTON
+========================================================= */
+
+.qr-download {
+  margin-top: 10px;
+
+  padding: 6px;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  color: #8b2035;
+
+  font-size: 0.82rem;
+
+  font-weight: 700;
+}
+
+
+.qr-download span {
+  font-size: 1.25rem;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 760px) {
+
+  .qr-card.qr-card-with-photo {
+    max-width: 620px;
+
+    padding: 24px 16px;
+  }
+
+
+  .qr-photo-layout {
+    grid-template-columns:
+      1fr
+      1fr;
+
+    gap: 18px;
+  }
+
+
+  .qr-marcus-image {
+    max-width: 190px;
+
+    height: 210px;
+  }
+
+
+  .qr-code-frame {
+    width: 205px;
+    height: 205px;
+  }
+
+
+  .scan-row {
+    width: 205px;
+  }
+
+
+  .scan-title {
+    min-height: 36px;
+
+    padding: 7px 13px;
+
+    font-size: 0.75rem;
+  }
+
+
+  .qr-marcus-text strong {
+    font-size: 1.55rem;
+  }
+
+
+  .qr-marcus-text > span {
+    font-size: 0.52rem;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .qr-card.qr-card-with-photo {
+    padding: 18px 8px;
+  }
+
+
+  .qr-photo-layout {
+    gap: 8px;
+  }
+
+
+  .qr-marcus-image {
+    max-width: 135px;
+
+    height: 160px;
+  }
+
+
+  .qr-code-frame {
+    width: 145px;
+    height: 145px;
+
+    padding: 5px;
+  }
+
+
+  .qr-marcus-text strong {
+    font-size: 1.2rem;
+  }
+
+
+  .qr-name-divider {
+    margin:
+      6px auto 5px;
+  }
+
+
+  .qr-marcus-text > span {
+    font-size: 0.42rem;
+
+    letter-spacing: 0.07em;
+  }
+
+
+  .scan-row {
+    width: 145px;
+
+    margin-top: 8px;
+  }
+
+
+  .scan-row > span {
+    display: none;
+  }
+
+
+  .scan-title {
+    width: 100%;
+
+    min-height: 29px;
+
+    padding: 5px 7px;
+
+    font-size: 0.57rem;
+  }
+
+
+  .qr-download {
+    margin-top: 4px;
+
+    font-size: 0.52rem;
+
+    gap: 3px;
+  }
+
 }
