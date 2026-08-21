@@ -138,7 +138,7 @@ function makeQR() {
 
         colorLight: "#ffffff",
 
-        correctLevel: QRCode.C
+        correctLevel: QRCode.CorrectLevel.H
 
       });
 
