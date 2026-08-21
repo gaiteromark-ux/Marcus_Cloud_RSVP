@@ -1,24 +1,25 @@
 /* =========================================================
-   MARCUS CLOUD GAITERO
-   MAIN INVITATION JAVASCRIPT
+   MARCUS CLOUD INVITATION
+   app.js
 ========================================================= */
+
+"use strict";
 
 
 /* =========================================================
-   OPENING
+   OPENING SCREEN
 ========================================================= */
 
-const opening = document.getElementById("opening");
-
 function closeOpening() {
+
+  const opening = document.getElementById("opening");
+
   if (!opening) return;
 
   opening.classList.add("closed");
 
   setTimeout(() => {
-    if (opening) {
-      opening.remove();
-    }
+    opening.remove();
   }, 500);
 }
 
@@ -29,8 +30,7 @@ function closeOpening() {
 
 function countdown() {
 
-  const el =
-    document.getElementById("countdown");
+  const el = document.getElementById("countdown");
 
   if (!el) return;
 
@@ -38,7 +38,7 @@ function countdown() {
     typeof APP_CONFIG === "undefined" ||
     !APP_CONFIG.eventDateISO
   ) {
-    console.warn("Event date is not configured.");
+    console.warn("eventDateISO is not configured.");
     return;
   }
 
@@ -46,47 +46,55 @@ function countdown() {
     new Date(APP_CONFIG.eventDateISO).getTime();
 
   if (Number.isNaN(target)) {
-    console.warn("Invalid event date.");
+    console.error("Invalid eventDateISO.");
     return;
   }
 
-  const tick = () => {
 
-    const diff =
+  function updateCountdown() {
+
+    const difference =
       Math.max(0, target - Date.now());
 
     const days =
-      Math.floor(diff / 86400000);
+      Math.floor(difference / 86400000);
 
     const hours =
-      Math.floor(diff / 3600000) % 24;
+      Math.floor(difference / 3600000) % 24;
 
     const minutes =
-      Math.floor(diff / 60000) % 60;
+      Math.floor(difference / 60000) % 60;
 
     const seconds =
-      Math.floor(diff / 1000) % 60;
+      Math.floor(difference / 1000) % 60;
 
-    el.innerHTML = [
+
+    const values = [
       ["Days", days],
       ["Hours", hours],
       ["Minutes", minutes],
       ["Seconds", seconds]
-    ]
-      .map(
-        item => `
+    ];
+
+
+    el.innerHTML = values
+      .map(([label, value]) => {
+
+        return `
           <div>
-            <b>${String(item[1]).padStart(2, "0")}</b>
-            <span>${item[0]}</span>
+            <b>${String(value).padStart(2, "0")}</b>
+            <span>${label}</span>
           </div>
-        `
-      )
+        `;
+
+      })
       .join("");
-  };
+  }
 
-  tick();
 
-  setInterval(tick, 1000);
+  updateCountdown();
+
+  setInterval(updateCountdown, 1000);
 }
 
 
@@ -107,6 +115,9 @@ function rsvpUrl() {
    QR CODE
 ========================================================= */
 
+let qrCreated = false;
+
+
 function makeQR() {
 
   const box =
@@ -114,13 +125,25 @@ function makeQR() {
 
   if (!box) return;
 
-  const url =
-    rsvpUrl();
+
+  /*
+    Prevent QR generation more than once.
+    This fixes duplicate QR codes.
+  */
+
+  if (qrCreated) return;
+
+  qrCreated = true;
+
+
+  const url = rsvpUrl();
 
   box.innerHTML = "";
 
 
-  /* QRCode.js */
+  /* -----------------------------------------------------
+     QRCode.js
+  ----------------------------------------------------- */
 
   if (typeof QRCode !== "undefined") {
 
@@ -130,29 +153,101 @@ function makeQR() {
 
         text: url,
 
-        width: 220,
+        width: 240,
+        height: 240,
 
-        height: 220,
-
-        colorDark: "#263746",
-
+        colorDark: "#10264a",
         colorLight: "#ffffff",
 
-        correctLevel: QRCode.CorrectLevel.H
-
+        correctLevel: QRCode.C
       });
 
 
-      setupQRDownload(() => {
+      /*
+        QRCode.js can sometimes create BOTH:
+        <canvas>
+        <img>
+
+        Keep only one.
+      */
+
+      setTimeout(() => {
 
         const canvas =
           box.querySelector("canvas");
 
-        return canvas
-          ? canvas.toDataURL("image/png")
-          : null;
+        const images =
+          box.querySelectorAll("img");
 
-      });
+
+        if (canvas) {
+
+          /*
+            Keep the canvas and remove generated images.
+          */
+
+          images.forEach((img) => {
+            img.remove();
+          });
+
+
+          canvas.style.display = "block";
+          canvas.style.width = "100%";
+          canvas.style.height = "100%";
+          canvas.style.maxWidth = "240px";
+          canvas.style.maxHeight = "240px";
+
+
+          setupQRDownload(() => {
+
+            try {
+
+              return canvas.toDataURL(
+                "image/png"
+              );
+
+            } catch (error) {
+
+              console.error(
+                "Unable to export QR canvas:",
+                error
+              );
+
+              return null;
+            }
+
+          });
+
+        } else {
+
+          /*
+            If browser generated only an image,
+            keep the first image.
+          */
+
+          const img =
+            box.querySelector("img");
+
+
+          if (img) {
+
+            img.style.display = "block";
+            img.style.width = "100%";
+            img.style.height = "100%";
+            img.style.maxWidth = "240px";
+            img.style.maxHeight = "240px";
+
+
+            setupQRDownload(
+              () => img.src
+            );
+
+          }
+
+        }
+
+      }, 100);
+
 
       return;
 
@@ -166,88 +261,179 @@ function makeQR() {
   }
 
 
-  /* QR fallback */
+  /* -----------------------------------------------------
+     FALLBACK QR
+  ----------------------------------------------------- */
 
-  const img =
-    document.createElement("img");
-
-  img.alt =
-    "QR code to RSVP";
-
-  img.width = 220;
-
-  img.height = 220;
-
-  img.loading = "eager";
-
-  img.src =
-    "https://api.qrserver.com/v1/create-qr-code/?size=500x500&margin=12&data=" +
-    encodeURIComponent(url);
-
-  box.appendChild(img);
-
-  setupQRDownload(() => img.src);
+  createFallbackQR(box, url);
 }
 
 
 /* =========================================================
-   QR DOWNLOAD
+   QR FALLBACK
+========================================================= */
+
+function createFallbackQR(box, url) {
+
+  box.innerHTML = "";
+
+
+  const img =
+    document.createElement("img");
+
+
+  img.alt =
+    "QR code to RSVP";
+
+  img.width = 240;
+  img.height = 240;
+
+
+  img.src =
+    "https://api.qrserver.com/v1/create-qr-code/" +
+    "?size=500x500" +
+    "&margin=12" +
+    "&data=" +
+    encodeURIComponent(url);
+
+
+  img.style.display = "block";
+  img.style.width = "100%";
+  img.style.height = "100%";
+  img.style.maxWidth = "240px";
+  img.style.maxHeight = "240px";
+
+
+  box.appendChild(img);
+
+
+  setupQRDownload(
+    () => img.src
+  );
+}
+
+
+/* =========================================================
+   DOWNLOAD QR
 ========================================================= */
 
 function setupQRDownload(getSource) {
 
-  const dl =
+  const button =
     document.getElementById("downloadQR");
 
-  if (!dl) return;
+  if (!button) return;
 
 
-  dl.onclick = async () => {
+  /*
+    Replace onclick so the handler
+    cannot accidentally be attached twice.
+  */
 
-    const source =
-      getSource();
+  button.onclick = async function () {
 
-    if (!source) return;
+    const source = getSource();
+
+    if (!source) {
+
+      alert(
+        "The QR code is not ready yet."
+      );
+
+      return;
+    }
 
 
     try {
 
+      /*
+        Data URL from canvas.
+      */
+
+      if (
+        source.startsWith("data:image/")
+      ) {
+
+        const link =
+          document.createElement("a");
+
+        link.download =
+          "marcus-cloud-rsvp-qr.png";
+
+        link.href = source;
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        link.remove();
+
+        return;
+      }
+
+
+      /*
+        Remote image.
+      */
+
       const response =
         await fetch(source);
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          "Unable to download QR."
+        );
+      }
+
 
       const blob =
         await response.blob();
 
+
       const objectUrl =
         URL.createObjectURL(blob);
 
-      const a =
+
+      const link =
         document.createElement("a");
 
-      a.download =
+
+      link.download =
         "marcus-cloud-rsvp-qr.png";
 
-      a.href =
+      link.href =
         objectUrl;
 
-      document.body.appendChild(a);
 
-      a.click();
+      document.body.appendChild(link);
 
-      a.remove();
+      link.click();
+
+      link.remove();
+
 
       setTimeout(() => {
 
-        URL.revokeObjectURL(objectUrl);
+        URL.revokeObjectURL(
+          objectUrl
+        );
 
       }, 1000);
+
 
     } catch (error) {
 
       console.warn(
-        "QR download failed.",
+        "Direct QR download failed.",
         error
       );
+
+
+      /*
+        Browser fallback.
+      */
 
       window.open(
         source,
@@ -260,7 +446,7 @@ function setupQRDownload(getSource) {
 
 
 /* =========================================================
-   GOOGLE CALENDAR
+   ADD TO GOOGLE CALENDAR
 ========================================================= */
 
 function addCalendar() {
@@ -271,22 +457,40 @@ function addCalendar() {
   const end =
     "20260929T050000Z";
 
+
+  const title =
+    "Marcus Cloud — Christening & 1st Birthday";
+
+
+  const details =
+    "Christening & Birthday Celebration";
+
+
+  const location =
+    "Our Lady of the Miraculous Medal Parish, " +
+    "Calumpang, Molo, Iloilo City; " +
+    "Reception: Jollibee Molo";
+
+
   const url =
-    `https://calendar.google.com/calendar/render?action=TEMPLATE` +
+    "https://calendar.google.com/calendar/render" +
 
-    `&text=${encodeURIComponent(
-      "Marcus Cloud — Christening & 1st Birthday"
-    )}` +
+    "?action=TEMPLATE" +
 
-    `&dates=${start}/${end}` +
+    "&text=" +
+    encodeURIComponent(title) +
 
-    `&details=${encodeURIComponent(
-      "Christening & Birthday Celebration of Marcus Cloud Gaitero"
-    )}` +
+    "&dates=" +
+    encodeURIComponent(
+      start + "/" + end
+    ) +
 
-    `&location=${encodeURIComponent(
-      "Our Lady of the Miraculous Medal Parish, Calumpang, Molo, Iloilo City; Reception: Jollibee Molo"
-    )}`;
+    "&details=" +
+    encodeURIComponent(details) +
+
+    "&location=" +
+    encodeURIComponent(location);
+
 
   window.open(
     url,
@@ -303,7 +507,10 @@ function addCalendar() {
 function contactOrganizer() {
 
   const phone =
-    APP_CONFIG?.organizerPhone || "";
+    typeof APP_CONFIG !== "undefined"
+      ? APP_CONFIG.organizerPhone
+      : "";
+
 
   if (!phone) {
 
@@ -314,58 +521,62 @@ function contactOrganizer() {
     return;
   }
 
+
   window.location.href =
     "tel:" + phone;
 }
 
 
 /* =========================================================
-   SETUP CONTACT ORGANIZER BUTTONS
+   ORGANIZER BUTTONS
 ========================================================= */
 
 function setupOrganizerContact() {
 
+  if (
+    typeof APP_CONFIG === "undefined"
+  ) {
+    return;
+  }
+
+
   const phone =
-    APP_CONFIG?.organizerPhone || "";
+    APP_CONFIG.organizerPhone;
+
 
   if (!phone) return;
 
-  const buttons =
-    document.querySelectorAll("a, button");
 
-  buttons.forEach(button => {
+  const elements =
+    document.querySelectorAll(
+      "a, button"
+    );
+
+
+  elements.forEach((element) => {
 
     const text =
-      button.textContent
+      element.textContent
         .trim()
         .toLowerCase();
 
+
     if (
-      text.includes("contact organizer")
+      !text.includes(
+        "contact organizer"
+      )
+    ) {
+      return;
+    }
+
+
+    if (
+      element.tagName.toLowerCase() ===
+      "a"
     ) {
 
-      if (
-        button.tagName.toLowerCase() === "a"
-      ) {
-
-        button.href =
-          "tel:" + phone;
-
-        button.removeAttribute(
-          "onclick"
-        );
-
-      } else {
-
-        button.onclick =
-          function(event) {
-
-            event.preventDefault();
-
-            contactOrganizer();
-
-          };
-      }
+      element.href =
+        "tel:" + phone;
     }
   });
 }
@@ -378,20 +589,30 @@ function setupOrganizerContact() {
 function openGiftModal() {
 
   const modal =
-    document.getElementById("giftModal");
+    document.getElementById(
+      "giftModal"
+    );
+
 
   if (!modal) {
 
     console.error(
-      "Gift modal #giftModal was not found."
+      "giftModal was not found."
     );
 
     return;
   }
 
-  loadGiftList();
 
-  modal.classList.remove("hidden");
+  renderGiftList();
+
+  setupOnlineRegistry();
+
+
+  modal.classList.remove(
+    "hidden"
+  );
+
 
   document.body.classList.add(
     "modal-open"
@@ -406,11 +627,18 @@ function openGiftModal() {
 function closeGiftModal() {
 
   const modal =
-    document.getElementById("giftModal");
+    document.getElementById(
+      "giftModal"
+    );
+
 
   if (!modal) return;
 
-  modal.classList.add("hidden");
+
+  modal.classList.add(
+    "hidden"
+  );
+
 
   document.body.classList.remove(
     "modal-open"
@@ -419,220 +647,177 @@ function closeGiftModal() {
 
 
 /* =========================================================
-   GIFT LIST
+   RENDER GIFT LIST
 ========================================================= */
 
-function loadGiftList() {
+function renderGiftList() {
 
-  const giftList =
-    document.getElementById("giftList");
+  const container =
+    document.getElementById(
+      "giftList"
+    );
 
-  const onlineRegistry =
+
+  if (!container) return;
+
+
+  container.innerHTML = "";
+
+
+  const gifts =
+    typeof APP_CONFIG !== "undefined" &&
+    Array.isArray(APP_CONFIG.giftList)
+
+      ? APP_CONFIG.giftList
+
+      : [];
+
+
+  if (!gifts.length) {
+
+    container.innerHTML = `
+      <p class="gift-empty">
+        Gift suggestions will be added soon.
+      </p>
+    `;
+
+    return;
+  }
+
+
+  gifts.forEach((gift) => {
+
+    const item =
+      document.createElement("div");
+
+
+    item.className =
+      "gift-item";
+
+
+    const icon =
+      document.createElement("div");
+
+    icon.className =
+      "gift-item-icon";
+
+    icon.textContent =
+      gift.icon || "🎁";
+
+
+    const info =
+      document.createElement("div");
+
+    info.className =
+      "gift-item-info";
+
+
+    const name =
+      document.createElement("strong");
+
+    name.textContent =
+      gift.name || "Gift";
+
+
+    const description =
+      document.createElement("p");
+
+    description.textContent =
+      gift.description || "";
+
+
+    info.appendChild(name);
+
+    if (gift.description) {
+
+      info.appendChild(
+        description
+      );
+    }
+
+
+    item.appendChild(icon);
+
+    item.appendChild(info);
+
+
+    container.appendChild(item);
+  });
+}
+
+
+/* =========================================================
+   ONLINE GIFT REGISTRY
+========================================================= */
+
+function setupOnlineRegistry() {
+
+  const wrapper =
     document.getElementById(
       "onlineRegistry"
     );
 
-  const registryButton =
+
+  const button =
     document.getElementById(
       "giftRegistryButtonOnline"
     );
 
-  if (!giftList) return;
-
-
-  /*
-     Use the gift list from config.js.
-
-     If giftList is missing from config.js,
-     these default items will be used.
-  */
-
-  const defaultGifts = [
-
-    {
-      icon: "💌",
-      name: "Cash Gift",
-      description:
-        "For Marcus's future needs and little dreams."
-    },
-
-    {
-      icon: "👕",
-      name: "Baby Clothes",
-      description:
-        "Comfortable clothes for Marcus."
-    },
-
-    {
-      icon: "🧸",
-      name: "Toys & Books",
-      description:
-        "Age-appropriate toys, books, and learning materials."
-    },
-
-    {
-      icon: "🍼",
-      name: "Baby Essentials",
-      description:
-        "Useful everyday baby essentials."
-    },
-
-    {
-      icon: "🧴",
-      name: "Baby Care",
-      description:
-        "Baby care and hygiene products."
-    }
-
-  ];
-
-
-  const gifts =
-    Array.isArray(APP_CONFIG?.giftList) &&
-    APP_CONFIG.giftList.length > 0
-
-      ? APP_CONFIG.giftList
-
-      : defaultGifts;
-
-
-  /* Display Gift List */
-
-  giftList.innerHTML =
-    gifts
-      .map(gift => {
-
-        return `
-          <div class="gift-item">
-
-            <div class="gift-item-icon">
-              ${gift.icon || "🎁"}
-            </div>
-
-            <div class="gift-item-info">
-
-              <strong>
-                ${gift.name || "Gift"}
-              </strong>
-
-              <span>
-                ${gift.description || ""}
-              </span>
-
-            </div>
-
-          </div>
-        `;
-
-      })
-      .join("");
-
-
-  /* Online Gift Registry */
-
-  const registryUrl =
-    APP_CONFIG?.giftRegistryUrl || "";
-
 
   if (
-    registryUrl.trim() !== "" &&
-    onlineRegistry &&
-    registryButton
+    !wrapper ||
+    !button
   ) {
+    return;
+  }
 
-    registryButton.href =
-      registryUrl;
 
-    onlineRegistry.classList.remove(
+  const url =
+    typeof APP_CONFIG !== "undefined"
+      ? String(
+          APP_CONFIG.giftRegistryUrl || ""
+        ).trim()
+      : "";
+
+
+  if (!url) {
+
+    wrapper.classList.add(
       "hidden"
     );
 
-  } else {
+    button.removeAttribute(
+      "href"
+    );
 
-    if (onlineRegistry) {
-
-      onlineRegistry.classList.add(
-        "hidden"
-      );
-    }
+    return;
   }
-}
 
 
-/* =========================================================
-   GIFT MODAL - OUTSIDE CLICK
-========================================================= */
+  button.href = url;
 
-function setupGiftModalOutsideClick() {
 
-  const modal =
-    document.getElementById("giftModal");
-
-  if (!modal) return;
-
-  modal.addEventListener(
-    "click",
-    function(event) {
-
-      if (
-        event.target === modal
-      ) {
-
-        closeGiftModal();
-      }
-    }
+  wrapper.classList.remove(
+    "hidden"
   );
 }
 
 
 /* =========================================================
-   GIFT MODAL - ESC KEY
-========================================================= */
-
-function setupGiftModalEscape() {
-
-  document.addEventListener(
-    "keydown",
-    function(event) {
-
-      if (
-        event.key === "Escape"
-      ) {
-
-        closeGiftModal();
-      }
-    }
-  );
-}
-
-
-/* =========================================================
-   MESSENGER
-========================================================= */
-
-function openMessenger() {
-
-  const messengerUrl =
-    "https://www.facebook.com/messages/t/markangelou.gaitero";
-
-  window.open(
-    messengerUrl,
-    "_blank",
-    "noopener"
-  );
-}
-
-
-/* =========================================================
-   PHOTO GALLERY - GOOGLE DRIVE
+   PHOTO GALLERY
 ========================================================= */
 
 function openPhotoGallery() {
 
   const galleryUrl =
-    APP_CONFIG?.photoGalleryUrl || "";
+    typeof APP_CONFIG !== "undefined"
+      ? String(
+          APP_CONFIG.photoGalleryUrl || ""
+        ).trim()
+      : "";
 
-  if (!galleryUrl.trim()) {
+
+  if (!galleryUrl) {
 
     alert(
       "The photo gallery is not available yet."
@@ -640,6 +825,7 @@ function openPhotoGallery() {
 
     return;
   }
+
 
   window.open(
     galleryUrl,
@@ -650,12 +836,68 @@ function openPhotoGallery() {
 
 
 /* =========================================================
-   INITIALIZE
+   MODAL EVENTS
+========================================================= */
+
+function setupGiftModalEvents() {
+
+  const modal =
+    document.getElementById(
+      "giftModal"
+    );
+
+
+  if (!modal) return;
+
+
+  /*
+    Close when clicking outside
+    the modal card.
+  */
+
+  modal.addEventListener(
+    "click",
+    function (event) {
+
+      if (
+        event.target === modal
+      ) {
+
+        closeGiftModal();
+      }
+    }
+  );
+
+
+  /*
+    ESC key closes modal.
+  */
+
+  document.addEventListener(
+    "keydown",
+    function (event) {
+
+      if (
+        event.key === "Escape" &&
+        !modal.classList.contains(
+          "hidden"
+        )
+      ) {
+
+        closeGiftModal();
+      }
+    }
+  );
+}
+
+
+/* =========================================================
+   INITIALIZE PAGE
 ========================================================= */
 
 document.addEventListener(
   "DOMContentLoaded",
-  function() {
+  function () {
 
     countdown();
 
@@ -663,9 +905,7 @@ document.addEventListener(
 
     setupOrganizerContact();
 
-    setupGiftModalOutsideClick();
-
-    setupGiftModalEscape();
+    setupGiftModalEvents();
 
   }
 );
