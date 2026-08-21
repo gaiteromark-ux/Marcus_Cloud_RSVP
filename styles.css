@@ -1,23 +1,22 @@
 /* =========================================================
    MARCUS CLOUD GAITERO
    CHRISTENING & 1ST BIRTHDAY
-   MAIN STYLESHEET
+   CLEAN MAIN STYLESHEET
 ========================================================= */
 
 
-/* =========================================================
-   VARIABLES / RESET
-========================================================= */
+/* ---------- VARIABLES / RESET ---------- */
 
 :root {
-  --ink: #263746;
-  --muted: #6d767b;
-  --cream: #fbf7f0;
-  --paper: #fffdf9;
-  --gold: #b99b62;
-  --line: #e8dfd1;
-  --blue: #dcebf2;
-  --pink: #f2dfe2;
+  --ink: #18213b;
+  --muted: #5f5548;
+  --cream: #eee1c6;
+  --paper: #f8efd9;
+  --gold: #b8892f;
+  --line: #c9ad76;
+  --blue: #172442;
+  --burgundy: #651c31;
+  --midnight: #0c1224;
 }
 
 * {
@@ -30,26 +29,92 @@ html {
 
 body {
   margin: 0;
-  background: var(--cream);
+
+  background:
+    radial-gradient(
+      circle at 15% 10%,
+      rgba(209, 168, 76, .14),
+      transparent 25rem
+    ),
+    radial-gradient(
+      circle at 85% 35%,
+      rgba(101, 28, 49, .13),
+      transparent 28rem
+    ),
+    linear-gradient(
+      135deg,
+      #0a1020 0%,
+      #172442 48%,
+      #0b1121 100%
+    );
+
+  background-attachment: fixed;
+
   color: var(--ink);
-  font-family: Inter, system-ui, sans-serif;
+
+  font-family:
+    Inter,
+    system-ui,
+    sans-serif;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+body::before {
+  content:
+    "✦   ·   ✧      ·   ✦     ·      ✧   ·   ✦";
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: -1;
+
+  padding: 5vh 5vw;
+
+  color:
+    rgba(255, 222, 139, .28);
+
+  font-size:
+    clamp(1rem, 2vw, 2rem);
+
+  letter-spacing:
+    clamp(1rem, 5vw, 6rem);
+
+  line-height: 5;
+
+  overflow: hidden;
+
+  pointer-events: none;
 }
 
 h1,
 h2,
-h3 {
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 600;
-  line-height: 0.95;
+h3,
+.name,
+.count-grid b {
   margin: 0;
+
+  font-family:
+    "Cinzel",
+    "Cormorant Garamond",
+    serif;
+
+  line-height: 1;
+
+  letter-spacing: .015em;
 }
 
 h1 {
-  font-size: clamp(3.2rem, 11vw, 7rem);
+  font-size:
+    clamp(3.2rem, 11vw, 7rem);
 }
 
 h2 {
-  font-size: clamp(2.4rem, 7vw, 4.4rem);
+  font-size:
+    clamp(2.4rem, 7vw, 4.4rem);
 }
 
 h3 {
@@ -61,58 +126,101 @@ p {
 }
 
 .section {
-  width: min(1080px, 92%);
+  position: relative;
+
+  width:
+    min(1080px, 92%);
+
   margin: auto;
-  padding: 88px 0;
+
+  padding:
+    88px 0;
 }
 
 .eyebrow {
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-size: 0.72rem;
-  color: var(--gold);
+  color: #9b6a18;
+
+  font-family:
+    "Cinzel",
+    serif;
+
+  font-size: .72rem;
+
   font-weight: 700;
+
+  letter-spacing: .25em;
+
+  text-transform: uppercase;
+}
+
+.hidden {
+  display: none !important;
 }
 
 
-/* =========================================================
-   BUTTONS
-========================================================= */
+/* ---------- BUTTONS ---------- */
 
 .btn {
   display: inline-flex;
-  justify-content: center;
+
   align-items: center;
+  justify-content: center;
 
-  text-decoration: none;
-  border: 0;
-  border-radius: 999px;
+  padding:
+    14px 24px;
 
-  padding: 14px 24px;
+  border:
+    1px solid transparent;
+
+  border-radius:
+    4px 16px 4px 16px;
+
+  font-family:
+    "Cinzel",
+    serif;
 
   font-weight: 700;
-  font-family: inherit;
+
+  letter-spacing: .04em;
+
+  text-decoration: none;
 
   cursor: pointer;
 
   transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
+    transform .2s ease,
+    box-shadow .2s ease;
 }
 
 .btn:hover {
-  transform: translateY(-2px);
+  transform:
+    translateY(-2px);
 }
 
 .primary {
-  background: var(--ink);
-  color: white;
+  color: #fff2d0;
+
+  background:
+    linear-gradient(
+      135deg,
+      #111b34,
+      #24385f
+    );
+
+  border-color: #b88a32;
+
+  box-shadow:
+    0 9px 25px
+    rgba(12, 18, 36, .28);
 }
 
 .ghost {
-  border: 1px solid var(--ink);
-  color: var(--ink);
-  background: transparent;
+  color: #17213a;
+
+  background:
+    rgba(255, 250, 236, .45);
+
+  border-color: #17213a;
 }
 
 .full {
@@ -120,222 +228,330 @@ p {
 }
 
 
-/* =========================================================
-   OPENING SCREEN
-========================================================= */
+/* ---------- OPENING ---------- */
 
 .opening {
   position: fixed;
+
   inset: 0;
+
   z-index: 10000;
 
   display: grid;
+
   place-items: center;
 
-  background: var(--cream);
+  padding: 20px;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(255, 218, 128, .18),
+      transparent 28%
+    ),
+    linear-gradient(
+      145deg,
+      #080d1b,
+      #1c2948 60%,
+      #501a2c
+    );
 
   transition:
-    opacity 0.5s ease,
-    visibility 0.5s ease;
+    opacity .5s ease,
+    visibility .5s ease;
 }
 
 .opening.closed {
   opacity: 0;
+
   pointer-events: none;
 }
 
 .opening-card {
+  width:
+    min(560px, 90vw);
+
+  padding:
+    clamp(34px, 7vw, 70px);
+
   text-align: center;
-  padding: 30px;
+
+  color: #f7ebcf;
+
+  border:
+    1px solid
+    rgba(222, 189, 111, .72);
+
+  border-radius:
+    26px 6px 26px 6px;
+
+  background:
+    linear-gradient(
+      rgba(14, 22, 42, .92),
+      rgba(14, 22, 42, .92)
+    );
+
+  box-shadow:
+    0 25px 80px
+    rgba(0, 0, 0, .48);
 }
 
 .opening-card h1 {
-  font-size: 4rem;
+  color: #e8c66e;
+}
+
+.opening-card p,
+.opening-card span {
+  color: #d9ccb2;
 }
 
 .opening-card span {
   display: block;
-  margin: 20px 0 30px;
-  color: var(--muted);
+
+  margin:
+    20px 0 30px;
 }
 
 .tiny-flower {
-  color: var(--gold);
+  color: #e7c66e;
+
   font-size: 3rem;
 }
 
 
-/* =========================================================
-   HERO
-========================================================= */
+/* ---------- HERO ---------- */
 
 .hero {
-  text-align: center;
+  width:
+    min(1180px, 94%);
 
-  min-height: 100svh;
+  min-height:
+    calc(100svh - 60px);
+
+  margin:
+    30px auto;
+
+  padding-inline:
+    clamp(20px, 7vw, 90px);
 
   display: flex;
+
   flex-direction: column;
+
   align-items: center;
   justify-content: center;
 
-  position: relative;
   overflow: hidden;
 
+  text-align: center;
+
+  color: #272318;
+
+  border:
+    1px solid
+    rgba(157, 111, 35, .7);
+
+  border-radius:
+    44px 8px 44px 8px;
+
   background:
-    radial-gradient(
-      circle at 20% 20%,
-      #f2dfe255,
-      transparent 25%
-    ),
-    radial-gradient(
-      circle at 80% 70%,
-      #dcebf288,
-      transparent 28%
+    linear-gradient(
+      rgba(246, 234, 205, .95),
+      rgba(246, 234, 205, .97)
     );
+
+  box-shadow:
+    0 28px 80px
+    rgba(0, 0, 0, .38);
+}
+
+.hero h1 {
+  color: #17213a;
+}
+
+.hero em,
+.name {
+  color: #741f35;
 }
 
 .hero em {
   font-style: normal;
-  color: var(--gold);
 }
 
 .name {
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(2rem, 6vw, 3.8rem);
-  margin: 22px 0;
+  margin:
+    22px 0;
+
+  font-size:
+    clamp(2rem, 6vw, 3.8rem);
 }
 
 .hero-copy {
   max-width: 670px;
-  color: var(--muted);
+
+  color: #584f42;
 }
 
 .date-pill {
-  border: 1px solid var(--gold);
-  border-radius: 999px;
+  margin:
+    12px 0 26px;
 
-  padding: 12px 20px;
-  margin: 12px 0 26px;
+  padding:
+    12px 20px;
 
-  background: rgba(255, 255, 255, 0.65);
+  border:
+    1px solid #9b6a18;
+
+  border-radius:
+    4px 18px 4px 18px;
+
+  background:
+    rgba(255, 250, 233, .72);
 }
 
 .actions {
   display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
+
   justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: 12px;
 }
-
-
-/* =========================================================
-   FLORAL DECORATIONS
-========================================================= */
 
 .floral {
   position: absolute;
-  color: #c8ae78;
+
+  color: #9b6a18;
+
   font-size: 4rem;
-  opacity: 0.45;
+
+  opacity: .45;
+
   pointer-events: none;
 }
 
 .floral-a {
   left: 5%;
   top: 14%;
-  transform: rotate(-20deg);
 }
 
 .floral-b {
   right: 5%;
   bottom: 14%;
-  transform: rotate(25deg);
 }
 
 
-/* =========================================================
-   COUNTDOWN
-========================================================= */
+/* ---------- SECTION CARDS ---------- */
+
+.countdown,
+.details,
+.qr-section,
+.extras {
+  margin-top: 42px;
+
+  margin-bottom: 42px;
+
+  padding-inline:
+    clamp(22px, 6vw, 70px);
+
+  border:
+    1px solid
+    rgba(184, 137, 47, .52);
+
+  border-radius:
+    30px 6px 30px 6px;
+
+  background:
+    rgba(248, 239, 217, .97);
+
+  box-shadow:
+    0 22px 55px
+    rgba(0, 0, 0, .25);
+}
+
+
+/* ---------- COUNTDOWN ---------- */
 
 .countdown {
   text-align: center;
-
-  background: var(--paper);
-
-  border-radius: 40px;
-
-  padding-left: 6%;
-  padding-right: 6%;
 }
 
 .count-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-
-  gap: 10px;
-
   max-width: 700px;
 
-  margin: 30px auto;
+  margin:
+    30px auto;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 10px;
 }
 
 .count-grid div {
-  background: var(--cream);
+  padding:
+    20px 8px;
 
-  padding: 20px 8px;
+  border:
+    1px solid
+    rgba(157, 111, 35, .34);
 
-  border-radius: 20px;
+  border-radius:
+    18px 4px 18px 4px;
+
+  background:
+    rgba(255, 249, 232, .72);
 }
 
 .count-grid b {
   display: block;
 
-  font-family: "Cormorant Garamond", serif;
-
   font-size: 2.6rem;
 }
 
 .count-grid span {
-  font-size: 0.72rem;
+  color: var(--muted);
+
+  font-size: .72rem;
+
+  letter-spacing: .1em;
 
   text-transform: uppercase;
-
-  letter-spacing: 0.1em;
-
-  color: var(--muted);
 }
 
 
-/* =========================================================
-   EVENT DETAILS
-========================================================= */
+/* ---------- DETAILS ---------- */
 
 .details {
   text-align: center;
 }
 
 .detail-grid {
+  margin-top: 40px;
+
   display: grid;
 
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns:
+    repeat(3, 1fr);
 
   gap: 18px;
-
-  margin-top: 40px;
 }
 
 .detail-grid article {
-  background: var(--paper);
-
-  border: 1px solid var(--line);
-
-  border-radius: 28px;
-
   padding: 32px;
 
-  box-shadow:
-    0 10px 30px rgba(38, 55, 70, 0.04);
+  border:
+    1px solid
+    rgba(157, 111, 35, .34);
+
+  border-radius:
+    18px 4px 18px 4px;
+
+  background:
+    rgba(255, 249, 232, .72);
 }
 
 .detail-grid article > span {
@@ -349,6 +565,7 @@ p {
 .detail-grid strong,
 .detail-grid small {
   display: block;
+
   margin-top: 10px;
 }
 
@@ -361,7 +578,7 @@ p {
 
   margin-top: 18px;
 
-  color: var(--gold);
+  color: var(--burgundy);
 
   font-weight: 700;
 
@@ -369,61 +586,337 @@ p {
 }
 
 
-/* =========================================================
-   QR RSVP
-========================================================= */
+/* ---------- QR SECTION ---------- */
 
 .qr-section {
   display: grid;
 
-  grid-template-columns: 1fr auto;
-
-  gap: 60px;
+  grid-template-columns:
+    minmax(220px, .7fr)
+    minmax(0, 1.3fr);
 
   align-items: center;
+
+  gap:
+    clamp(28px, 5vw, 60px);
+}
+
+.qr-copy {
+  min-width: 0;
+}
+
+.qr-card.qr-card-with-photo {
+  width: 100%;
+
+  max-width: 720px;
+
+  justify-self: end;
+
+  padding:
+    clamp(22px, 4vw, 34px);
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    rgba(184, 137, 47, .65);
+
+  border-radius:
+    28px 6px 28px 6px;
 
   background:
     linear-gradient(
-      135deg,
-      #dcebf2,
-      #fffaf2
+      145deg,
+      #fffaf0,
+      #f7edd4
     );
 
-  border-radius: 40px;
-
-  padding-left: 6%;
-  padding-right: 6%;
-}
-
-.qr-card {
-  text-align: center;
-
-  background: white;
-
-  padding: 22px;
-
-  border-radius: 26px;
-
   box-shadow:
-    0 15px 40px rgba(38, 55, 70, 0.08);
+    0 18px 45px
+    rgba(41, 29, 12, .14);
 }
 
-.qr-card strong {
+.qr-photo-layout {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1fr);
+
+  align-items: center;
+
+  gap:
+    clamp(14px, 3vw, 34px);
+}
+
+
+/* Marcus */
+
+.qr-marcus-side {
+  position: relative;
+
+  min-width: 0;
+
+  text-align: center;
+}
+
+.qr-marcus-image {
   display: block;
 
-  margin: 14px;
+  width: 100%;
+
+  max-width: 245px;
+
+  height: 260px;
+
+  margin: 0 auto;
+
+  object-fit: contain;
+
+  object-position:
+    center bottom;
+
+  background: transparent;
+
+  border: 0;
+
+  filter:
+    drop-shadow(
+      0 12px 12px
+      rgba(38, 55, 70, .13)
+    );
+}
+
+.qr-marcus-text {
+  margin-top: 6px;
+}
+
+.qr-marcus-text strong {
+  display: block;
+
+  margin: 0;
+
+  color: #10264a;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size: 2.1rem;
+
+  font-weight: 600;
+
+  line-height: 1;
+}
+
+.qr-name-divider {
+  width: 210px;
+
+  max-width: 90%;
+
+  margin:
+    10px auto 8px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  color: #c28e31;
+}
+
+.qr-name-divider span {
+  height: 1px;
+
+  flex: 1;
+
+  background: #c28e31;
+}
+
+.qr-name-divider b {
+  font-size: .85rem;
+
+  font-weight: 400;
+}
+
+.qr-marcus-text > span {
+  display: block;
+
+  color: #b68129;
+
+  font-family:
+    "Cinzel",
+    serif;
+
+  font-size: .65rem;
+
+  font-weight: 700;
+
+  letter-spacing: .14em;
+
+  line-height: 1.5;
+
+  text-transform: uppercase;
+}
+
+.qr-photo-decor {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: -1;
+
+  pointer-events: none;
+}
+
+.qr-photo-decor .spark {
+  position: absolute;
+
+  color: #c28e31;
+
+  font-size: 1.4rem;
+}
+
+.spark-a {
+  left: 3%;
+  top: 20%;
+}
+
+.spark-b {
+  right: 3%;
+  top: 13%;
+}
+
+.spark-c {
+  right: 6%;
+  bottom: 35%;
+}
+
+
+/* QR */
+
+.qr-code-side {
+  width: 100%;
+
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  text-align: center;
+}
+
+.qr-code-frame {
+  width:
+    min(100%, 250px);
+
+  aspect-ratio: 1 / 1;
+
+  padding: 12px;
+
+  display: grid;
+
+  place-items: center;
+
+  overflow: hidden;
+
+  background: #fff;
+
+  border:
+    1px solid #d7aa54;
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 8px 20px
+    rgba(38, 31, 21, .08);
 }
 
 #qrcode {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
+
+  height: 100%;
+
+  display: grid;
+
+  place-items: center;
 }
 
-#qrcode img,
-#qrcode canvas {
-  max-width: 100%;
-  height: auto;
+/*
+  Important:
+  app.js removes the duplicate QRCode.js image when
+  a canvas exists. These rules simply scale whichever
+  single QR element remains.
+*/
+
+#qrcode canvas,
+#qrcode img {
+  display: block;
+
+  width: 100% !important;
+
+  height: auto !important;
+
+  max-width: 100% !important;
+
+  max-height: 100% !important;
+
+  margin: 0 auto !important;
+}
+
+.scan-row {
+  width:
+    min(100%, 250px);
+
+  margin-top: 14px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  color: #c28e31;
+}
+
+.scan-title {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 40px;
+
+  margin: 0;
+
+  padding:
+    8px 20px;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #dceaf7,
+      #c9dcf1
+    );
+
+  color: #10264a;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size: .9rem;
+
+  font-weight: 800;
+
+  white-space: nowrap;
 }
 
 .text-btn {
@@ -431,22 +924,40 @@ p {
 
   background: none;
 
-  color: var(--gold);
-
-  font-weight: 700;
-
   cursor: pointer;
 }
 
+.qr-download {
+  margin-top: 9px;
 
-/* =========================================================
-   EXTRA BUTTONS
-========================================================= */
+  padding: 6px;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  color: #8b2035;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size: .78rem;
+
+  font-weight: 700;
+}
+
+
+/* ---------- EXTRA BUTTONS ---------- */
 
 .extra-grid {
   display: grid;
 
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns:
+    repeat(5, 1fr);
 
   gap: 12px;
 }
@@ -454,15 +965,10 @@ p {
 .extra {
   min-height: 110px;
 
-  border: 1px solid var(--line);
-
-  background: var(--paper);
-
-  border-radius: 22px;
-
   padding: 18px;
 
   display: flex;
+
   flex-direction: column;
 
   align-items: center;
@@ -472,44 +978,46 @@ p {
 
   color: var(--ink);
 
-  text-decoration: none;
+  border:
+    1px solid
+    rgba(157, 111, 35, .34);
+
+  border-radius:
+    18px 4px 18px 4px;
+
+  background:
+    rgba(255, 249, 232, .72);
 
   font: inherit;
 
+  text-decoration: none;
+
   cursor: pointer;
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.extra:hover {
-  transform: translateY(-3px);
-
-  box-shadow:
-    0 10px 26px rgba(38, 55, 70, 0.09);
-}
-
-.extra:first-letter {
-  font-size: 1.4rem;
 }
 
 .extra span {
-  font-size: 0.8rem;
+  font-size: .8rem;
+
   font-weight: 700;
 }
 
 
-/* =========================================================
-   FOOTER
-========================================================= */
+/* ---------- FOOTER ---------- */
 
 footer {
+  padding:
+    50px 20px;
+
   text-align: center;
 
-  padding: 50px 20px;
+  color: #d6c6a4;
 
-  color: var(--muted);
+  background:
+    rgba(6, 10, 22, .72);
+
+  border-top:
+    1px solid
+    rgba(184, 137, 47, .42);
 }
 
 footer small {
@@ -523,308 +1031,7 @@ footer small {
 }
 
 
-/* =========================================================
-   RSVP FORM
-========================================================= */
-
-.form-shell {
-  max-width: 720px;
-}
-
-.back {
-  color: var(--gold);
-
-  text-decoration: none;
-
-  font-weight: 700;
-}
-
-.form-shell > h1 {
-  margin: 10px 0;
-}
-
-.rsvp-form {
-  background: var(--paper);
-
-  border: 1px solid var(--line);
-
-  padding: clamp(22px, 5vw, 44px);
-
-  border-radius: 30px;
-
-  margin-top: 30px;
-}
-
-.rsvp-form > label {
-  display: block;
-
-  margin: 0 0 18px;
-
-  font-weight: 700;
-}
-
-.rsvp-form input,
-.rsvp-form textarea {
-  width: 100%;
-
-  display: block;
-
-  margin-top: 8px;
-
-  padding: 14px 15px;
-
-  border: 1px solid var(--line);
-
-  border-radius: 14px;
-
-  background: #fff;
-
-  font: inherit;
-
-  color: var(--ink);
-}
-
-.rsvp-form input:focus,
-.rsvp-form textarea:focus {
-  outline: 2px solid rgba(185, 155, 98, 0.22);
-  border-color: var(--gold);
-}
-
-fieldset {
-  border: 0;
-
-  padding: 0;
-
-  margin: 24px 0;
-}
-
-legend {
-  font-weight: 700;
-
-  margin-bottom: 10px;
-}
-
-.choice {
-  display: flex !important;
-
-  align-items: center;
-
-  gap: 10px;
-
-  margin: 10px 0;
-
-  font-weight: 500 !important;
-}
-
-.choice input {
-  width: auto !important;
-
-  margin: 0 !important;
-}
-
-.privacy {
-  font-size: 0.78rem;
-
-  color: var(--muted);
-
-  background: var(--cream);
-
-  padding: 13px;
-
-  border-radius: 12px;
-
-  margin-bottom: 18px;
-}
-
-.status {
-  min-height: 1.4em;
-
-  font-size: 0.9rem;
-}
-
-.error {
-  color: #a33;
-}
-
-
-/* =========================================================
-   RSVP CONFIRMATION
-========================================================= */
-
-.confirmation {
-  text-align: center;
-
-  background: var(--paper);
-
-  padding: 45px 25px;
-
-  border-radius: 30px;
-
-  border: 1px solid var(--line);
-
-  margin-top: 30px;
-}
-
-.success-icon {
-  width: 58px;
-  height: 58px;
-
-  border-radius: 50%;
-
-  background: #e4f0e5;
-
-  display: grid;
-
-  place-items: center;
-
-  margin: auto auto 18px;
-
-  color: #42734a;
-
-  font-size: 1.7rem;
-}
-
-.event-summary {
-  display: grid;
-
-  gap: 6px;
-
-  background: var(--cream);
-
-  border-radius: 18px;
-
-  padding: 18px;
-
-  margin: 24px 0;
-}
-
-.godparent-thanks {
-  background: #fff6f4;
-
-  padding: 16px;
-
-  border-radius: 16px;
-}
-
-
-/* =========================================================
-   RSVP RECEIVED - MARCUS PHOTO
-========================================================= */
-
-.baby-portrait-wrap {
-  position: relative;
-
-  width: 230px;
-
-  margin: 0 auto 28px;
-
-  text-align: center;
-}
-
-.baby-portrait {
-  position: relative;
-
-  width: 200px;
-  height: 200px;
-
-  margin: 0 auto;
-
-  padding: 7px;
-
-  border-radius: 50%;
-
-  background:
-    linear-gradient(
-      135deg,
-      #f4dba8,
-      #ffffff,
-      #dcecf2
-    );
-
-  box-shadow:
-    0 14px 40px rgba(38, 55, 70, 0.15);
-}
-
-.baby-portrait img {
-  display: block;
-
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-  object-position: center;
-
-  border-radius: 50%;
-
-  background: #fbe5e5;
-}
-
-.baby-portrait-name {
-  position: relative;
-
-  z-index: 5;
-
-  display: inline-block;
-
-  margin-top: -14px;
-
-  padding: 7px 22px;
-
-  background: #fffdf9;
-
-  border: 1px solid #ead8bb;
-
-  border-radius: 999px;
-
-  color: #263746;
-
-  font-family: "Cormorant Garamond", serif;
-
-  font-size: 19px;
-
-  font-weight: 700;
-
-  box-shadow:
-    0 5px 15px rgba(38, 55, 70, 0.10);
-}
-
-.baby-portrait-decor {
-  position: absolute;
-
-  z-index: 4;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  width: 38px;
-  height: 38px;
-
-  border-radius: 50%;
-
-  background: #fff7eb;
-
-  color: #c99a4a;
-
-  box-shadow:
-    0 5px 15px rgba(38, 55, 70, 0.08);
-}
-
-.baby-portrait-decor.decor-left {
-  left: 0;
-  top: 35px;
-}
-
-.baby-portrait-decor.decor-right {
-  right: 0;
-  top: 110px;
-}
-
-
-/* =========================================================
-   GIFT / REGISTRY POPUP
-========================================================= */
+/* ---------- GIFT MODAL ---------- */
 
 .modal-overlay {
   position: fixed;
@@ -833,67 +1040,47 @@ legend {
 
   z-index: 9999;
 
+  padding: 20px;
+
   display: flex;
 
   align-items: center;
   justify-content: center;
 
-  padding: 20px;
-
   background:
-    rgba(38, 55, 70, 0.55);
+    rgba(8, 13, 27, .7);
 
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-}
-
-.modal-overlay.hidden {
-  display: none !important;
+  backdrop-filter:
+    blur(6px);
 }
 
 .gift-modal-content {
   position: relative;
 
-  width: min(100%, 430px);
+  width:
+    min(100%, 430px);
 
   max-height: 90vh;
 
   overflow-y: auto;
 
-  padding: 40px 28px 30px;
-
-  background: #fffdf9;
-
-  border: 1px solid #eadfce;
-
-  border-radius: 28px;
+  padding:
+    40px 28px 30px;
 
   text-align: center;
 
+  border:
+    1px solid
+    rgba(184, 137, 47, .5);
+
+  border-radius:
+    28px 6px 28px 6px;
+
+  background: #fffaf0;
+
   box-shadow:
-    0 25px 70px rgba(0, 0, 0, 0.20);
-
-  animation:
-    giftModalIn 0.25s ease;
-}
-
-@keyframes giftModalIn {
-
-  from {
-    opacity: 0;
-
-    transform:
-      translateY(15px)
-      scale(0.97);
-  }
-
-  to {
-    opacity: 1;
-
-    transform:
-      translateY(0)
-      scale(1);
-  }
+    0 25px 70px
+    rgba(0, 0, 0, .3);
 }
 
 .modal-close {
@@ -915,29 +1102,23 @@ legend {
 
   background: transparent;
 
-  color: #263746;
+  color: var(--ink);
 
   font-size: 28px;
 
-  line-height: 1;
-
   cursor: pointer;
-}
-
-.modal-close:hover {
-  background: #f4eee5;
 }
 
 .gift-icon {
   width: 70px;
   height: 70px;
 
-  margin: 0 auto 18px;
+  margin:
+    0 auto 18px;
 
-  display: flex;
+  display: grid;
 
-  align-items: center;
-  justify-content: center;
+  place-items: center;
 
   border-radius: 50%;
 
@@ -946,44 +1127,28 @@ legend {
   font-size: 34px;
 }
 
-.gift-modal-content h2 {
-  margin-top: 8px;
-
-  margin-bottom: 14px;
-}
-
-.gift-intro {
-  line-height: 1.7;
-
-  margin-bottom: 12px;
-}
-
-.gift-subtitle {
-  line-height: 1.7;
-
-  opacity: 0.8;
-}
-
 .gift-list {
+  margin:
+    22px 0;
+
   display: grid;
 
   gap: 10px;
-
-  margin: 22px 0;
 
   text-align: left;
 }
 
 .gift-item {
+  padding: 14px;
+
   display: flex;
 
   align-items: center;
 
   gap: 14px;
 
-  padding: 14px;
-
-  border: 1px solid #eadfce;
+  border:
+    1px solid #eadfce;
 
   border-radius: 14px;
 
@@ -994,12 +1159,12 @@ legend {
   width: 44px;
   height: 44px;
 
-  flex: 0 0 44px;
+  flex:
+    0 0 44px;
 
-  display: flex;
+  display: grid;
 
-  align-items: center;
-  justify-content: center;
+  place-items: center;
 
   border-radius: 50%;
 
@@ -1016,68 +1181,56 @@ legend {
   gap: 3px;
 }
 
-.gift-item-info strong {
-  font-size: 15px;
-}
-
 .gift-item-info span {
+  color: var(--muted);
+
   font-size: 13px;
 
   line-height: 1.4;
-
-  opacity: 0.75;
 }
 
 .online-registry {
-  margin-top: 18px;
-
-  margin-bottom: 12px;
-}
-
-.online-registry.hidden {
-  display: none !important;
-}
-
-body.modal-open {
-  overflow: hidden;
+  margin:
+    18px 0 12px;
 }
 
 
-/* =========================================================
-   GENERAL HIDDEN CLASS
-========================================================= */
-
-.hidden {
-  display: none !important;
-}
-
-
-/* =========================================================
-   TABLET / MOBILE
-========================================================= */
+/* ---------- TABLET ---------- */
 
 @media (max-width: 760px) {
 
   .section {
-    padding: 65px 0;
+    padding:
+      65px 0;
   }
 
-  .detail-grid,
-  .qr-section {
+  .hero {
+    width:
+      calc(100% - 24px);
+
+    min-height:
+      calc(100svh - 24px);
+
+    margin:
+      12px auto;
+
+    border-radius:
+      28px 5px 28px 5px;
+  }
+
+  .countdown,
+  .details,
+  .qr-section,
+  .extras {
+    width:
+      calc(100% - 24px);
+
+    border-radius:
+      24px 5px 24px 5px;
+  }
+
+  .detail-grid {
     grid-template-columns: 1fr;
-  }
-
-  .qr-section {
-    gap: 32px;
-  }
-
-  .qr-card {
-    justify-self: center;
-  }
-
-  .extra-grid {
-    grid-template-columns:
-      repeat(2, 1fr);
   }
 
   .count-grid {
@@ -1085,710 +1238,21 @@ body.modal-open {
       repeat(2, 1fr);
   }
 
-  .hero {
-    min-height: 92svh;
+  .qr-section {
+    grid-template-columns: 1fr;
+
+    gap: 30px;
   }
 
-  .floral {
-    font-size: 2.5rem;
+  .qr-copy {
+    text-align: center;
   }
-}
-
-
-/* =========================================================
-   SMALL MOBILE
-========================================================= */
-
-@media (max-width: 480px) {
-
-  .modal-overlay {
-    padding: 14px;
-  }
-
-  .gift-modal-content {
-    padding:
-      36px 20px 24px;
-
-    border-radius: 24px;
-  }
-
-  .gift-item {
-    padding: 12px;
-  }
-
-  .baby-portrait-wrap {
-    width: 190px;
-  }
-
-  .baby-portrait {
-    width: 165px;
-    height: 165px;
-  }
-
-  .baby-portrait-name {
-    font-size: 17px;
-
-    padding: 6px 18px;
-  }
-
-  .extra {
-    min-height: 100px;
-    padding: 14px 10px;
-  }
-
-  .confirmation {
-    padding: 35px 18px;
-  }
-}
-
-/* =========================================================
-   MAGICAL ACADEMY THEME
-========================================================= */
-
-:root {
-  --ink: #18213b;
-  --muted: #5f5548;
-  --cream: #eee1c6;
-  --paper: #f8efd9;
-  --gold: #b8892f;
-  --line: #c9ad76;
-  --blue: #172442;
-  --pink: #6d1e32;
-  --midnight: #0c1224;
-  --burgundy: #651c31;
-  --parchment: #f3e6c6;
-}
-
-body {
-  position: relative;
-  background:
-    radial-gradient(circle at 15% 10%, rgba(209, 168, 76, .14), transparent 25rem),
-    radial-gradient(circle at 85% 35%, rgba(101, 28, 49, .13), transparent 28rem),
-    linear-gradient(135deg, #0a1020 0%, #172442 48%, #0b1121 100%);
-  background-attachment: fixed;
-  color: var(--ink);
-}
-
-body::before {
-  content: "✦   ·   ✧      ·   ✦     ·      ✧   ·   ✦";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  padding: 5vh 5vw;
-  color: rgba(255, 222, 139, .35);
-  font-size: clamp(1rem, 2vw, 2rem);
-  letter-spacing: clamp(1rem, 5vw, 6rem);
-  line-height: 5;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-h1,
-h2,
-h3,
-.name,
-.count-grid b {
-  font-family: "Cinzel", "Cormorant Garamond", serif;
-  letter-spacing: .015em;
-}
-
-.section {
-  position: relative;
-}
-
-.eyebrow {
-  color: #9b6a18;
-  font-family: "Cinzel", serif;
-  letter-spacing: .25em;
-}
-
-.opening {
-  isolation: isolate;
-  overflow: hidden;
-  background:
-    radial-gradient(circle at center, rgba(255, 218, 128, .18), transparent 28%),
-    linear-gradient(145deg, #080d1b, #1c2948 60%, #501a2c);
-}
-
-.opening::before,
-.opening::after {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  width: 22rem;
-  height: 22rem;
-  border: 1px solid rgba(218, 183, 99, .28);
-  transform: rotate(45deg);
-}
-
-.opening::before { top: -12rem; left: -12rem; }
-.opening::after { right: -12rem; bottom: -12rem; }
-
-.opening-card {
-  width: min(560px, 90vw);
-  padding: clamp(34px, 7vw, 70px);
-  color: #f7ebcf;
-  border: 1px solid rgba(222, 189, 111, .72);
-  border-radius: 26px 6px 26px 6px;
-  background:
-    linear-gradient(rgba(14, 22, 42, .92), rgba(14, 22, 42, .92)) padding-box,
-    linear-gradient(135deg, #e3bd65, #6f3f17, #e5c26e) border-box;
-  box-shadow: 0 25px 80px rgba(0, 0, 0, .48), inset 0 0 50px rgba(209, 168, 76, .06);
-}
-
-.opening-card h1 {
-  color: #e8c66e;
-  text-shadow: 0 2px 18px rgba(229, 191, 96, .24);
-}
-
-.opening-card p,
-.opening-card span { color: #d9ccb2; }
-.tiny-flower { color: #e7c66e; }
-
-.hero {
-  width: min(1180px, 94%);
-  margin: 30px auto;
-  min-height: calc(100svh - 60px);
-  padding-inline: clamp(20px, 7vw, 90px);
-  color: #272318;
-  border: 1px solid rgba(157, 111, 35, .7);
-  border-radius: 44px 8px 44px 8px;
-  background:
-    linear-gradient(rgba(246, 234, 205, .94), rgba(246, 234, 205, .96)),
-    repeating-linear-gradient(0deg, transparent 0 4px, rgba(87, 60, 20, .06) 5px);
-  box-shadow: 0 28px 80px rgba(0, 0, 0, .38), inset 0 0 90px rgba(118, 74, 21, .12);
-}
-
-.hero::before,
-.hero::after {
-  position: absolute;
-  color: rgba(78, 54, 26, .1);
-  font-family: "Cinzel", serif;
-  font-size: clamp(7rem, 18vw, 14rem);
-  line-height: 1;
-  pointer-events: none;
-}
-
-.hero::before { content: "☾"; left: 3%; bottom: 4%; }
-.hero::after { content: "✦"; right: 4%; top: 5%; }
-
-.hero h1 {
-  color: #17213a;
-  text-shadow: 0 2px 0 rgba(255, 255, 255, .6);
-}
-
-.hero em,
-.name { color: #741f35; }
-
-.hero-copy { color: #584f42; }
-
-.date-pill {
-  border-color: #9b6a18;
-  border-radius: 4px 18px 4px 18px;
-  background: rgba(255, 250, 233, .72);
-  box-shadow: 0 7px 20px rgba(81, 54, 17, .1);
-}
-
-.btn {
-  border-radius: 4px 16px 4px 16px;
-  font-family: "Cinzel", serif;
-  letter-spacing: .04em;
-}
-
-.primary {
-  color: #fff2d0;
-  background: linear-gradient(135deg, #111b34, #24385f);
-  border: 1px solid #b88a32;
-  box-shadow: 0 9px 25px rgba(12, 18, 36, .28);
-}
-
-.ghost {
-  color: #17213a;
-  border-color: #17213a;
-  background: rgba(255, 250, 236, .45);
-}
-
-.floral {
-  color: #9b6a18;
-  text-shadow: 0 0 18px rgba(197, 145, 45, .35);
-}
-
-.countdown,
-.details,
-.qr-section,
-.extras {
-  margin-top: 42px;
-  margin-bottom: 42px;
-  padding-inline: clamp(22px, 6vw, 70px);
-  border: 1px solid rgba(184, 137, 47, .52);
-  border-radius: 30px 6px 30px 6px;
-  background:
-    linear-gradient(rgba(248, 239, 217, .97), rgba(248, 239, 217, .97)),
-    repeating-linear-gradient(90deg, rgba(76, 49, 17, .03) 0 1px, transparent 1px 5px);
-  box-shadow: 0 22px 55px rgba(0, 0, 0, .25), inset 0 0 55px rgba(124, 81, 25, .07);
-}
-
-.count-grid div,
-.detail-grid article,
-.extra,
-.qr-card,
-.gift-modal-content {
-  border: 1px solid rgba(157, 111, 35, .34);
-  background: rgba(255, 249, 232, .72);
-  box-shadow: 0 10px 25px rgba(72, 47, 17, .09);
-}
-
-.count-grid div,
-.detail-grid article,
-.extra { border-radius: 18px 4px 18px 4px; }
-
-.detail-grid article > span,
-.extra:first-letter,
-.gift-icon { color: #741f35; }
-
-.text-btn,
-.detail-grid a { color: #651c31; }
-
-footer {
-  color: #d6c6a4;
-  background: rgba(6, 10, 22, .72);
-  border-top: 1px solid rgba(184, 137, 47, .42);
-}
-
-@media (max-width: 760px) {
-  .hero {
-    width: calc(100% - 24px);
-    margin: 12px auto;
-    min-height: calc(100svh - 24px);
-    border-radius: 28px 5px 28px 5px;
-  }
-
-  .countdown,
-  .details,
-  .qr-section,
-  .extras {
-    width: calc(100% - 24px);
-    border-radius: 24px 5px 24px 5px;
-  }
-}
-
-/* =========================================================
-   MARCUS + QR RSVP CARD — CLEAN FINAL VERSION
-========================================================= */
-
-.qr-card.qr-card-with-photo {
-  width: 100%;
-  max-width: 720px;
-  padding: 30px;
-  overflow: hidden;
-
-  border: 1px solid rgba(184, 137, 47, 0.65);
-  border-radius: 28px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #fffaf0,
-      #f7edd4
-    );
-
-  box-shadow:
-    0 18px 45px rgba(41, 29, 12, 0.14);
-}
-
-
-/* =========================================================
-   TWO-COLUMN LAYOUT
-========================================================= */
-
-.qr-photo-layout {
-  display: grid;
-
-  grid-template-columns:
-    minmax(190px, 0.9fr)
-    minmax(220px, 1fr);
-
-  align-items: center;
-
-  gap: 34px;
-}
-
-
-/* =========================================================
-   MARCUS SIDE
-========================================================= */
-
-.qr-marcus-side {
-  position: relative;
-
-  min-width: 0;
-
-  text-align: center;
-}
-
-
-.qr-marcus-image {
-  display: block;
-
-  width: 100%;
-  max-width: 245px;
-
-  height: 260px;
-
-  margin: 0 auto;
-
-  object-fit: contain;
-  object-position: center bottom;
-
-  background: transparent;
-
-  border: 0;
-
-  filter:
-    drop-shadow(
-      0 12px 12px rgba(38, 55, 70, 0.13)
-    );
-}
-
-
-.qr-marcus-text {
-  margin-top: 6px;
-}
-
-
-.qr-marcus-text strong {
-  display: block;
-
-  margin: 0;
-
-  color: #10264a;
-
-  font-family:
-    "Cormorant Garamond",
-    serif;
-
-  font-size: 2.1rem;
-
-  font-weight: 600;
-
-  line-height: 1;
-}
-
-
-.qr-name-divider {
-  width: 210px;
-  max-width: 90%;
-
-  margin: 10px auto 8px;
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 8px;
-
-  color: #c28e31;
-}
-
-
-.qr-name-divider span {
-  flex: 1;
-
-  height: 1px;
-
-  background: #c28e31;
-}
-
-
-.qr-name-divider b {
-  font-size: 0.85rem;
-
-  font-weight: 400;
-}
-
-
-.qr-marcus-text > span {
-  display: block;
-
-  color: #b68129;
-
-  font-family:
-    "Cinzel",
-    serif;
-
-  font-size: 0.65rem;
-
-  font-weight: 700;
-
-  letter-spacing: 0.14em;
-
-  line-height: 1.5;
-
-  text-transform: uppercase;
-}
-
-
-/* =========================================================
-   DECORATIONS
-========================================================= */
-
-.qr-photo-decor {
-  position: absolute;
-
-  inset: 0;
-
-  z-index: -1;
-
-  pointer-events: none;
-}
-
-
-.qr-photo-decor .spark {
-  position: absolute;
-
-  color: #c28e31;
-
-  font-size: 1.4rem;
-}
-
-
-.spark-a {
-  left: 3%;
-  top: 20%;
-}
-
-
-.spark-b {
-  right: 3%;
-  top: 13%;
-}
-
-
-.spark-c {
-  right: 6%;
-  bottom: 35%;
-}
-
-
-.qr-photo-decor .leaf {
-  display: none;
-}
-
-
-/* =========================================================
-   QR SIDE
-========================================================= */
-
-.qr-code-side {
-  width: 100%;
-  min-width: 0;
-
-  display: flex;
-  flex-direction: column;
-
-  align-items: center;
-
-  text-align: center;
-}
-
-
-/* =========================================================
-   QR WHITE FRAME
-========================================================= */
-
-.qr-code-frame {
-  box-sizing: border-box;
-
-  width: 260px;
-  height: 260px;
-
-  max-width: 100%;
-
-  padding: 14px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  overflow: hidden;
-
-  background: #ffffff;
-
-  border: 1px solid #d7aa54;
-
-  border-radius: 14px;
-
-  box-shadow:
-    0 8px 20px rgba(38, 31, 21, 0.08);
-}
-
-
-/* =========================================================
-   GENERATED QR
-========================================================= */
-
-.qr-code-frame #qrcode {
-  box-sizing: border-box;
-
-  width: 100% !important;
-  height: 100% !important;
-
-  min-width: 0 !important;
-  min-height: 0 !important;
-
-  display: flex !important;
-
-  align-items: center !important;
-  justify-content: center !important;
-
-  overflow: hidden !important;
-}
-
-
-.qr-code-frame #qrcode canvas,
-.qr-code-frame #qrcode img {
-  display: block !important;
-
-  width: 100% !important;
-  height: 100% !important;
-
-  max-width: 100% !important;
-  max-height: 100% !important;
-
-  min-width: 0 !important;
-  min-height: 0 !important;
-
-  margin: 0 !important;
-  padding: 0 !important;
-
-  object-fit: contain !important;
-}
-
-
-/* =========================================================
-   SCAN TO RSVP
-========================================================= */
-
-.scan-row {
-  width: 260px;
-  max-width: 100%;
-
-  margin-top: 16px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 9px;
-
-  color: #c28e31;
-}
-
-
-.scan-row > span {
-  flex: 0 0 auto;
-}
-
-
-.scan-title {
-  display: inline-flex !important;
-
-  align-items: center;
-  justify-content: center;
-
-  min-height: 42px;
-
-  margin: 0 !important;
-
-  padding: 8px 22px;
-
-  border-radius: 999px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #dceaf7,
-      #c9dcf1
-    );
-
-  color: #10264a;
-
-  font-family:
-    Inter,
-    sans-serif;
-
-  font-size: 0.95rem;
-
-  font-weight: 800;
-
-  line-height: 1;
-
-  white-space: nowrap;
-}
-
-
-/* =========================================================
-   DOWNLOAD QR
-========================================================= */
-
-.qr-download {
-  margin-top: 11px;
-
-  padding: 6px;
-
-  display: inline-flex;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 6px;
-
-  border: 0;
-
-  background: transparent;
-
-  color: #8b2035;
-
-  font-family:
-    Inter,
-    sans-serif;
-
-  font-size: 0.82rem;
-
-  font-weight: 700;
-
-  cursor: pointer;
-}
-
-
-.qr-download span {
-  font-size: 1.15rem;
-}
-
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media (max-width: 760px) {
 
   .qr-card.qr-card-with-photo {
+    justify-self: center;
+
     max-width: 620px;
-
-    padding: 24px 16px;
   }
-
-
-  .qr-photo-layout {
-    grid-template-columns:
-      minmax(0, 1fr)
-      minmax(0, 1fr);
-
-    gap: 18px;
-  }
-
 
   .qr-marcus-image {
     max-width: 190px;
@@ -1796,50 +1260,50 @@ footer {
     height: 210px;
   }
 
-
-  .qr-code-frame {
-    width: 205px;
-    height: 205px;
-
-    padding: 9px;
-  }
-
-
-  .scan-row {
-    width: 205px;
-  }
-
-
-  .scan-title {
-    min-height: 36px;
-
-    padding: 7px 13px;
-
-    font-size: 0.75rem;
-  }
-
-
   .qr-marcus-text strong {
     font-size: 1.55rem;
   }
 
-
   .qr-marcus-text > span {
-    font-size: 0.52rem;
+    font-size: .52rem;
+  }
+
+  .qr-code-frame {
+    width:
+      min(100%, 205px);
+
+    padding: 9px;
+  }
+
+  .scan-row {
+    width:
+      min(100%, 205px);
+  }
+
+  .scan-title {
+    min-height: 34px;
+
+    padding:
+      7px 12px;
+
+    font-size: .72rem;
+  }
+
+  .extra-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
   }
 }
 
 
-/* =========================================================
-   MOBILE
-========================================================= */
+/* ---------- MOBILE ---------- */
 
 @media (max-width: 480px) {
 
   .qr-card.qr-card-with-photo {
-    padding: 18px 8px;
+    padding:
+      16px 8px;
   }
-
 
   .qr-photo-layout {
     grid-template-columns:
@@ -1849,212 +1313,76 @@ footer {
     gap: 8px;
   }
 
-
   .qr-marcus-image {
     max-width: 135px;
 
     height: 160px;
   }
 
+  .qr-marcus-text strong {
+    font-size: 1.18rem;
+  }
+
+  .qr-name-divider {
+    margin:
+      6px auto 5px;
+  }
+
+  .qr-marcus-text > span {
+    font-size: .4rem;
+
+    letter-spacing: .06em;
+  }
 
   .qr-code-frame {
-    width: 145px;
-    height: 145px;
+    width:
+      min(100%, 145px);
 
-    padding: 7px;
+    padding: 6px;
 
     border-radius: 10px;
   }
 
-
-  .qr-marcus-text strong {
-    font-size: 1.2rem;
-  }
-
-
-  .qr-name-divider {
-    margin: 6px auto 5px;
-  }
-
-
-  .qr-marcus-text > span {
-    font-size: 0.42rem;
-
-    letter-spacing: 0.07em;
-  }
-
-
   .scan-row {
-    width: 145px;
+    width:
+      min(100%, 145px);
 
-    margin-top: 9px;
+    margin-top: 8px;
 
     gap: 4px;
   }
-
 
   .scan-row > span {
     display: none;
   }
 
-
   .scan-title {
     width: 100%;
 
-    min-height: 30px;
+    min-height: 29px;
 
-    padding: 5px 7px;
+    padding:
+      5px 6px;
 
-    font-size: 0.58rem;
+    font-size: .56rem;
   }
-
 
   .qr-download {
-    margin-top: 5px;
+    margin-top: 4px;
 
-    font-size: 0.53rem;
-
-    gap: 3px;
+    font-size: .51rem;
   }
 
+  .extra {
+    min-height: 100px;
 
-  .qr-download span {
-    font-size: 0.8rem;
-  }
-}
-
-/* =========================================================
-   FINAL QR SIZE FIX
-   Keep this at the VERY END of styles.css
-========================================================= */
-
-.qr-code-side {
-  width: 100%;
-  min-width: 0;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-
-/* QR WHITE BOX */
-
-.qr-code-frame {
-  box-sizing: border-box;
-
-  width: 250px;
-  height: 250px;
-
-  padding: 14px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  overflow: hidden;
-
-  background: #ffffff;
-
-  border: 1px solid #d7aa54;
-  border-radius: 14px;
-}
-
-
-/* QR CONTAINER */
-
-.qr-code-frame #qrcode {
-  width: 220px !important;
-  height: 220px !important;
-
-  max-width: 220px !important;
-  max-height: 220px !important;
-
-  display: flex !important;
-
-  align-items: center !important;
-  justify-content: center !important;
-
-  overflow: hidden !important;
-}
-
-
-/* QR GENERATED BY QRCode.js */
-
-.qr-code-frame #qrcode canvas,
-.qr-code-frame #qrcode img {
-  display: block !important;
-
-  width: 220px !important;
-  height: 220px !important;
-
-  max-width: 220px !important;
-  max-height: 220px !important;
-
-  margin: 0 !important;
-  padding: 0 !important;
-
-  object-fit: contain !important;
-}
-
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media (max-width: 760px) {
-
-  .qr-code-frame {
-    width: 220px;
-    height: 220px;
-
-    padding: 10px;
+    padding:
+      14px 10px;
   }
 
-  .qr-code-frame #qrcode,
-  .qr-code-frame #qrcode canvas,
-  .qr-code-frame #qrcode img {
-    width: 198px !important;
-    height: 198px !important;
-
-    max-width: 198px !important;
-    max-height: 198px !important;
-  }
-
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 480px) {
-
-  .qr-code-frame {
-    width: 155px;
-    height: 155px;
-
-    padding: 7px;
-
-    border-radius: 10px;
-  }
-
-  .qr-code-frame #qrcode {
-    width: 139px !important;
-    height: 139px !important;
-
-    max-width: 139px !important;
-    max-height: 139px !important;
-  }
-
-  .qr-code-frame #qrcode canvas,
-  .qr-code-frame #qrcode img {
-    width: 139px !important;
-    height: 139px !important;
-
-    max-width: 139px !important;
-    max-height: 139px !important;
+  .gift-modal-content {
+    padding:
+      36px 20px 24px;
   }
 
 }
