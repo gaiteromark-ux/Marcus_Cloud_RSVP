@@ -51,6 +51,10 @@ const APP_CONFIG = {
       name: "Baby Care",
       description: "Baby care and hygiene products."
     }
-  ]
+ ],
 
+  // Photo Gallery
+  // Paste your shared Google Drive folder link here
+  photoGalleryUrl:
+    "https://drive.google.com/drive/folders/1US1PMHg5F03pwFPquPSyFH6u_lOon9ko?usp=drive_link"
 };
