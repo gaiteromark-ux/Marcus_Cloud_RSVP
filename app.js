@@ -177,7 +177,9 @@ function makeQR() {
           box.querySelector("canvas");
 
         const images =
-          box.querySelectorAll("img");
+          box.querySelectorAll(
+            "img:not(.qr-fallback-image)"
+          );
 
 
         if (canvas) {
@@ -281,6 +283,7 @@ function createFallbackQR(box, url) {
   const img =
     document.createElement("img");
 
+   img.className = "qr-fallback-image";
 
   img.alt =
     "QR code to RSVP";
