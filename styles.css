@@ -1871,3 +1871,61 @@ footer {
   }
 
 }
+
+/* =========================================================
+   FIX QR CODE OVERFLOW
+========================================================= */
+
+.qr-code-frame {
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.qr-code-frame #qrcode {
+  width: 100% !important;
+  height: auto !important;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr-code-frame #qrcode canvas,
+.qr-code-frame #qrcode img {
+  display: block !important;
+
+  width: 100% !important;
+  height: auto !important;
+
+  max-width: 100% !important;
+
+  margin: 0 auto !important;
+
+  object-fit: contain;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 480px) {
+
+  .qr-code-frame {
+    width: 145px;
+    height: auto;
+
+    aspect-ratio: 1 / 1;
+
+    padding: 6px;
+  }
+
+  .qr-code-frame #qrcode {
+    width: 100% !important;
+  }
+
+  .qr-code-frame #qrcode canvas,
+  .qr-code-frame #qrcode img {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+}
