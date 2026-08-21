@@ -542,3 +542,233 @@ document.addEventListener(
 
   }
 );
+
+/* =========================================================
+   GIFT / REGISTRY
+========================================================= */
+
+function openGiftModal() {
+
+  const modal = document.getElementById("giftModal");
+
+  if (!modal) return;
+
+  modal.classList.remove("hidden");
+
+  document.body.classList.add("modal-open");
+
+  loadGiftList();
+}
+
+
+function closeGiftModal() {
+
+  const modal = document.getElementById("giftModal");
+
+  if (!modal) return;
+
+  modal.classList.add("hidden");
+
+  document.body.classList.remove("modal-open");
+}
+
+
+function loadGiftList() {
+
+  const giftList =
+    document.getElementById("giftList");
+
+  const onlineRegistry =
+    document.getElementById("onlineRegistry");
+
+  const registryButton =
+    document.getElementById("giftRegistryButtonOnline");
+
+
+  if (!giftList) return;
+
+
+  /*
+    ========================================================
+    GIFT LIST
+
+    Edit these items whenever you want.
+    ========================================================
+  */
+
+  const gifts = [
+
+    {
+      icon: "👕",
+      name: "Baby Clothes",
+      description:
+        "Clothes for Marcus, size 12–18 months"
+    },
+
+    {
+      icon: "🧸",
+      name: "Toys",
+      description:
+        "Age-appropriate toys and learning toys"
+    },
+
+    {
+      icon: "📚",
+      name: "Baby Books",
+      description:
+        "Story books and educational books"
+    },
+
+    {
+      icon: "🍼",
+      name: "Baby Essentials",
+      description:
+        "Useful everyday items for Marcus"
+    },
+
+    {
+      icon: "💰",
+      name: "Cash Gift",
+      description:
+        "A cash gift is also sincerely appreciated"
+    }
+
+  ];
+
+
+  /*
+    ========================================================
+    CREATE GIFT LIST
+    ========================================================
+  */
+
+  giftList.innerHTML =
+    gifts.map(gift => `
+
+      <div class="gift-item">
+
+        <div class="gift-item-icon">
+          ${gift.icon}
+        </div>
+
+        <div class="gift-item-info">
+
+          <strong>
+            ${gift.name}
+          </strong>
+
+          <span>
+            ${gift.description}
+          </span>
+
+        </div>
+
+      </div>
+
+    `).join("");
+
+
+  /*
+    ========================================================
+    ONLINE REGISTRY
+
+    Uses giftRegistryUrl from config.js
+    ========================================================
+  */
+
+  const registryUrl =
+    APP_CONFIG?.giftRegistryUrl || "";
+
+
+  if (
+    registryUrl &&
+    onlineRegistry &&
+    registryButton
+  ) {
+
+    registryButton.href =
+      registryUrl;
+
+    onlineRegistry.classList.remove(
+      "hidden"
+    );
+
+  } else {
+
+    if (onlineRegistry) {
+
+      onlineRegistry.classList.add(
+        "hidden"
+      );
+
+    }
+
+  }
+
+}
+
+
+/* =========================================================
+   CONTACT ORGANIZER
+========================================================= */
+
+function contactOrganizer() {
+
+  const phone =
+    APP_CONFIG?.organizerPhone || "";
+
+  if (!phone) {
+
+    alert(
+      "Organizer contact number is not configured."
+    );
+
+    return;
+  }
+
+  window.location.href =
+    "tel:" + phone;
+}
+
+
+/* =========================================================
+   CLOSE GIFT POPUP WHEN CLICKING OUTSIDE
+========================================================= */
+
+document.addEventListener(
+  "click",
+  function(event) {
+
+    const modal =
+      document.getElementById("giftModal");
+
+    if (!modal) return;
+
+    if (
+      event.target === modal
+    ) {
+
+      closeGiftModal();
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   ESC KEY CLOSES POPUP
+========================================================= */
+
+document.addEventListener(
+  "keydown",
+  function(event) {
+
+    if (event.key === "Escape") {
+
+      closeGiftModal();
+
+    }
+
+  }
+);
