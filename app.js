@@ -1,7 +1,6 @@
 /* =========================================================
    MARCUS CLOUD GAITERO
-   CHRISTENING & 1ST BIRTHDAY
-   MAIN APP.JS
+   MAIN INVITATION JAVASCRIPT
 ========================================================= */
 
 
@@ -12,16 +11,15 @@
 const opening = document.getElementById("opening");
 
 function closeOpening() {
+  if (opening) {
+    opening.classList.add("closed");
 
-  if (!opening) return;
-
-  opening.classList.add("closed");
-
-  setTimeout(() => {
-    if (opening) {
-      opening.remove();
-    }
-  }, 500);
+    setTimeout(() => {
+      if (opening) {
+        opening.remove();
+      }
+    }, 500);
+  }
 }
 
 
@@ -58,25 +56,19 @@ function countdown() {
 
 
     el.innerHTML = [
-
       ["Days", d],
-
       ["Hours", h],
-
       ["Minutes", m],
-
       ["Seconds", s]
-
     ]
-
       .map(
-        x =>
-          `<div>
-            <b>${String(x[1]).padStart(2, "0")}</b>
-            <span>${x[0]}</span>
-          </div>`
+        item => `
+          <div>
+            <b>${String(item[1]).padStart(2, "0")}</b>
+            <span>${item[0]}</span>
+          </div>
+        `
       )
-
       .join("");
   };
 
@@ -111,34 +103,27 @@ function makeQR() {
 
   if (!box) return;
 
+
   const url =
     rsvpUrl();
+
 
   box.innerHTML = "";
 
 
-  /* -------------------------------------------------------
-     PRIMARY METHOD — QRCode.js
-  ------------------------------------------------------- */
+  /* QRCode.js */
 
   if (typeof QRCode !== "undefined") {
 
     try {
 
       new QRCode(box, {
-
         text: url,
-
         width: 220,
-
         height: 220,
-
         colorDark: "#263746",
-
         colorLight: "#ffffff",
-
         correctLevel: QRCode.C
-
       });
 
 
@@ -153,24 +138,20 @@ function makeQR() {
 
       });
 
+
       return;
 
-    }
-
-    catch (error) {
+    } catch (error) {
 
       console.warn(
-        "QRCode.js failed. Using image fallback.",
+        "QRCode.js failed. Using fallback.",
         error
       );
-
     }
   }
 
 
-  /* -------------------------------------------------------
-     FALLBACK QR IMAGE
-  ------------------------------------------------------- */
+  /* QR fallback */
 
   const img =
     document.createElement("img");
@@ -179,7 +160,6 @@ function makeQR() {
     "QR code to RSVP";
 
   img.width = 220;
-
   img.height = 220;
 
   img.loading = "eager";
@@ -198,7 +178,7 @@ function makeQR() {
 
 
 /* =========================================================
-   DOWNLOAD QR
+   QR DOWNLOAD
 ========================================================= */
 
 function setupQRDownload(getSource) {
@@ -233,7 +213,6 @@ function setupQRDownload(getSource) {
       const a =
         document.createElement("a");
 
-
       a.download =
         "marcus-cloud-rsvp-qr.png";
 
@@ -248,18 +227,17 @@ function setupQRDownload(getSource) {
       a.remove();
 
 
-      setTimeout(
-        () =>
-          URL.revokeObjectURL(objectUrl),
-        1000
-      );
+      setTimeout(() => {
 
-    }
+        URL.revokeObjectURL(objectUrl);
 
-    catch (error) {
+      }, 1000);
+
+
+    } catch (error) {
 
       console.warn(
-        "QR download failed. Opening image instead.",
+        "QR download failed.",
         error
       );
 
@@ -288,19 +266,14 @@ function addCalendar() {
 
 
   const url =
-
     `https://calendar.google.com/calendar/render?action=TEMPLATE` +
-
     `&text=${encodeURIComponent(
       "Marcus Cloud — Christening & 1st Birthday"
     )}` +
-
     `&dates=${start}/${end}` +
-
     `&details=${encodeURIComponent(
       "Christening & Birthday Celebration of Marcus Cloud Gaitero"
     )}` +
-
     `&location=${encodeURIComponent(
       "Our Lady of the Miraculous Medal Parish, Calumpang, Molo, Iloilo City; Reception: Jollibee Molo"
     )}`;
@@ -318,6 +291,31 @@ function addCalendar() {
    CONTACT ORGANIZER
 ========================================================= */
 
+function contactOrganizer() {
+
+  const phone =
+    APP_CONFIG?.organizerPhone || "";
+
+
+  if (!phone) {
+
+    alert(
+      "Organizer contact number is not configured."
+    );
+
+    return;
+  }
+
+
+  window.location.href =
+    "tel:" + phone;
+}
+
+
+/* =========================================================
+   SETUP CONTACT ORGANIZER BUTTONS
+========================================================= */
+
 function setupOrganizerContact() {
 
   const phone =
@@ -331,7 +329,7 @@ function setupOrganizerContact() {
     document.querySelectorAll("a, button");
 
 
-  buttons.forEach((button) => {
+  buttons.forEach(button => {
 
     const text =
       button.textContent
@@ -344,8 +342,8 @@ function setupOrganizerContact() {
     ) {
 
       /*
-        If it is an <a>, set the telephone link.
-      */
+       * If it is an <a>, update its telephone link.
+       */
 
       if (
         button.tagName.toLowerCase() === "a"
@@ -354,22 +352,26 @@ function setupOrganizerContact() {
         button.href =
           "tel:" + phone;
 
-        button.removeAttribute("onclick");
+        button.removeAttribute(
+          "onclick"
+        );
 
       }
 
       /*
-        If it is a <button>, use tel:
-      */
+       * If it is a button, use contactOrganizer().
+       */
 
       else {
 
-        button.onclick = function () {
+        button.onclick =
+          function(event) {
 
-          window.location.href =
-            "tel:" + phone;
+            event.preventDefault();
 
-        };
+            contactOrganizer();
+
+          };
       }
     }
 
@@ -378,7 +380,7 @@ function setupOrganizerContact() {
 
 
 /* =========================================================
-   GIFT / REGISTRY POPUP
+   GIFT / REGISTRY MODAL
 ========================================================= */
 
 function openGiftModal() {
@@ -386,11 +388,18 @@ function openGiftModal() {
   const modal =
     document.getElementById("giftModal");
 
-  if (!modal) return;
+
+  if (!modal) {
+
+    console.error(
+      "Gift modal #giftModal was not found."
+    );
+
+    return;
+  }
 
 
   modal.classList.remove("hidden");
-
 
   document.body.classList.add(
     "modal-open"
@@ -402,7 +411,7 @@ function openGiftModal() {
 
 
 /* =========================================================
-   CLOSE GIFT POPUP
+   CLOSE GIFT MODAL
 ========================================================= */
 
 function closeGiftModal() {
@@ -410,11 +419,11 @@ function closeGiftModal() {
   const modal =
     document.getElementById("giftModal");
 
+
   if (!modal) return;
 
 
   modal.classList.add("hidden");
-
 
   document.body.classList.remove(
     "modal-open"
@@ -448,10 +457,10 @@ function loadGiftList() {
 
 
   /*
-   ----------------------------------------------------------
-   EDIT YOUR GIFT LIST HERE
-   ----------------------------------------------------------
-  */
+   * ========================================================
+   * EDIT YOUR GIFT LIST HERE
+   * ========================================================
+   */
 
   const gifts = [
 
@@ -462,14 +471,12 @@ function loadGiftList() {
         "Clothes for Marcus, size 12–18 months"
     },
 
-
     {
       icon: "🧸",
       name: "Toys",
       description:
         "Age-appropriate toys and learning toys"
     },
-
 
     {
       icon: "📚",
@@ -478,14 +485,12 @@ function loadGiftList() {
         "Story books and educational books"
     },
 
-
     {
       icon: "🍼",
       name: "Baby Essentials",
       description:
         "Useful everyday items for Marcus"
     },
-
 
     {
       icon: "💰",
@@ -497,15 +502,17 @@ function loadGiftList() {
   ];
 
 
-  /* -------------------------------------------------------
-     CREATE GIFT LIST
-  ------------------------------------------------------- */
+  /*
+   * ========================================================
+   * DISPLAY GIFT LIST
+   * ========================================================
+   */
 
   giftList.innerHTML =
     gifts
-      .map(
-        gift => `
+      .map(gift => {
 
+        return `
           <div class="gift-item">
 
             <div class="gift-item-icon">
@@ -525,15 +532,23 @@ function loadGiftList() {
             </div>
 
           </div>
+        `;
 
-        `
-      )
+      })
       .join("");
 
 
-  /* -------------------------------------------------------
-     ONLINE GIFT REGISTRY
-  ------------------------------------------------------- */
+  /*
+   * ========================================================
+   * ONLINE GIFT REGISTRY
+   * ========================================================
+   *
+   * Put your actual registry URL in config.js:
+   *
+   * giftRegistryUrl:
+   * "https://your-registry-link.com"
+   *
+   */
 
   const registryUrl =
     APP_CONFIG?.giftRegistryUrl || "";
@@ -568,87 +583,77 @@ function loadGiftList() {
 
 
 /* =========================================================
-   CONTACT ORGANIZER FROM GIFT POPUP
+   GIFT MODAL - OUTSIDE CLICK
 ========================================================= */
 
-function contactOrganizer() {
+function setupGiftModalOutsideClick() {
 
-  const phone =
-    APP_CONFIG?.organizerPhone || "";
-
-
-  if (!phone) {
-
-    alert(
-      "Organizer contact number is not configured."
-    );
-
-    return;
-  }
+  const modal =
+    document.getElementById("giftModal");
 
 
-  window.location.href =
-    "tel:" + phone;
+  if (!modal) return;
+
+
+  modal.addEventListener(
+    "click",
+    function(event) {
+
+      /*
+       * Only close if the user clicks
+       * the dark overlay itself.
+       */
+
+      if (
+        event.target === modal
+      ) {
+
+        closeGiftModal();
+      }
+
+    }
+  );
 }
 
 
 /* =========================================================
-   CLOSE GIFT POPUP
-   WHEN CLICKING OUTSIDE
+   GIFT MODAL - ESC KEY
 ========================================================= */
 
-document.addEventListener(
-  "click",
-  function (event) {
+function setupGiftModalEscape() {
 
-    const modal =
-      document.getElementById("giftModal");
-
-
-    if (!modal) return;
-
-
-    if (
-      event.target === modal
-    ) {
-
-      closeGiftModal();
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   ESC KEY CLOSES GIFT POPUP
-========================================================= */
-
-document.addEventListener(
-  "keydown",
-  function (event) {
-
-    if (
-      event.key === "Escape"
-    ) {
-
-      const modal =
-        document.getElementById("giftModal");
-
+  document.addEventListener(
+    "keydown",
+    function(event) {
 
       if (
-        modal &&
-        !modal.classList.contains("hidden")
+        event.key === "Escape"
       ) {
 
         closeGiftModal();
-
       }
 
     }
+  );
+}
 
-  }
-);
+
+/* =========================================================
+   MESSENGER
+========================================================= */
+
+function openMessenger() {
+
+  const messengerUrl =
+    "https://www.facebook.com/messages/t/markangelou.gaitero";
+
+
+  window.open(
+    messengerUrl,
+    "_blank",
+    "noopener"
+  );
+}
 
 
 /* =========================================================
@@ -657,7 +662,7 @@ document.addEventListener(
 
 document.addEventListener(
   "DOMContentLoaded",
-  () => {
+  function() {
 
     countdown();
 
@@ -665,14 +670,9 @@ document.addEventListener(
 
     setupOrganizerContact();
 
-    /*
-      IMPORTANT:
+    setupGiftModalOutsideClick();
 
-      Do NOT call closeOpening() here.
-
-      The "Open Invitation" button in index.html
-      already calls closeOpening().
-    */
+    setupGiftModalEscape();
 
   }
 );
