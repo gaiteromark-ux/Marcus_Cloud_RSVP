@@ -1,105 +1,193 @@
-/* =========================================================
-   MARCUS CLOUD INVITATION
-   app.js
-========================================================= */
-
 "use strict";
 
+/* =========================================================
+   MARCUS CLOUD GAITERO
+   CHRISTENING & 1ST BIRTHDAY
+   MAIN WEBSITE JAVASCRIPT
+========================================================= */
+
 
 /* =========================================================
-   OPENING SCREEN
+   1. OPENING SCREEN
 ========================================================= */
 
 function closeOpening() {
 
-  const opening = document.getElementById("opening");
+  const opening =
+    document.getElementById("opening");
 
-  if (!opening) return;
+  if (!opening) {
+    return;
+  }
 
   opening.classList.add("closed");
 
-  setTimeout(() => {
+  setTimeout(function () {
+
     opening.remove();
+
   }, 500);
+
 }
 
 
 /* =========================================================
-   COUNTDOWN
+   2. COUNTDOWN
 ========================================================= */
 
 function countdown() {
 
-  const el = document.getElementById("countdown");
+  const container =
+    document.getElementById("countdown");
 
-  if (!el) return;
+  if (!container) {
+    return;
+  }
+
 
   if (
     typeof APP_CONFIG === "undefined" ||
     !APP_CONFIG.eventDateISO
   ) {
-    console.warn("eventDateISO is not configured.");
+
+    console.warn(
+      "Event date is not configured."
+    );
+
     return;
   }
 
+
   const target =
-    new Date(APP_CONFIG.eventDateISO).getTime();
+    new Date(
+      APP_CONFIG.eventDateISO
+    ).getTime();
+
 
   if (Number.isNaN(target)) {
-    console.error("Invalid eventDateISO.");
+
+    console.warn(
+      "Invalid event date."
+    );
+
     return;
   }
 
 
   function updateCountdown() {
 
-    const difference =
-      Math.max(0, target - Date.now());
+    const now =
+      new Date().getTime();
+
+
+    let distance =
+      target - now;
+
+
+    if (distance < 0) {
+      distance = 0;
+    }
+
 
     const days =
-      Math.floor(difference / 86400000);
+      Math.floor(
+        distance /
+        (1000 * 60 * 60 * 24)
+      );
+
 
     const hours =
-      Math.floor(difference / 3600000) % 24;
+      Math.floor(
+        (
+          distance %
+          (1000 * 60 * 60 * 24)
+        ) /
+        (1000 * 60 * 60)
+      );
+
 
     const minutes =
-      Math.floor(difference / 60000) % 60;
+      Math.floor(
+        (
+          distance %
+          (1000 * 60 * 60)
+        ) /
+        (1000 * 60)
+      );
+
 
     const seconds =
-      Math.floor(difference / 1000) % 60;
+      Math.floor(
+        (
+          distance %
+          (1000 * 60)
+        ) /
+        1000
+      );
 
 
     const values = [
-      ["Days", days],
-      ["Hours", hours],
-      ["Minutes", minutes],
-      ["Seconds", seconds]
+
+      {
+        label: "Days",
+        value: days
+      },
+
+      {
+        label: "Hours",
+        value: hours
+      },
+
+      {
+        label: "Minutes",
+        value: minutes
+      },
+
+      {
+        label: "Seconds",
+        value: seconds
+      }
+
     ];
 
 
-    el.innerHTML = values
-      .map(([label, value]) => {
+    container.innerHTML =
+      values
+        .map(function (item) {
 
-        return `
-          <div>
-            <b>${String(value).padStart(2, "0")}</b>
-            <span>${label}</span>
-          </div>
-        `;
+          return `
+            <div>
 
-      })
-      .join("");
+              <b>
+                ${String(item.value).padStart(2, "0")}
+              </b>
+
+              <span>
+                ${item.label}
+              </span>
+
+            </div>
+          `;
+
+        })
+        .join("");
+
   }
 
 
   updateCountdown();
 
-  setInterval(updateCountdown, 1000);
+
+  setInterval(
+    updateCountdown,
+    1000
+  );
+
 }
 
 
 /* =========================================================
-   RSVP URL
+   3. RSVP PAGE URL
 ========================================================= */
 
 function rsvpUrl() {
@@ -108,11 +196,12 @@ function rsvpUrl() {
     "rsvp.html",
     window.location.href
   ).href;
+
 }
 
 
 /* =========================================================
-   QR CODE
+   4. CREATE QR CODE
 ========================================================= */
 
 let qrCreated = false;
@@ -120,179 +209,219 @@ let qrCreated = false;
 
 function makeQR() {
 
-  const box =
+  const qrContainer =
     document.getElementById("qrcode");
 
-  if (!box) return;
+
+  if (!qrContainer) {
+    return;
+  }
 
 
   /*
-    Prevent QR generation more than once.
-    This fixes duplicate QR codes.
+    Prevent duplicate QR codes.
   */
 
-  if (qrCreated) return;
+  if (qrCreated) {
+    return;
+  }
+
 
   qrCreated = true;
 
 
-  const url = rsvpUrl();
-
-  box.innerHTML = "";
+  qrContainer.innerHTML = "";
 
 
-  /* -----------------------------------------------------
-     QRCode.js
-  ----------------------------------------------------- */
+  const url =
+    rsvpUrl();
 
-  if (typeof QRCode !== "undefined") {
+
+  /*
+    Try QRCode.js first.
+  */
+
+  if (
+    typeof QRCode !== "undefined"
+  ) {
 
     try {
 
-      new QRCode(box, {
+      new QRCode(
+        qrContainer,
+        {
 
-        text: url,
+          text: url,
 
-        width: 240,
-        height: 240,
+          width: 240,
 
-        colorDark: "#10264a",
-        colorLight: "#ffffff",
+          height: 240,
 
-        correctLevel: QRCode.C
-      });
+          colorDark:
+            "#1d2f46",
+
+          colorLight:
+            "#ffffff",
+
+          correctLevel:
+            QRCode.CorrectLevel.H
+
+        }
+      );
 
 
       /*
-        QRCode.js can sometimes create BOTH:
-        <canvas>
-        <img>
+        QRCode.js sometimes creates BOTH:
 
-        Keep only one.
+        canvas
+        img
+
+        We only keep one so the QR
+        does not appear twice.
       */
 
-      setTimeout(() => {
+      setTimeout(
+        function () {
 
-        const canvas =
-          box.querySelector("canvas");
-
-        const images =
-          box.querySelectorAll(
-            "img:not(.qr-fallback-image)"
-          );
+          const canvas =
+            qrContainer.querySelector(
+              "canvas"
+            );
 
 
-        if (canvas) {
-
-          /*
-            Keep the canvas and remove generated images.
-          */
-
-          images.forEach((img) => {
-            img.remove();
-          });
+          const generatedImages =
+            qrContainer.querySelectorAll(
+              "img:not(.qr-fallback-image)"
+            );
 
 
-          canvas.style.display = "block";
-          canvas.style.width = "100%";
-          canvas.style.height = "100%";
-          canvas.style.maxWidth = "240px";
-          canvas.style.maxHeight = "240px";
+          if (canvas) {
+
+            generatedImages.forEach(
+              function (image) {
+
+                image.remove();
+
+              }
+            );
 
 
-          setupQRDownload(() => {
-
-            try {
-
-              return canvas.toDataURL(
-                "image/png"
-              );
-
-            } catch (error) {
-
-              console.error(
-                "Unable to export QR canvas:",
-                error
-              );
-
-              return null;
-            }
-
-          });
-
-        } else {
-
-          /*
-            If browser generated only an image,
-            keep the first image.
-          */
-
-          const img =
-            box.querySelector("img");
-
-
-          if (img) {
-
-            img.style.display = "block";
-            img.style.width = "100%";
-            img.style.height = "100%";
-            img.style.maxWidth = "240px";
-            img.style.maxHeight = "240px";
+            canvas.style.display =
+              "block";
 
 
             setupQRDownload(
-              () => img.src
+              function () {
+
+                try {
+
+                  return canvas.toDataURL(
+                    "image/png"
+                  );
+
+                } catch (error) {
+
+                  return null;
+
+                }
+
+              }
+            );
+
+
+          } else {
+
+            const image =
+              qrContainer.querySelector(
+                "img"
+              );
+
+
+            setupQRDownload(
+              function () {
+
+                if (image) {
+
+                  return image.src;
+
+                }
+
+                return null;
+
+              }
             );
 
           }
 
-        }
-
-      }, 100);
+        },
+        150
+      );
 
 
       return;
 
+
     } catch (error) {
 
       console.warn(
-        "QRCode.js failed. Using fallback.",
+        "QRCode.js failed.",
         error
       );
+
     }
+
   }
 
 
-  /* -----------------------------------------------------
-     FALLBACK QR
-  ----------------------------------------------------- */
+  /*
+    If QRCode.js did not load,
+    use an online QR fallback.
+  */
 
-  createFallbackQR(box, url);
+  createFallbackQR(
+    qrContainer,
+    url
+  );
+
 }
 
 
 /* =========================================================
-   QR FALLBACK
+   5. QR FALLBACK
 ========================================================= */
 
-function createFallbackQR(box, url) {
+function createFallbackQR(
+  qrContainer,
+  url
+) {
 
-  box.innerHTML = "";
+  qrContainer.innerHTML =
+    "";
 
 
-  const img =
-    document.createElement("img");
+  const image =
+    document.createElement(
+      "img"
+    );
 
-   img.className = "qr-fallback-image";
 
-  img.alt =
+  image.className =
+    "qr-fallback-image";
+
+
+  image.alt =
     "QR code to RSVP";
 
-  img.width = 240;
-  img.height = 240;
+
+  image.width =
+    240;
 
 
-  img.src =
+  image.height =
+    240;
+
+
+  image.src =
     "https://api.qrserver.com/v1/create-qr-code/" +
     "?size=500x500" +
     "&margin=12" +
@@ -300,162 +429,608 @@ function createFallbackQR(box, url) {
     encodeURIComponent(url);
 
 
-  img.style.display = "block";
-  img.style.width = "100%";
-  img.style.height = "100%";
-  img.style.maxWidth = "240px";
-  img.style.maxHeight = "240px";
-
-
-  box.appendChild(img);
+  qrContainer.appendChild(
+    image
+  );
 
 
   setupQRDownload(
-    () => img.src
+    function () {
+
+      return image.src;
+
+    }
   );
+
 }
 
 
 /* =========================================================
-   DOWNLOAD QR
+   6. DOWNLOAD QR CODE
 ========================================================= */
 
-function setupQRDownload(getSource) {
+function setupQRDownload(
+  getSource
+) {
 
   const button =
-    document.getElementById("downloadQR");
-
-  if (!button) return;
-
-
-  /*
-    Replace onclick so the handler
-    cannot accidentally be attached twice.
-  */
-
-  button.onclick = async function () {
-
-    const source = getSource();
-
-    if (!source) {
-
-      alert(
-        "The QR code is not ready yet."
-      );
-
-      return;
-    }
+    document.getElementById(
+      "downloadQR"
+    );
 
 
-    try {
+  if (!button) {
+    return;
+  }
+
+
+  button.onclick =
+    async function () {
+
+
+      const source =
+        getSource();
+
+
+      if (!source) {
+
+        alert(
+          "The QR code is not ready yet."
+        );
+
+        return;
+
+      }
+
 
       /*
-        Data URL from canvas.
+        QR created from canvas.
       */
 
       if (
-        source.startsWith("data:image/")
+        source.startsWith(
+          "data:image/"
+        )
       ) {
 
         const link =
-          document.createElement("a");
+          document.createElement(
+            "a"
+          );
+
+
+        link.href =
+          source;
+
 
         link.download =
           "marcus-cloud-rsvp-qr.png";
 
-        link.href = source;
 
-        document.body.appendChild(link);
+        document.body.appendChild(
+          link
+        );
+
 
         link.click();
 
+
         link.remove();
 
+
         return;
+
       }
 
 
       /*
-        Remote image.
+        QR created from external image.
       */
 
-      const response =
-        await fetch(source);
+      try {
+
+        const response =
+          await fetch(source);
 
 
-      if (!response.ok) {
+        if (!response.ok) {
 
-        throw new Error(
-          "Unable to download QR."
+          throw new Error(
+            "QR download failed."
+          );
+
+        }
+
+
+        const blob =
+          await response.blob();
+
+
+        const objectUrl =
+          URL.createObjectURL(
+            blob
+          );
+
+
+        const link =
+          document.createElement(
+            "a"
+          );
+
+
+        link.href =
+          objectUrl;
+
+
+        link.download =
+          "marcus-cloud-rsvp-qr.png";
+
+
+        document.body.appendChild(
+          link
         );
+
+
+        link.click();
+
+
+        link.remove();
+
+
+        setTimeout(
+          function () {
+
+            URL.revokeObjectURL(
+              objectUrl
+            );
+
+          },
+          1000
+        );
+
+
+      } catch (error) {
+
+        /*
+          If browser blocks direct
+          download, open the QR instead.
+        */
+
+        window.open(
+          source,
+          "_blank",
+          "noopener"
+        );
+
       }
 
+    };
 
-      const blob =
-        await response.blob();
-
-
-      const objectUrl =
-        URL.createObjectURL(blob);
-
-
-      const link =
-        document.createElement("a");
-
-
-      link.download =
-        "marcus-cloud-rsvp-qr.png";
-
-      link.href =
-        objectUrl;
-
-
-      document.body.appendChild(link);
-
-      link.click();
-
-      link.remove();
-
-
-      setTimeout(() => {
-
-        URL.revokeObjectURL(
-          objectUrl
-        );
-
-      }, 1000);
-
-
-    } catch (error) {
-
-      console.warn(
-        "Direct QR download failed.",
-        error
-      );
-
-
-      /*
-        Browser fallback.
-      */
-
-      window.open(
-        source,
-        "_blank",
-        "noopener"
-      );
-    }
-  };
 }
 
 
 /* =========================================================
-   ADD TO GOOGLE CALENDAR
+   7. LOAD CURRENT EVENT SETTINGS
+   FROM GOOGLE APPS SCRIPT
+
+   THIS IS WHAT MAKES THE UPDATED VENUE
+   APPEAR ON THE PUBLIC INVITATION.
+========================================================= */
+
+async function loadEventSettings() {
+
+  /*
+    Accept either configuration name
+    so it also works with older config.js.
+  */
+
+  let webAppUrl =
+    "";
+
+
+  if (
+    typeof APP_CONFIG !==
+    "undefined"
+  ) {
+
+    webAppUrl =
+      APP_CONFIG
+        .APPS_SCRIPT_WEB_APP_URL ||
+
+      APP_CONFIG
+        .webAppUrl ||
+
+      "";
+
+  }
+
+
+  if (!webAppUrl) {
+
+    console.warn(
+      "Google Apps Script Web App URL is missing from config.js."
+    );
+
+    return;
+
+  }
+
+
+  try {
+
+    const response =
+      await fetch(
+        webAppUrl,
+        {
+
+          method: "POST",
+
+          redirect: "follow",
+
+          headers: {
+
+            "Content-Type":
+              "text/plain;charset=utf-8"
+
+          },
+
+          body:
+            JSON.stringify(
+              {
+
+                action:
+                  "publicSettings"
+
+              }
+            )
+
+        }
+      );
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        "Server returned HTTP " +
+        response.status
+      );
+
+    }
+
+
+    const text =
+      await response.text();
+
+
+    let result;
+
+
+    try {
+
+      result =
+        JSON.parse(text);
+
+    } catch (error) {
+
+      throw new Error(
+        "Apps Script did not return valid JSON."
+      );
+
+    }
+
+
+    if (!result.ok) {
+
+      throw new Error(
+        result.message ||
+        "Unable to load event settings."
+      );
+
+    }
+
+
+    applyPublicSettings(
+      result.settings || {}
+    );
+
+
+    console.log(
+      "Latest event settings loaded."
+    );
+
+
+  } catch (error) {
+
+    console.error(
+      "Failed to load current event settings:",
+      error
+    );
+
+
+    /*
+      IMPORTANT:
+
+      If Apps Script cannot be reached,
+      the fallback details already written
+      in index.html remain visible.
+    */
+
+  }
+
+}
+
+
+/* =========================================================
+   8. APPLY EVENT SETTINGS TO INVITATION
+========================================================= */
+
+function applyPublicSettings(
+  settings
+) {
+
+
+  /* EVENT DATE */
+
+  setText(
+    "eventDateText",
+    settings["Event Date"]
+  );
+
+
+  setText(
+    "eventDateTextDetail",
+    settings["Event Date"]
+  );
+
+
+  /* EVENT TIME */
+
+  setText(
+    "eventTimeText",
+    settings["Event Time"]
+  );
+
+
+  setText(
+    "eventTimeTextDetail",
+    settings["Event Time"]
+  );
+
+
+  /* CHURCH */
+
+  setText(
+    "churchName",
+    settings["Church"]
+  );
+
+
+  setText(
+    "churchAddress",
+    settings["Church Address"]
+  );
+
+
+  /* BIRTHDAY */
+
+  setText(
+    "birthdayTheme",
+    settings["Birthday Theme"]
+  );
+
+
+  /* RECEPTION */
+
+  setText(
+    "receptionVenue",
+    settings["Reception Venue"]
+  );
+
+
+  setText(
+    "receptionAddress",
+    settings["Reception Address"]
+  );
+
+
+  /* DRESS CODE */
+
+  setText(
+    "dressCode",
+    settings["Dress Code"]
+  );
+
+
+  /*
+    Automatically update the
+    Reception Google Maps link.
+  */
+
+  updateReceptionMapLink(
+    settings
+  );
+
+
+  /*
+    Automatically update the
+    Church Google Maps link.
+  */
+
+  updateChurchMapLink(
+    settings
+  );
+
+}
+
+
+/* =========================================================
+   9. HELPER — CHANGE TEXT
+========================================================= */
+
+function setText(
+  elementId,
+  value
+) {
+
+  if (
+    value === undefined ||
+    value === null ||
+    String(value).trim() === ""
+  ) {
+
+    return;
+
+  }
+
+
+  const element =
+    document.getElementById(
+      elementId
+    );
+
+
+  if (!element) {
+
+    return;
+
+  }
+
+
+  element.textContent =
+    String(value).trim();
+
+}
+
+
+/* =========================================================
+   10. RECEPTION GOOGLE MAPS LINK
+========================================================= */
+
+function updateReceptionMapLink(
+  settings
+) {
+
+  const link =
+    document.getElementById(
+      "receptionMapLink"
+    );
+
+
+  if (!link) {
+    return;
+  }
+
+
+  const venue =
+    String(
+      settings[
+        "Reception Venue"
+      ] || ""
+    ).trim();
+
+
+  const address =
+    String(
+      settings[
+        "Reception Address"
+      ] || ""
+    ).trim();
+
+
+  const query =
+    [
+      venue,
+      address
+    ]
+      .filter(Boolean)
+      .join(", ");
+
+
+  if (!query) {
+    return;
+  }
+
+
+  link.href =
+    "https://www.google.com/maps/search/" +
+    "?api=1" +
+    "&query=" +
+    encodeURIComponent(query);
+
+}
+
+
+/* =========================================================
+   11. CHURCH GOOGLE MAPS LINK
+========================================================= */
+
+function updateChurchMapLink(
+  settings
+) {
+
+  const link =
+    document.getElementById(
+      "churchMapLink"
+    );
+
+
+  if (!link) {
+    return;
+  }
+
+
+  const church =
+    String(
+      settings["Church"] || ""
+    ).trim();
+
+
+  const address =
+    String(
+      settings[
+        "Church Address"
+      ] || ""
+    ).trim();
+
+
+  const query =
+    [
+      church,
+      address
+    ]
+      .filter(Boolean)
+      .join(", ");
+
+
+  if (!query) {
+    return;
+  }
+
+
+  link.href =
+    "https://www.google.com/maps/search/" +
+    "?api=1" +
+    "&query=" +
+    encodeURIComponent(query);
+
+}
+
+
+/* =========================================================
+   12. ADD TO GOOGLE CALENDAR
 ========================================================= */
 
 function addCalendar() {
 
+  /*
+    September 29, 2026
+    11:00 AM Philippines
+    = 03:00 UTC
+  */
+
   const start =
     "20260929T030000Z";
+
 
   const end =
     "20260929T050000Z";
@@ -466,13 +1041,11 @@ function addCalendar() {
 
 
   const details =
-    "Christening & Birthday Celebration";
+    "Please join us for Marcus Cloud's Christening & 1st Birthday Celebration.";
 
 
   const location =
-    "Our Lady of the Miraculous Medal Parish, " +
-    "Calumpang, Molo, Iloilo City; " +
-    "Reception: Jollibee Molo";
+    "Our Lady of the Miraculous Medal Parish, Calumpang, Molo, Iloilo City";
 
 
   const url =
@@ -481,18 +1054,26 @@ function addCalendar() {
     "?action=TEMPLATE" +
 
     "&text=" +
-    encodeURIComponent(title) +
+    encodeURIComponent(
+      title
+    ) +
 
     "&dates=" +
     encodeURIComponent(
-      start + "/" + end
+      start +
+      "/" +
+      end
     ) +
 
     "&details=" +
-    encodeURIComponent(details) +
+    encodeURIComponent(
+      details
+    ) +
 
     "&location=" +
-    encodeURIComponent(location);
+    encodeURIComponent(
+      location
+    );
 
 
   window.open(
@@ -500,93 +1081,267 @@ function addCalendar() {
     "_blank",
     "noopener"
   );
+
 }
 
 
 /* =========================================================
-   CONTACT ORGANIZER
+   13. CONTACT ORGANIZER
 ========================================================= */
 
 function contactOrganizer() {
 
-  const phone =
-    typeof APP_CONFIG !== "undefined"
-      ? APP_CONFIG.organizerPhone
-      : "";
+  let phone =
+    "+639647544914";
 
 
-  if (!phone) {
+  if (
+    typeof APP_CONFIG !==
+    "undefined" &&
+    APP_CONFIG.organizerPhone
+  ) {
 
-    alert(
-      "Organizer contact number is not configured."
-    );
+    phone =
+      APP_CONFIG.organizerPhone;
 
-    return;
   }
 
 
   window.location.href =
     "tel:" + phone;
+
 }
 
 
 /* =========================================================
-   ORGANIZER BUTTONS
+   14. SETUP CONTACT LINKS
 ========================================================= */
 
 function setupOrganizerContact() {
 
+  let phone =
+    "+639647544914";
+
+
   if (
-    typeof APP_CONFIG === "undefined"
+    typeof APP_CONFIG !==
+    "undefined" &&
+    APP_CONFIG.organizerPhone
   ) {
-    return;
+
+    phone =
+      APP_CONFIG.organizerPhone;
+
   }
 
 
-  const phone =
-    APP_CONFIG.organizerPhone;
-
-
-  if (!phone) return;
-
-
-  const elements =
+  const links =
     document.querySelectorAll(
-      "a, button"
+      "[data-contact-organizer]"
     );
 
 
-  elements.forEach((element) => {
+  links.forEach(
+    function (link) {
 
-    const text =
-      element.textContent
-        .trim()
-        .toLowerCase();
-
-
-    if (
-      !text.includes(
-        "contact organizer"
-      )
-    ) {
-      return;
-    }
-
-
-    if (
-      element.tagName.toLowerCase() ===
-      "a"
-    ) {
-
-      element.href =
+      link.href =
         "tel:" + phone;
+
     }
-  });
+  );
+
 }
 
 
 /* =========================================================
-   GIFT / REGISTRY MODAL
+   15. GIFT LIST
+========================================================= */
+
+const DEFAULT_GIFT_LIST = [
+
+  {
+    icon: "👕",
+    name: "Clothes",
+    description:
+      "Comfy outfits and cute little essentials"
+  },
+
+  {
+    icon: "🧸",
+    name: "Toys",
+    description:
+      "Educational and age-appropriate toys"
+  },
+
+  {
+    icon: "📚",
+    name: "Books",
+    description:
+      "Storybooks and learning books"
+  },
+
+  {
+    icon: "🍼",
+    name: "Baby Essentials",
+    description:
+      "Useful everyday items for Marcus"
+  },
+
+  {
+    icon: "💌",
+    name: "Monetary Gift",
+    description:
+      "A little blessing for Marcus' future"
+  }
+
+];
+
+
+/* =========================================================
+   16. RENDER GIFT LIST
+========================================================= */
+
+function renderGiftList() {
+
+  const container =
+    document.getElementById(
+      "giftList"
+    );
+
+
+  if (!container) {
+    return;
+  }
+
+
+  let gifts =
+    DEFAULT_GIFT_LIST;
+
+
+  /*
+    If config.js has a custom gift list,
+    use that instead.
+  */
+
+  if (
+    typeof APP_CONFIG !==
+      "undefined" &&
+
+    Array.isArray(
+      APP_CONFIG.giftList
+    ) &&
+
+    APP_CONFIG.giftList.length
+  ) {
+
+    gifts =
+      APP_CONFIG.giftList;
+
+  }
+
+
+  container.innerHTML =
+    "";
+
+
+  gifts.forEach(
+    function (gift) {
+
+      const item =
+        document.createElement(
+          "div"
+        );
+
+
+      item.className =
+        "gift-item";
+
+
+      const icon =
+        document.createElement(
+          "div"
+        );
+
+
+      icon.className =
+        "gift-item-icon";
+
+
+      icon.textContent =
+        gift.icon ||
+        "🎁";
+
+
+      const information =
+        document.createElement(
+          "div"
+        );
+
+
+      information.className =
+        "gift-item-info";
+
+
+      const title =
+        document.createElement(
+          "strong"
+        );
+
+
+      title.textContent =
+        gift.name ||
+        "Gift";
+
+
+      const description =
+        document.createElement(
+          "span"
+        );
+
+
+      description.textContent =
+        gift.description ||
+        "";
+
+
+      information.appendChild(
+        title
+      );
+
+
+      if (
+        gift.description
+      ) {
+
+        information.appendChild(
+          description
+        );
+
+      }
+
+
+      item.appendChild(
+        icon
+      );
+
+
+      item.appendChild(
+        information
+      );
+
+
+      container.appendChild(
+        item
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   17. OPEN GIFT MODAL
 ========================================================= */
 
 function openGiftModal() {
@@ -598,18 +1353,14 @@ function openGiftModal() {
 
 
   if (!modal) {
-
-    console.error(
-      "giftModal was not found."
-    );
-
     return;
   }
 
 
   renderGiftList();
 
-  setupOnlineRegistry();
+
+  setupGiftRegistry();
 
 
   modal.classList.remove(
@@ -620,11 +1371,12 @@ function openGiftModal() {
   document.body.classList.add(
     "modal-open"
   );
+
 }
 
 
 /* =========================================================
-   CLOSE GIFT MODAL
+   18. CLOSE GIFT MODAL
 ========================================================= */
 
 function closeGiftModal() {
@@ -635,7 +1387,9 @@ function closeGiftModal() {
     );
 
 
-  if (!modal) return;
+  if (!modal) {
+    return;
+  }
 
 
   modal.classList.add(
@@ -646,114 +1400,15 @@ function closeGiftModal() {
   document.body.classList.remove(
     "modal-open"
   );
+
 }
 
 
 /* =========================================================
-   RENDER GIFT LIST
+   19. ONLINE GIFT REGISTRY
 ========================================================= */
 
-function renderGiftList() {
-
-  const container =
-    document.getElementById(
-      "giftList"
-    );
-
-
-  if (!container) return;
-
-
-  container.innerHTML = "";
-
-
-  const gifts =
-    typeof APP_CONFIG !== "undefined" &&
-    Array.isArray(APP_CONFIG.giftList)
-
-      ? APP_CONFIG.giftList
-
-      : [];
-
-
-  if (!gifts.length) {
-
-    container.innerHTML = `
-      <p class="gift-empty">
-        Gift suggestions will be added soon.
-      </p>
-    `;
-
-    return;
-  }
-
-
-  gifts.forEach((gift) => {
-
-    const item =
-      document.createElement("div");
-
-
-    item.className =
-      "gift-item";
-
-
-    const icon =
-      document.createElement("div");
-
-    icon.className =
-      "gift-item-icon";
-
-    icon.textContent =
-      gift.icon || "🎁";
-
-
-    const info =
-      document.createElement("div");
-
-    info.className =
-      "gift-item-info";
-
-
-    const name =
-      document.createElement("strong");
-
-    name.textContent =
-      gift.name || "Gift";
-
-
-    const description =
-      document.createElement("p");
-
-    description.textContent =
-      gift.description || "";
-
-
-    info.appendChild(name);
-
-    if (gift.description) {
-
-      info.appendChild(
-        description
-      );
-    }
-
-
-    item.appendChild(icon);
-
-    item.appendChild(info);
-
-
-    container.appendChild(item);
-  });
-}
-
-
-/* =========================================================
-   ONLINE GIFT REGISTRY
-========================================================= */
-
-function setupOnlineRegistry() {
+function setupGiftRegistry() {
 
   const wrapper =
     document.getElementById(
@@ -771,75 +1426,66 @@ function setupOnlineRegistry() {
     !wrapper ||
     !button
   ) {
+
     return;
+
   }
 
 
-  const url =
-    typeof APP_CONFIG !== "undefined"
-      ? String(
-          APP_CONFIG.giftRegistryUrl || ""
-        ).trim()
-      : "";
+  let registryUrl =
+    "";
 
 
-  if (!url) {
+  if (
+    typeof APP_CONFIG !==
+    "undefined"
+  ) {
+
+    registryUrl =
+      String(
+        APP_CONFIG
+          .giftRegistryUrl ||
+        ""
+      ).trim();
+
+  }
+
+
+  /*
+    Hide Online Registry button
+    if no URL is configured.
+  */
+
+  if (!registryUrl) {
 
     wrapper.classList.add(
       "hidden"
     );
 
+
     button.removeAttribute(
       "href"
     );
 
+
     return;
+
   }
 
 
-  button.href = url;
+  button.href =
+    registryUrl;
 
 
   wrapper.classList.remove(
     "hidden"
   );
+
 }
 
 
 /* =========================================================
-   PHOTO GALLERY
-========================================================= */
-
-function openPhotoGallery() {
-
-  const galleryUrl =
-    typeof APP_CONFIG !== "undefined"
-      ? String(
-          APP_CONFIG.photoGalleryUrl || ""
-        ).trim()
-      : "";
-
-
-  if (!galleryUrl) {
-
-    alert(
-      "The photo gallery is not available yet."
-    );
-
-    return;
-  }
-
-
-  window.open(
-    galleryUrl,
-    "_blank",
-    "noopener"
-  );
-}
-
-
-/* =========================================================
-   MODAL EVENTS
+   20. GIFT MODAL EVENTS
 ========================================================= */
 
 function setupGiftModalEvents() {
@@ -850,12 +1496,14 @@ function setupGiftModalEvents() {
     );
 
 
-  if (!modal) return;
+  if (!modal) {
+    return;
+  }
 
 
   /*
-    Close when clicking outside
-    the modal card.
+    Click outside the popup
+    to close it.
   */
 
   modal.addEventListener(
@@ -867,13 +1515,15 @@ function setupGiftModalEvents() {
       ) {
 
         closeGiftModal();
+
       }
+
     }
   );
 
 
   /*
-    ESC key closes modal.
+    ESC key closes popup.
   */
 
   document.addEventListener(
@@ -881,34 +1531,118 @@ function setupGiftModalEvents() {
     function (event) {
 
       if (
-        event.key === "Escape" &&
+        event.key ===
+          "Escape" &&
+
         !modal.classList.contains(
           "hidden"
         )
       ) {
 
         closeGiftModal();
+
       }
+
     }
   );
+
 }
 
 
 /* =========================================================
-   INITIALIZE PAGE
+   21. PHOTO GALLERY
+========================================================= */
+
+function openPhotoGallery() {
+
+  let galleryUrl =
+    "";
+
+
+  if (
+    typeof APP_CONFIG !==
+    "undefined"
+  ) {
+
+    galleryUrl =
+      String(
+        APP_CONFIG
+          .photoGalleryUrl ||
+        ""
+      ).trim();
+
+  }
+
+
+  if (!galleryUrl) {
+
+    alert(
+      "The photo gallery is not available yet."
+    );
+
+    return;
+
+  }
+
+
+  window.open(
+    galleryUrl,
+    "_blank",
+    "noopener"
+  );
+
+}
+
+
+/* =========================================================
+   22. START WEBSITE
 ========================================================= */
 
 document.addEventListener(
   "DOMContentLoaded",
   function () {
 
+    /*
+      Countdown
+    */
+
     countdown();
+
+
+    /*
+      QR Code
+    */
 
     makeQR();
 
+
+    /*
+      Organizer contact
+    */
+
     setupOrganizerContact();
 
+
+    /*
+      Gift popup
+    */
+
     setupGiftModalEvents();
+
+
+    /*
+      IMPORTANT:
+
+      Get the latest venue/address
+      from the Event Settings sheet.
+
+      This means when the organizer
+      changes the reception venue from
+      the dashboard, the public
+      invitation updates automatically.
+    */
+
+    loadEventSettings();
 
   }
 );
