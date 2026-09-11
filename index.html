@@ -12,7 +12,7 @@
 
   <meta
     name="theme-color"
-    content="#10162a"
+    content="#fbf4e4"
   >
 
   <title>
@@ -37,15 +37,18 @@
 
   <link
     rel="stylesheet"
-    href="styles.css?v=80"
+    href="styles.css?v=81"
   >
 
 </head>
 
+
 <body>
 
 
-  <!-- OPENING -->
+  <!-- =====================================================
+       OPENING SCREEN
+  ====================================================== -->
 
   <div
     class="opening"
@@ -83,10 +86,16 @@
   </div>
 
 
+  <!-- =====================================================
+       MAIN INVITATION
+  ====================================================== -->
+
   <main>
 
 
-    <!-- HERO -->
+    <!-- ===================================================
+         HERO
+    ==================================================== -->
 
     <section class="hero section">
 
@@ -105,7 +114,10 @@
       <h1>
         Christening &
         <br>
-        <em>Birthday Celebration</em>
+
+        <em>
+          Birthday Celebration
+        </em>
       </h1>
 
       <div class="name">
@@ -120,10 +132,19 @@
       </p>
 
       <div class="date-pill">
-        <span id="eventDateText">September 29, 2026</span>
+
+        <span id="eventDateText">
+          September 29, 2026
+        </span>
+
         ·
-        <span id="eventTimeText">11:00 AM</span>
+
+        <span id="eventTimeText">
+          11:00 AM
+        </span>
+
       </div>
+
 
       <div class="actions">
 
@@ -146,7 +167,9 @@
     </section>
 
 
-    <!-- COUNTDOWN -->
+    <!-- ===================================================
+         COUNTDOWN
+    ==================================================== -->
 
     <section class="countdown section">
 
@@ -162,7 +185,9 @@
     </section>
 
 
-    <!-- DETAILS -->
+    <!-- ===================================================
+         EVENT DETAILS
+    ==================================================== -->
 
     <section
       id="details"
@@ -174,32 +199,52 @@
       </p>
 
       <h2>
-        A precious milestone
+        A Precious Milestone
       </h2>
+
 
       <div class="detail-grid">
 
+
+        <!-- ===============================================
+             CHRISTENING
+        ================================================ -->
+
         <article>
 
-          <span>✝</span>
+          <span>
+            ✝
+          </span>
 
           <h3>
             Christening
           </h3>
 
+
           <p>
-            <span id="eventDateTextDetail">September 29, 2026</span>
+
+            <span id="eventDateTextDetail">
+              September 29, 2026
+            </span>
+
             <br>
-            <span id="eventTimeTextDetail">11:00 AM</span>
+
+            <span id="eventTimeTextDetail">
+              11:00 AM
+            </span>
+
           </p>
+
 
           <strong id="churchName">
             Our Lady of the Miraculous Medal Parish
           </strong>
 
+
           <small id="churchAddress">
             Calumpang, Molo, Iloilo City
           </small>
+
 
           <a
             id="churchMapLink"
@@ -210,32 +255,72 @@
             📍 View Location
           </a>
 
+
+          <!-- GODPARENT NOTE -->
+
+          <div class="godparent-note">
+
+            <strong>
+              Important Note for Godparents
+            </strong>
+
+            <p>
+              If you will be one of Marcus Cloud’s
+              godparents, please arrive by
+              <b>10:00 AM</b>, as there will be a
+              baptism seminar before the ceremony.
+            </p>
+
+          </div>
+
         </article>
 
 
+        <!-- ===============================================
+             1ST BIRTHDAY / RECEPTION
+        ================================================ -->
+
         <article>
 
-          <span>🎂</span>
+          <span>
+            🎂
+          </span>
 
           <h3>
             1st Birthday
           </h3>
 
+
           <p>
+
             Birthday Theme
+
             <br>
+
             <strong id="birthdayTheme">
               JolliTown Carnival
             </strong>
+
           </p>
+
+
+          <!--
+            The venue and address below are fallback values.
+
+            app.js automatically replaces them with the
+            latest Reception Venue and Reception Address
+            stored in your Google Sheet.
+          -->
 
           <strong id="receptionVenue">
             Jollibee Molo
           </strong>
 
+
           <small id="receptionAddress">
             Avanceña St, Molo, Iloilo City
           </small>
+
 
           <a
             id="receptionMapLink"
@@ -249,17 +334,25 @@
         </article>
 
 
+        <!-- ===============================================
+             DRESS CODE
+        ================================================ -->
+
         <article>
 
-          <span>🤍</span>
+          <span>
+            🤍
+          </span>
 
           <h3>
             Dress Code
           </h3>
 
+
           <p id="dressCode">
             Presentable
           </p>
+
 
           <small>
             Come dressed comfortably and
@@ -268,14 +361,18 @@
 
         </article>
 
+
       </div>
 
     </section>
 
 
-    <!-- QR RSVP -->
+    <!-- ===================================================
+         QR RSVP
+    ==================================================== -->
 
     <section class="qr-section section">
+
 
       <div class="qr-copy">
 
@@ -307,7 +404,9 @@
         <div class="qr-photo-layout">
 
 
-          <!-- MARCUS -->
+          <!-- =============================================
+               MARCUS PHOTO
+          ============================================== -->
 
           <div class="qr-marcus-side">
 
@@ -315,10 +414,21 @@
               class="qr-photo-decor"
               aria-hidden="true"
             >
-              <span class="spark spark-a">✦</span>
-              <span class="spark spark-b">✧</span>
-              <span class="spark spark-c">✦</span>
+
+              <span class="spark spark-a">
+                ✦
+              </span>
+
+              <span class="spark spark-b">
+                ✧
+              </span>
+
+              <span class="spark spark-c">
+                ✦
+              </span>
+
             </div>
+
 
             <img
               src="images/marcus-qr.png?v=4"
@@ -326,20 +436,29 @@
               class="qr-marcus-image"
             >
 
+
             <div class="qr-marcus-text">
 
               <strong>
                 Marcus Cloud
               </strong>
 
+
               <div
                 class="qr-name-divider"
                 aria-hidden="true"
               >
+
                 <span></span>
-                <b>✦</b>
+
+                <b>
+                  ✦
+                </b>
+
                 <span></span>
+
               </div>
+
 
               <span>
                 Christening &amp; 1st Birthday
@@ -350,15 +469,21 @@
           </div>
 
 
-          <!-- QR -->
+          <!-- =============================================
+               QR CODE
+          ============================================== -->
 
           <div class="qr-code-side">
 
             <div class="qr-code-frame">
 
-              <div id="qrcode"></div>
+              <div
+                id="qrcode"
+                aria-label="QR code to RSVP"
+              ></div>
 
             </div>
+
 
             <div class="scan-row">
 
@@ -376,16 +501,19 @@
 
             </div>
 
+
             <button
               class="text-btn qr-download"
               id="downloadQR"
               type="button"
             >
+
               <span aria-hidden="true">
                 ⇩
               </span>
 
               Download QR as PNG
+
             </button>
 
           </div>
@@ -398,29 +526,50 @@
     </section>
 
 
-    <!-- EXTRA BUTTONS -->
+    <!-- ===================================================
+         EXTRA OPTIONS
+    ==================================================== -->
 
     <section class="section extras">
 
       <div class="extra-grid">
+
+
+        <!-- CALENDAR -->
 
         <button
           class="extra"
           type="button"
           onclick="addCalendar()"
         >
+
           📅
-          <span>Add to Calendar</span>
+
+          <span>
+            Add to Calendar
+          </span>
+
         </button>
+
+
+        <!-- CONTACT -->
 
         <a
           class="extra"
           href="tel:+639647544914"
           data-contact-organizer
         >
+
           📞
-          <span>Contact Organizer</span>
+
+          <span>
+            Contact Organizer
+          </span>
+
         </a>
+
+
+        <!-- MESSENGER -->
 
         <a
           class="extra"
@@ -428,9 +577,17 @@
           target="_blank"
           rel="noopener"
         >
+
           💬
-          <span>Messenger</span>
+
+          <span>
+            Messenger
+          </span>
+
         </a>
+
+
+        <!-- GIFT -->
 
         <button
           class="extra"
@@ -438,9 +595,17 @@
           type="button"
           onclick="openGiftModal()"
         >
+
           🎁
-          <span>Gift / Registry</span>
+
+          <span>
+            Gift / Registry
+          </span>
+
         </button>
+
+
+        <!-- PHOTO GALLERY -->
 
         <button
           class="extra"
@@ -448,16 +613,24 @@
           type="button"
           onclick="openPhotoGallery()"
         >
+
           📸
-          <span>Photo Gallery</span>
+
+          <span>
+            Photo Gallery
+          </span>
+
         </button>
+
 
       </div>
 
     </section>
 
 
-    <!-- FOOTER -->
+    <!-- ===================================================
+         FOOTER
+    ==================================================== -->
 
     <footer>
 
@@ -466,17 +639,21 @@
       </p>
 
       <small>
-        Your information will be used only for event registration
-        and guest coordination. We will not sell or share your
-        personal information for marketing purposes.
+        Your information will be used only for event
+        registration and guest coordination. We will not
+        sell or share your personal information for
+        marketing purposes.
       </small>
 
     </footer>
 
+
   </main>
 
 
-  <!-- GIFT MODAL -->
+  <!-- =====================================================
+       GIFT / REGISTRY MODAL
+  ====================================================== -->
 
   <div
     id="giftModal"
@@ -484,6 +661,7 @@
   >
 
     <div class="gift-modal-content">
+
 
       <button
         class="modal-close"
@@ -494,32 +672,42 @@
         ×
       </button>
 
+
       <div class="gift-icon">
         🎁
       </div>
+
 
       <p class="eyebrow">
         A LITTLE SOMETHING FOR MARCUS
       </p>
 
+
       <h2>
         Gift List
       </h2>
 
+
       <p class="gift-intro">
-        Your presence is already the greatest gift to Marcus
-        and our family. 🤍
+        Your presence is already the greatest gift
+        to Marcus and our family. 🤍
       </p>
 
+
       <p class="gift-subtitle">
-        If you would like to bless Marcus with something special,
-        here are a few gift ideas we would appreciate.
+        If you would like to bless Marcus with
+        something special, here are a few gift ideas
+        we would appreciate.
       </p>
+
 
       <div
         id="giftList"
         class="gift-list"
       ></div>
+
+
+      <!-- ONLINE REGISTRY -->
 
       <div
         id="onlineRegistry"
@@ -538,6 +726,7 @@
 
       </div>
 
+
       <button
         class="btn ghost full"
         type="button"
@@ -546,12 +735,15 @@
         📞 Contact Organizer
       </button>
 
+
     </div>
 
   </div>
 
 
-  <!-- QR LIBRARY -->
+  <!-- =====================================================
+       QR CODE LIBRARY
+  ====================================================== -->
 
   <script
     src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"
@@ -564,10 +756,19 @@
   ></script>
 
 
-  <!-- APP FILES -->
+  <!-- =====================================================
+       CONFIGURATION
+  ====================================================== -->
 
-  <script src="config.js?v=80"></script>
-  <script src="app.js?v=80"></script>
+  <script src="config.js?v=81"></script>
+
+
+  <!-- =====================================================
+       MAIN JAVASCRIPT
+  ====================================================== -->
+
+  <script src="app.js?v=81"></script>
+
 
 </body>
 
