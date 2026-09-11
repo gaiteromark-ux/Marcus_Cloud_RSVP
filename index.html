@@ -37,7 +37,7 @@
 
   <link
     rel="stylesheet"
-    href="styles.css?v=60"
+    href="styles.css?v=80"
   >
 
 </head>
@@ -120,7 +120,9 @@
       </p>
 
       <div class="date-pill">
-        September 29, 2026 · 11:00 AM
+        <span id="eventDateText">September 29, 2026</span>
+        ·
+        <span id="eventTimeText">11:00 AM</span>
       </div>
 
       <div class="actions">
@@ -186,20 +188,21 @@
           </h3>
 
           <p>
-            September 29, 2026
+            <span id="eventDateTextDetail">September 29, 2026</span>
             <br>
-            11:00 AM
+            <span id="eventTimeTextDetail">11:00 AM</span>
           </p>
 
-          <strong>
+          <strong id="churchName">
             Our Lady of the Miraculous Medal Parish
           </strong>
 
-          <small>
+          <small id="churchAddress">
             Calumpang, Molo, Iloilo City
           </small>
 
           <a
+            id="churchMapLink"
             href="https://www.google.com/maps/search/?api=1&query=Our+Lady+of+the+Miraculous+Medal+Parish+Calumpang+Molo+Iloilo+City"
             target="_blank"
             rel="noopener"
@@ -221,20 +224,21 @@
           <p>
             Birthday Theme
             <br>
-            <strong>
+            <strong id="birthdayTheme">
               JolliTown Carnival
             </strong>
           </p>
 
-          <strong>
+          <strong id="receptionVenue">
             Jollibee Molo
           </strong>
 
-          <small>
+          <small id="receptionAddress">
             Avanceña St, Molo, Iloilo City
           </small>
 
           <a
+            id="receptionMapLink"
             href="https://www.google.com/maps/search/?api=1&query=Jollibee+Molo+Iloilo+City"
             target="_blank"
             rel="noopener"
@@ -253,7 +257,7 @@
             Dress Code
           </h3>
 
-          <p>
+          <p id="dressCode">
             Presentable
           </p>
 
@@ -317,7 +321,7 @@
             </div>
 
             <img
-              src="images/marcus-qr.png?v=3"
+              src="images/marcus-qr.png?v=4"
               alt="Marcus Cloud"
               class="qr-marcus-image"
             >
@@ -562,8 +566,8 @@
 
   <!-- APP FILES -->
 
-  <script src="config.js?v=41"></script>
-  <script src="app.js?v=41"></script>
+  <script src="config.js?v=80"></script>
+  <script src="app.js?v=80"></script>
 
 </body>
 
