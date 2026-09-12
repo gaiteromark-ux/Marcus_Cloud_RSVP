@@ -1,16 +1,22 @@
 "use strict";
 
+/* =========================================================
+   MARCUS CLOUD GAITERO
+   INVITATION & RSVP CONFIGURATION
+========================================================= */
+
 const APP_CONFIG = {
+
 
   /* =====================================================
      GOOGLE APPS SCRIPT WEB APP
   ====================================================== */
 
   webAppUrl:
-    "https://script.google.com/macros/s/AKfycbxXLwXLZyxApBxPIzIS4JeDSfvTDbUk7Hyol18egG4F2y_RdH00GTfTE-g-zALiOQ_lVQ/exec",
+    "https://script.google.com/macros/s/AKfycbyKYTZoPJqJselnj55UAVkv05heA0MQRrp9IeDv9HbOR5IES41c81nTqk7QC8HbKT2I3Q/exec",
 
   APPS_SCRIPT_WEB_APP_URL:
-    "https://script.google.com/macros/s/AKfycbxXLwXLZyxApBxPIzIS4JeDSfvTDbUk7Hyol18egG4F2y_RdH00GTfTE-g-zALiOQ_lVQ/exec",
+    "https://script.google.com/macros/s/AKfycbyKYTZoPJqJselnj55UAVkv05heA0MQRrp9IeDv9HbOR5IES41c81nTqk7QC8HbKT2I3Q/exec",
 
 
   /* =====================================================
@@ -22,7 +28,9 @@ const APP_CONFIG = {
 
 
   /* =====================================================
-     MAIN EVENT DATE
+     EVENT DATE
+     September 29, 2026
+     Christening: 11:00 AM
   ====================================================== */
 
   eventDateISO:
@@ -47,9 +55,10 @@ const APP_CONFIG = {
 
   /* =====================================================
      GIFT REGISTRY
-     Leave blank if you have no online registry yet.
+     Leave blank until you have an online registry.
   ====================================================== */
 
   giftRegistryUrl:
     ""
+
 };
