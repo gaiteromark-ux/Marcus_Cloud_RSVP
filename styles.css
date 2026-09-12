@@ -1764,3 +1764,611 @@ footer small {
     font-size: 0.43rem;
   }
 }
+
+
+/* =========================================================
+   RSVP PAGE — COMPLETE STYLING
+========================================================= */
+
+.form-shell {
+  width: min(760px, calc(100% - 28px));
+  margin: 28px auto;
+  padding: 40px 0 60px;
+}
+
+.form-shell.section {
+  background: #f8efd9;
+  border: 1px solid rgba(184, 137, 47, 0.5);
+  border-radius: 30px 7px 30px 7px;
+  box-shadow: 0 18px 48px rgba(15, 18, 30, 0.18);
+  padding: 42px 36px;
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: 18px;
+  color: #9b6a18;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.form-shell h1 {
+  margin: 8px 0 12px;
+  color: #18213b;
+  font-size: clamp(3rem, 8vw, 5.2rem);
+}
+
+.form-shell > p {
+  color: #665c4d;
+}
+
+.rsvp-form {
+  margin-top: 28px;
+  padding: 30px;
+  border: 1px solid rgba(184, 137, 47, 0.4);
+  border-radius: 24px 6px 24px 6px;
+  background: #fffaf0;
+  box-shadow: 0 10px 28px rgba(52, 35, 14, 0.08);
+}
+
+.rsvp-form > label {
+  display: block;
+  margin-bottom: 18px;
+  color: #18213b;
+  font-weight: 700;
+}
+
+.rsvp-form input[type="text"],
+.rsvp-form input[type="email"],
+.rsvp-form input[type="tel"],
+.rsvp-form input[type="number"],
+.rsvp-form input:not([type]),
+.rsvp-form textarea {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 7px;
+  padding: 13px 14px;
+  border: 1px solid rgba(157, 111, 35, 0.35);
+  border-radius: 12px;
+  outline: none;
+  background: #fff;
+  color: #18213b;
+  font-family: Inter, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.rsvp-form input:focus,
+.rsvp-form textarea:focus {
+  border-color: #b8892f;
+  box-shadow: 0 0 0 3px rgba(184, 137, 47, 0.14);
+}
+
+.rsvp-form textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.rsvp-form fieldset {
+  min-width: 0;
+  margin: 24px 0;
+  padding: 20px;
+  border: 1px solid rgba(157, 111, 35, 0.3);
+  border-radius: 16px;
+  background: #f9f0df;
+}
+
+.rsvp-form legend {
+  padding: 0 8px;
+  color: #18213b;
+  font-weight: 700;
+}
+
+.rsvp-form .choice {
+  display: flex !important;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 12px 0;
+  color: #18213b;
+  font-weight: 500 !important;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.rsvp-form .choice input[type="radio"] {
+  appearance: auto;
+  width: 18px !important;
+  height: 18px !important;
+  flex: 0 0 18px;
+  margin: 2px 0 0 !important;
+  padding: 0;
+  accent-color: #18213b;
+}
+
+.privacy {
+  margin: 22px 0 18px;
+  padding: 14px 16px;
+  border: 1px solid rgba(184, 137, 47, 0.24);
+  border-radius: 14px;
+  background: #f5ead4;
+  color: #665c4d;
+  font-size: 0.8rem;
+  line-height: 1.55;
+}
+
+.rsvp-form .btn.full {
+  width: 100%;
+  min-height: 48px;
+  margin-top: 4px;
+  font-size: 0.9rem;
+}
+
+.rsvp-form button:disabled {
+  opacity: .65;
+  cursor: not-allowed;
+}
+
+.status {
+  min-height: 1.4em;
+  margin: 14px 0 0;
+  font-size: .88rem;
+  line-height: 1.45;
+}
+
+.status.error,
+.error {
+  color: #a43131;
+}
+
+.confirmation {
+  margin-top: 28px;
+  padding: 36px 28px;
+  text-align: center;
+  border: 1px solid rgba(184, 137, 47, 0.4);
+  border-radius: 24px 6px 24px 6px;
+  background: #fffaf0;
+  box-shadow: 0 10px 28px rgba(52, 35, 14, 0.08);
+}
+
+.success-icon {
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 18px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #e4f0e5;
+  color: #42734a;
+  font-size: 1.7rem;
+}
+
+.confirmation h2 { color: #18213b; }
+.confirmation > p { color: #665c4d; }
+
+.event-summary {
+  margin: 22px 0;
+  padding: 18px;
+  display: grid;
+  gap: 6px;
+  border-radius: 16px;
+  background: #f5ead4;
+  color: #18213b;
+}
+
+.godparent-thanks {
+  padding: 14px;
+  border-radius: 14px;
+  background: #fff3ed;
+  color: #7a2037;
+}
+
+.hidden { display: none !important; }
+
+@media (max-width: 760px) {
+  .form-shell {
+    width: calc(100% - 20px);
+    margin: 12px auto;
+  }
+
+  .form-shell.section { padding: 32px 20px; }
+
+  .form-shell h1 {
+    font-size: clamp(2.8rem, 14vw, 4.2rem);
+  }
+
+  .rsvp-form { padding: 24px 18px; }
+  .rsvp-form fieldset { padding: 16px; }
+}
+
+@media (max-width: 480px) {
+  .form-shell { width: calc(100% - 12px); }
+
+  .form-shell.section {
+    padding: 26px 14px;
+    border-radius: 22px 5px 22px 5px;
+  }
+
+  .form-shell h1 {
+    font-size: clamp(2.5rem, 16vw, 3.6rem);
+  }
+
+  .form-shell > p { font-size: .92rem; }
+
+  .rsvp-form {
+    margin-top: 20px;
+    padding: 20px 14px;
+    border-radius: 18px 5px 18px 5px;
+  }
+
+  .rsvp-form > label {
+    margin-bottom: 16px;
+    font-size: .88rem;
+  }
+
+  .rsvp-form input[type="text"],
+  .rsvp-form input[type="email"],
+  .rsvp-form input[type="tel"],
+  .rsvp-form input[type="number"],
+  .rsvp-form input:not([type]),
+  .rsvp-form textarea {
+    padding: 12px;
+    font-size: 16px;
+  }
+
+  .rsvp-form fieldset {
+    margin: 20px 0;
+    padding: 14px 12px;
+  }
+
+  .rsvp-form legend { font-size: .88rem; }
+  .rsvp-form .choice { font-size: .84rem; }
+  .privacy { font-size: .73rem; }
+  .confirmation { padding: 28px 16px; }
+}
+
+
+/* =========================================================
+   LIGHT CELEBRATION THEME
+   Beige + Cream + Sky Blue
+   Final visual override
+========================================================= */
+
+:root {
+  --ink: #1d2f46;
+  --muted: #6f746f;
+  --cream: #fbf4e4;
+  --paper: #fffdf8;
+  --beige: #eadfc6;
+  --sky: #d7eaf4;
+  --gold: #c49a4b;
+  --gold-dark: #9a6d23;
+  --line: #e2d3b5;
+  --burgundy: #7b2e43;
+  --navy: #1c3553;
+  --navy-2: #31597a;
+  --success: #3f7550;
+  --danger: #a23b3b;
+}
+
+/* PAGE */
+
+body {
+  color: var(--ink);
+
+  background:
+    radial-gradient(
+      circle at 12% 8%,
+      rgba(255, 255, 255, 0.92),
+      transparent 26rem
+    ),
+    radial-gradient(
+      circle at 88% 35%,
+      rgba(215, 234, 244, 0.68),
+      transparent 28rem
+    ),
+    linear-gradient(
+      135deg,
+      #f8f1e1 0%,
+      #efe3c8 52%,
+      #d8ebf5 100%
+    );
+
+  background-attachment: fixed;
+}
+
+/* OPENING */
+
+.opening {
+  background:
+    radial-gradient(
+      circle at 18% 18%,
+      rgba(255, 255, 255, 0.9),
+      transparent 22rem
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(215, 234, 244, 0.82),
+      transparent 24rem
+    ),
+    linear-gradient(
+      145deg,
+      #fffaf0,
+      #f3e7ce 58%,
+      #dcecf5
+    );
+}
+
+.opening-card {
+  color: var(--ink);
+
+  border: 1px solid rgba(196, 154, 75, 0.58);
+
+  background:
+    rgba(255, 253, 248, 0.88);
+
+  box-shadow:
+    0 24px 65px rgba(49, 62, 70, 0.16);
+}
+
+.opening-card h1 {
+  color: var(--navy);
+}
+
+.opening-card p,
+.opening-card span {
+  color: var(--muted);
+}
+
+.tiny-flower {
+  color: var(--gold);
+}
+
+/* MAIN CARDS */
+
+.hero,
+.countdown,
+.details,
+.qr-section,
+.extras,
+.form-shell.section {
+  color: var(--ink);
+
+  border-color:
+    rgba(196, 154, 75, 0.42);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 253, 248, 0.97),
+      rgba(251, 244, 228, 0.97) 58%,
+      rgba(224, 239, 247, 0.9)
+    );
+
+  box-shadow:
+    0 20px 55px rgba(49, 62, 70, 0.13);
+}
+
+.hero h1,
+.details h2,
+.qr-copy h2,
+.form-shell h1 {
+  color: var(--navy);
+}
+
+.hero em,
+.name {
+  color: var(--burgundy);
+}
+
+.hero-copy,
+.qr-copy p,
+.form-shell > p {
+  color: var(--muted);
+}
+
+.eyebrow {
+  color: var(--gold-dark);
+}
+
+.date-pill {
+  border-color: var(--gold);
+
+  background:
+    rgba(255, 253, 248, 0.9);
+}
+
+/* BUTTONS */
+
+.primary {
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      135deg,
+      #31597a,
+      #1c3553
+    );
+
+  border-color: #c49a4b;
+
+  box-shadow:
+    0 9px 24px rgba(49, 89, 122, 0.22);
+}
+
+.ghost {
+  color: var(--navy);
+
+  border-color: var(--navy);
+
+  background:
+    rgba(255, 253, 248, 0.72);
+}
+
+/* COUNTDOWN / DETAIL / EXTRAS */
+
+.count-grid div,
+.detail-grid article,
+.extra,
+.rsvp-form,
+.confirmation,
+.gift-modal-content {
+  border-color:
+    rgba(196, 154, 75, 0.28);
+
+  background:
+    rgba(255, 253, 248, 0.9);
+
+  box-shadow:
+    0 10px 28px rgba(49, 62, 70, 0.09);
+}
+
+.count-grid b,
+.detail-grid h3,
+.detail-grid strong,
+.extra {
+  color: var(--navy);
+}
+
+.detail-grid p,
+.detail-grid small {
+  color: var(--muted);
+}
+
+.detail-grid a {
+  color: var(--burgundy);
+}
+
+/* QR CARD */
+
+.qr-card.qr-card-with-photo {
+  border-color:
+    rgba(196, 154, 75, 0.48);
+
+  background:
+    linear-gradient(
+      145deg,
+      #fffdf8,
+      #fbf4e4 58%,
+      #e7f2f8
+    );
+
+  box-shadow:
+    0 16px 38px rgba(49, 62, 70, 0.12);
+}
+
+.qr-code-frame {
+  background: #ffffff;
+
+  border-color: var(--gold-soft, #d8b56b);
+}
+
+.scan-title {
+  color: var(--navy);
+
+  background:
+    linear-gradient(
+      90deg,
+      #e6f2f8,
+      #d1e8f4
+    );
+}
+
+.qr-download {
+  color: var(--burgundy);
+}
+
+/* RSVP */
+
+.rsvp-form fieldset {
+  border-color:
+    rgba(196, 154, 75, 0.28);
+
+  background:
+    #fbf4e4;
+}
+
+.rsvp-form input[type="text"],
+.rsvp-form input[type="email"],
+.rsvp-form input[type="tel"],
+.rsvp-form input[type="number"],
+.rsvp-form input:not([type]),
+.rsvp-form textarea {
+  color: var(--ink);
+
+  border-color:
+    rgba(196, 154, 75, 0.32);
+
+  background:
+    #ffffff;
+}
+
+.rsvp-form input:focus,
+.rsvp-form textarea:focus {
+  border-color: var(--gold);
+
+  box-shadow:
+    0 0 0 3px rgba(196, 154, 75, 0.13);
+}
+
+.privacy,
+.event-summary {
+  color: var(--muted);
+
+  background:
+    #f7efdf;
+}
+
+/* GIFT */
+
+.modal-overlay {
+  background:
+    rgba(29, 47, 70, 0.42);
+}
+
+.gift-icon,
+.gift-item-icon {
+  background:
+    #eef6fa;
+}
+
+.gift-item {
+  border-color:
+    rgba(196, 154, 75, 0.24);
+
+  background:
+    #fffdf8;
+}
+
+/* FOOTER */
+
+footer {
+  color: #596979;
+
+  background:
+    rgba(230, 242, 248, 0.88);
+
+  border-top:
+    1px solid rgba(196, 154, 75, 0.38);
+}
+
+/* MOBILE */
+
+@media (max-width: 760px) {
+  body {
+    background:
+      linear-gradient(
+        180deg,
+        #fbf4e4 0%,
+        #f1e7d3 52%,
+        #dcecf5 100%
+      );
+  }
+
+  .section {
+    box-shadow:
+      0 12px 30px rgba(49, 62, 70, 0.10);
+  }
+}
