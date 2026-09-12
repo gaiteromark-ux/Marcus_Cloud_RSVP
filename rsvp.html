@@ -1,5 +1,4 @@
 <!doctype html>
-
 <html lang="en">
 
 <head>
@@ -8,18 +7,20 @@
 
   <meta
     name="viewport"
-    content="width=device-width,initial-scale=1"
+    content="width=device-width, initial-scale=1"
   >
 
   <meta
     name="theme-color"
-    content="#f7f1e8"
+    content="#fbf4e4"
   >
 
   <title>
     RSVP — Marcus Cloud Gaitero
   </title>
 
+
+  <!-- GOOGLE FONTS -->
 
   <link
     rel="preconnect"
@@ -33,14 +34,16 @@
   >
 
   <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
     rel="stylesheet"
   >
 
 
+  <!-- MAIN STYLES -->
+
   <link
     rel="stylesheet"
-    href="styles.css?v=95"
+    href="styles.css?v=101"
   >
 
 </head>
@@ -54,6 +57,8 @@
   <section class="form-shell section">
 
 
+    <!-- BACK -->
+
     <a
       class="back"
       href="index.html"
@@ -62,17 +67,17 @@
     </a>
 
 
+    <!-- PAGE HEADING -->
+
     <p class="eyebrow">
       Marcus Cloud Gaitero
     </p>
-
 
     <h1>
       RSVP
     </h1>
 
-
-    <p>
+    <p class="rsvp-intro">
       We would be delighted to celebrate with you.
     </p>
 
@@ -84,31 +89,40 @@
     <form
       id="rsvpForm"
       class="rsvp-form"
+      novalidate
     >
 
+
+      <!-- FULL NAME -->
 
       <label>
 
         Full Name *
 
         <input
+          type="text"
           name="fullName"
           required
           minlength="2"
           autocomplete="name"
+          placeholder="Enter your full name"
         >
 
       </label>
 
+
+      <!-- CONTACT -->
 
       <label>
 
         Contact Number *
 
         <input
+          type="tel"
           name="contactNumber"
           required
           inputmode="tel"
+          autocomplete="tel"
           pattern="^[0-9+() .-]{7,20}$"
           placeholder="+63 9XX XXX XXXX"
         >
@@ -116,27 +130,32 @@
       </label>
 
 
+      <!-- EMAIL -->
+
       <label>
 
         Email Address *
 
         <input
-          name="email"
           type="email"
+          name="email"
           required
           autocomplete="email"
+          placeholder="you@example.com"
         >
 
       </label>
 
+
+      <!-- NUMBER OF GUESTS -->
 
       <label>
 
         Number of Guests *
 
         <input
-          name="numberOfGuests"
           type="number"
+          name="numberOfGuests"
           required
           min="1"
           max="50"
@@ -164,7 +183,9 @@
             required
           >
 
-          Yes, I will attend
+          <span>
+            Yes, I will attend
+          </span>
 
         </label>
 
@@ -177,7 +198,9 @@
             value="Sorry, I cannot attend"
           >
 
-          Sorry, I cannot attend
+          <span>
+            Sorry, I cannot attend
+          </span>
 
         </label>
 
@@ -202,7 +225,9 @@
             required
           >
 
-          Yes, I would be honored!
+          <span>
+            Yes, I would be honored!
+          </span>
 
         </label>
 
@@ -215,7 +240,9 @@
             value="I’m sorry, I cannot"
           >
 
-          I’m sorry, I cannot
+          <span>
+            I’m sorry, I cannot
+          </span>
 
         </label>
 
@@ -228,7 +255,9 @@
             value="I’d like to discuss it with the parents"
           >
 
-          I’d like to discuss it with the parents
+          <span>
+            I’d like to discuss it with the parents
+          </span>
 
         </label>
 
@@ -251,15 +280,18 @@
       </label>
 
 
+      <!-- PRIVACY -->
+
       <div class="privacy">
 
-        🔒 Your information will be used only for
-        event registration and guest coordination.
-        We will not sell or share your personal
-        information for marketing purposes.
+        🔒 Your information will be used only for event registration
+        and guest coordination. We will not sell or share your
+        personal information for marketing purposes.
 
       </div>
 
+
+      <!-- SUBMIT -->
 
       <button
         class="btn primary full"
@@ -273,6 +305,7 @@
       <p
         id="formStatus"
         class="status"
+        aria-live="polite"
       ></p>
 
 
@@ -280,7 +313,7 @@
 
 
     <!-- ===================================================
-         CONFIRMATION
+         SUCCESS CONFIRMATION
     ==================================================== -->
 
     <section
@@ -289,27 +322,30 @@
     >
 
 
-      <div class="baby-portrait-wrap">
+      <!-- MARCUS PHOTO -->
 
+      <div class="baby-portrait-wrap">
 
         <div
           class="baby-portrait-decor decor-left"
+          aria-hidden="true"
         >
-          ✿
+          ✦
         </div>
 
 
         <div
           class="baby-portrait-decor decor-right"
+          aria-hidden="true"
         >
-          ✦
+          ✧
         </div>
 
 
         <div class="baby-portrait">
 
           <img
-            src="images/marcus-rsvp.png"
+            src="images/marcus-rsvp.png?v=2"
             alt="Marcus Cloud Gaitero"
           >
 
@@ -320,73 +356,117 @@
           Marcus Cloud
         </div>
 
-
       </div>
 
 
-      <div class="success-icon">
+      <!-- SUCCESS ICON -->
+
+      <div
+        class="success-icon"
+        aria-hidden="true"
+      >
         ✓
       </div>
 
 
       <p class="eyebrow">
-        RSVP received
+        RSVP RECEIVED
       </p>
 
 
-      <h2>
+      <!-- THANK YOU -->
+
+      <h2 class="confirmation-title">
 
         Thank You,
-
         <span id="guestName"></span>!
 
       </h2>
 
 
-      <p>
+      <p class="confirmation-message">
 
         Your RSVP has been successfully received.
         We are excited to celebrate this special
-        Christening & Birthday with you!
+        Christening &amp; Birthday with you!
 
       </p>
 
 
+      <!-- EVENT DETAILS -->
+
       <div class="event-summary">
 
-        <strong id="confirmationEventDate">
-          September 29, 2026
-        </strong>
+
+        <div class="summary-row">
+
+          <span class="summary-label">
+            Date
+          </span>
+
+          <strong id="confirmationEventDate">
+            September 29, 2026
+          </strong>
+
+        </div>
 
 
-        <span>
-          Christening:
+        <div class="summary-row">
+
+          <span class="summary-label">
+            Christening
+          </span>
+
           <strong id="confirmationChurchTime">
             11:00 AM
           </strong>
-        </span>
+
+        </div>
 
 
-        <span id="confirmationChurch">
-          Our Lady of the Miraculous Medal Parish
-        </span>
+        <div class="summary-row">
+
+          <span class="summary-label">
+            Church
+          </span>
+
+          <span id="confirmationChurch">
+            Our Lady of the Miraculous Medal Parish
+          </span>
+
+        </div>
 
 
-        <span>
-          Reception:
+        <div class="summary-row">
+
+          <span class="summary-label">
+            Reception
+          </span>
+
           <strong id="confirmationReceptionTime">
             1:30 PM
           </strong>
-        </span>
+
+        </div>
 
 
-        <span id="confirmationReceptionVenue">
-          Jollibee Infante (Besides UPV)
-        </span>
+        <div class="summary-row">
+
+          <span class="summary-label">
+            Venue
+          </span>
+
+          <span id="confirmationReceptionVenue">
+            Jollibee Infante (Besides UPV)
+          </span>
+
+        </div>
 
 
       </div>
 
+
+      <!-- GODPARENT THANK YOU -->
 
       <p
         id="godparentThanks"
@@ -399,6 +479,8 @@
 
       </p>
 
+
+      <!-- BACK -->
 
       <a
         class="btn ghost"
@@ -417,9 +499,14 @@
 </main>
 
 
-<script src="config.js?v=95"></script>
+<!-- CONFIG -->
 
-<script src="rsvp.js?v=95"></script>
+<script src="config.js?v=101"></script>
+
+
+<!-- RSVP JAVASCRIPT -->
+
+<script src="rsvp.js?v=101"></script>
 
 
 </body>
