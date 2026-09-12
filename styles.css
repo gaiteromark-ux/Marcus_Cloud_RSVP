@@ -1,44 +1,23 @@
 /* =========================================================
    MARCUS CLOUD GAITERO
-   CLEAN INVITATION STYLESHEET
+   CHRISTENING & 1ST BIRTHDAY
+   CLEAN MAIN STYLESHEET
 ========================================================= */
+
+
+/* ---------- VARIABLES / RESET ---------- */
 
 :root {
-
-  --ink: #1d2f46;
-  --muted: #6f746f;
-
-  --cream: #fbf4e4;
-  --paper: #fffdf8;
-  --beige: #eadfc6;
-  --sky: #d7eaf4;
-
-  --gold: #c49a4b;
-  --gold-dark: #9a6d23;
-
-  --burgundy: #7b2e43;
-
-  --navy: #1c3553;
-  --navy-2: #31597a;
-
-  --line: #e2d3b5;
-
-  --success: #3f7550;
-  --danger: #a23b3b;
-
-  --shadow-soft:
-    0 18px 45px
-    rgba(49, 62, 70, 0.12);
-
-  --shadow-card:
-    0 22px 55px
-    rgba(49, 62, 70, 0.16);
+  --ink: #18213b;
+  --muted: #5f5548;
+  --cream: #eee1c6;
+  --paper: #f8efd9;
+  --gold: #b8892f;
+  --line: #c9ad76;
+  --blue: #172442;
+  --burgundy: #651c31;
+  --midnight: #0c1224;
 }
-
-
-/* =========================================================
-   RESET
-========================================================= */
 
 * {
   box-sizing: border-box;
@@ -49,77 +28,73 @@ html {
 }
 
 body {
-
   margin: 0;
+
+  background:
+    radial-gradient(
+      circle at 15% 10%,
+      rgba(209, 168, 76, .14),
+      transparent 25rem
+    ),
+    radial-gradient(
+      circle at 85% 35%,
+      rgba(101, 28, 49, .13),
+      transparent 28rem
+    ),
+    linear-gradient(
+      135deg,
+      #0a1020 0%,
+      #172442 48%,
+      #0b1121 100%
+    );
+
+  background-attachment: fixed;
 
   color: var(--ink);
 
   font-family:
     Inter,
     system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
     sans-serif;
-
-  background:
-
-    radial-gradient(
-      circle at 12% 8%,
-      rgba(255, 255, 255, 0.9),
-      transparent 26rem
-    ),
-
-    radial-gradient(
-      circle at 88% 35%,
-      rgba(215, 234, 244, 0.55),
-      transparent 28rem
-    ),
-
-    linear-gradient(
-      135deg,
-      #f8f1e1 0%,
-      #efe3c8 52%,
-      #d8ebf5 100%
-    );
-
-  background-attachment: fixed;
 }
 
 body.modal-open {
   overflow: hidden;
 }
 
-img {
-  max-width: 100%;
+body::before {
+  content:
+    "✦   ·   ✧      ·   ✦     ·      ✧   ·   ✦";
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: -1;
+
+  padding: 5vh 5vw;
+
+  color:
+    rgba(255, 222, 139, .28);
+
+  font-size:
+    clamp(1rem, 2vw, 2rem);
+
+  letter-spacing:
+    clamp(1rem, 5vw, 6rem);
+
+  line-height: 5;
+
+  overflow: hidden;
+
+  pointer-events: none;
 }
-
-button,
-input,
-textarea,
-select {
-  font: inherit;
-}
-
-a {
-  color: inherit;
-}
-
-.hidden {
-  display: none !important;
-}
-
-
-/* =========================================================
-   TYPOGRAPHY
-========================================================= */
 
 h1,
 h2,
 h3,
 .name,
 .count-grid b {
-
   margin: 0;
 
   font-family:
@@ -128,24 +103,18 @@ h3,
     serif;
 
   line-height: 1;
+
+  letter-spacing: .015em;
 }
 
 h1 {
   font-size:
-    clamp(
-      3rem,
-      9vw,
-      6.5rem
-    );
+    clamp(3.2rem, 11vw, 7rem);
 }
 
 h2 {
   font-size:
-    clamp(
-      2.3rem,
-      6vw,
-      4.2rem
-    );
+    clamp(2.4rem, 7vw, 4.4rem);
 }
 
 h3 {
@@ -156,54 +125,42 @@ p {
   line-height: 1.7;
 }
 
-.eyebrow {
+.section {
+  position: relative;
 
-  color:
-    var(--gold-dark);
+  width:
+    min(1080px, 92%);
+
+  margin: auto;
+
+  padding:
+    88px 0;
+}
+
+.eyebrow {
+  color: #9b6a18;
 
   font-family:
     "Cinzel",
     serif;
 
-  font-size: 0.72rem;
+  font-size: .72rem;
 
   font-weight: 700;
 
-  letter-spacing:
-    0.22em;
+  letter-spacing: .25em;
 
-  text-transform:
-    uppercase;
+  text-transform: uppercase;
+}
+
+.hidden {
+  display: none !important;
 }
 
 
-/* =========================================================
-   SECTION
-========================================================= */
-
-.section {
-
-  position: relative;
-
-  width:
-    min(
-      1080px,
-      92%
-    );
-
-  margin: auto;
-
-  padding:
-    84px 0;
-}
-
-
-/* =========================================================
-   BUTTONS
-========================================================= */
+/* ---------- BUTTONS ---------- */
 
 .btn {
-
   display: inline-flex;
 
   align-items: center;
@@ -216,7 +173,7 @@ p {
     1px solid transparent;
 
   border-radius:
-    14px;
+    4px 16px 4px 16px;
 
   font-family:
     "Cinzel",
@@ -224,47 +181,46 @@ p {
 
   font-weight: 700;
 
+  letter-spacing: .04em;
+
   text-decoration: none;
 
   cursor: pointer;
 
   transition:
-    0.2s ease;
+    transform .2s ease,
+    box-shadow .2s ease;
 }
 
 .btn:hover {
-
   transform:
     translateY(-2px);
 }
 
 .primary {
-
-  color:
-    #fff6df;
+  color: #fff2d0;
 
   background:
-
     linear-gradient(
       135deg,
-      var(--navy),
-      var(--navy-2)
+      #111b34,
+      #24385f
     );
 
-  border-color:
-    var(--gold);
+  border-color: #b88a32;
+
+  box-shadow:
+    0 9px 25px
+    rgba(12, 18, 36, .28);
 }
 
 .ghost {
-
-  color:
-    var(--ink);
+  color: #17213a;
 
   background:
-    rgba(255, 255, 255, 0.45);
+    rgba(255, 250, 236, .45);
 
-  border-color:
-    var(--ink);
+  border-color: #17213a;
 }
 
 .full {
@@ -272,12 +228,9 @@ p {
 }
 
 
-/* =========================================================
-   OPENING
-========================================================= */
+/* ---------- OPENING ---------- */
 
 .opening {
-
   position: fixed;
 
   inset: 0;
@@ -288,217 +241,158 @@ p {
 
   place-items: center;
 
-  padding: 22px;
+  padding: 20px;
 
   background:
-
     radial-gradient(
-      circle at 50% 34%,
-      #fffdf6 0%,
-      #fbf1da 38%,
-      #eadfc4 68%,
-      #d4e9f4 100%
+      circle at center,
+      rgba(255, 218, 128, .18),
+      transparent 28%
+    ),
+    linear-gradient(
+      145deg,
+      #080d1b,
+      #1c2948 60%,
+      #501a2c
     );
 
   transition:
-    opacity 0.5s ease,
-    visibility 0.5s ease;
+    opacity .5s ease,
+    visibility .5s ease;
 }
 
 .opening.closed {
-
   opacity: 0;
-  visibility: hidden;
 
   pointer-events: none;
 }
 
 .opening-card {
-
   width:
-    min(
-      600px,
-      92vw
-    );
+    min(560px, 90vw);
 
   padding:
-    60px 32px;
+    clamp(34px, 7vw, 70px);
 
   text-align: center;
 
+  color: #f7ebcf;
+
   border:
     1px solid
-    var(--gold);
+    rgba(222, 189, 111, .72);
 
   border-radius:
-    28px;
+    26px 6px 26px 6px;
 
   background:
-
     linear-gradient(
-      145deg,
-      #fffdf8,
-      #fff6e2,
-      #eaf6fc
+      rgba(14, 22, 42, .92),
+      rgba(14, 22, 42, .92)
     );
 
   box-shadow:
-    var(--shadow-card);
+    0 25px 80px
+    rgba(0, 0, 0, .48);
 }
 
 .opening-card h1 {
-
-  margin:
-    24px 0 18px;
-
-  color:
-    var(--navy);
-
-  font-family:
-    "Cormorant Garamond",
-    serif;
-
-  font-size:
-    clamp(
-      4rem,
-      8vw,
-      7rem
-    );
-
-  font-weight: 600;
+  color: #e8c66e;
 }
 
-.opening-card > span {
+.opening-card p,
+.opening-card span {
+  color: #d9ccb2;
+}
 
+.opening-card span {
   display: block;
 
   margin:
-    18px 0 30px;
-
-  color:
-    var(--gold-dark);
-
-  font-weight: 600;
+    20px 0 30px;
 }
 
 .tiny-flower {
+  color: #e7c66e;
 
-  color:
-    var(--gold);
-
-  font-size:
-    2.7rem;
+  font-size: 3rem;
 }
 
 
-/* =========================================================
-   HERO
-========================================================= */
+/* ---------- HERO ---------- */
 
 .hero {
-
   width:
-    min(
-      1180px,
-      94%
-    );
+    min(1180px, 94%);
 
   min-height:
-    calc(
-      100svh - 60px
-    );
+    calc(100svh - 60px);
 
   margin:
     30px auto;
 
   padding-inline:
-    clamp(
-      22px,
-      7vw,
-      90px
-    );
+    clamp(20px, 7vw, 90px);
 
   display: flex;
 
   flex-direction: column;
 
   align-items: center;
-
   justify-content: center;
+
+  overflow: hidden;
 
   text-align: center;
 
+  color: #272318;
+
   border:
     1px solid
-    rgba(196, 154, 75, 0.58);
+    rgba(157, 111, 35, .7);
 
   border-radius:
-    42px;
+    44px 8px 44px 8px;
 
   background:
-
-    radial-gradient(
-      circle at 12% 18%,
-      rgba(215, 234, 244, 0.55),
-      transparent 24%
-    ),
-
-    radial-gradient(
-      circle at 88% 70%,
-      rgba(234, 223, 198, 0.68),
-      transparent 28%
-    ),
-
     linear-gradient(
-      145deg,
-      #fffaf0,
-      #f8efd9
+      rgba(246, 234, 205, .95),
+      rgba(246, 234, 205, .97)
     );
 
   box-shadow:
-    var(--shadow-card);
+    0 28px 80px
+    rgba(0, 0, 0, .38);
 }
 
 .hero h1 {
-  color:
-    var(--navy);
+  color: #17213a;
+}
+
+.hero em,
+.name {
+  color: #741f35;
 }
 
 .hero em {
-
-  color:
-    var(--burgundy);
-
   font-style: normal;
 }
 
 .name {
-
   margin:
     22px 0;
 
-  color:
-    var(--burgundy);
-
   font-size:
-    clamp(
-      2rem,
-      6vw,
-      3.8rem
-    );
+    clamp(2rem, 6vw, 3.8rem);
 }
 
 .hero-copy {
+  max-width: 670px;
 
-  max-width:
-    680px;
-
-  color:
-    #625d53;
+  color: #584f42;
 }
 
 .date-pill {
-
   margin:
     12px 0 26px;
 
@@ -506,18 +400,16 @@ p {
     12px 20px;
 
   border:
-    1px solid
-    var(--gold);
+    1px solid #9b6a18;
 
   border-radius:
-    999px;
+    4px 18px 4px 18px;
 
   background:
-    rgba(255, 255, 255, 0.58);
+    rgba(255, 250, 233, .72);
 }
 
 .actions {
-
   display: flex;
 
   justify-content: center;
@@ -528,81 +420,65 @@ p {
 }
 
 .floral {
-
   position: absolute;
 
-  color:
-    var(--gold);
+  color: #9b6a18;
 
   font-size: 4rem;
 
-  opacity: 0.42;
+  opacity: .45;
+
+  pointer-events: none;
 }
 
 .floral-a {
-
   left: 5%;
   top: 14%;
 }
 
 .floral-b {
-
   right: 5%;
   bottom: 14%;
 }
 
 
-/* =========================================================
-   COMMON CARDS
-========================================================= */
+/* ---------- SECTION CARDS ---------- */
 
 .countdown,
 .details,
 .qr-section,
 .extras {
-
   margin-top: 42px;
+
   margin-bottom: 42px;
 
   padding-inline:
-    clamp(
-      22px,
-      6vw,
-      70px
-    );
+    clamp(22px, 6vw, 70px);
 
   border:
     1px solid
-    rgba(196, 154, 75, 0.46);
+    rgba(184, 137, 47, .52);
 
   border-radius:
-    30px;
+    30px 6px 30px 6px;
 
   background:
-
-    linear-gradient(
-      145deg,
-      rgba(255, 253, 247, 0.98),
-      rgba(247, 237, 215, 0.98)
-    );
+    rgba(248, 239, 217, .97);
 
   box-shadow:
-    var(--shadow-card);
+    0 22px 55px
+    rgba(0, 0, 0, .25);
 }
 
 
-/* =========================================================
-   COUNTDOWN
-========================================================= */
+/* ---------- COUNTDOWN ---------- */
 
 .countdown {
   text-align: center;
 }
 
 .count-grid {
-
-  max-width:
-    700px;
+  max-width: 700px;
 
   margin:
     30px auto;
@@ -616,145 +492,93 @@ p {
 }
 
 .count-grid div {
-
   padding:
     20px 8px;
 
   border:
     1px solid
-    rgba(196, 154, 75, 0.28);
+    rgba(157, 111, 35, .34);
 
   border-radius:
-    18px;
+    18px 4px 18px 4px;
 
   background:
-    rgba(255, 255, 255, 0.48);
+    rgba(255, 249, 232, .72);
 }
 
 .count-grid b {
-
   display: block;
 
-  color:
-    var(--navy);
-
-  font-size:
-    2.6rem;
+  font-size: 2.6rem;
 }
 
 .count-grid span {
+  color: var(--muted);
 
-  color:
-    var(--muted);
+  font-size: .72rem;
 
-  font-size:
-    0.72rem;
+  letter-spacing: .1em;
 
-  letter-spacing:
-    0.1em;
-
-  text-transform:
-    uppercase;
+  text-transform: uppercase;
 }
 
 
-/* =========================================================
-   DETAILS
-========================================================= */
+/* ---------- DETAILS ---------- */
 
 .details {
   text-align: center;
 }
 
 .detail-grid {
-
-  margin-top:
-    40px;
+  margin-top: 40px;
 
   display: grid;
 
   grid-template-columns:
-    repeat(
-      3,
-      1fr
-    );
+    repeat(3, 1fr);
 
   gap: 18px;
-
-  align-items: stretch;
 }
 
 .detail-grid article {
-
-  padding:
-    32px 24px;
+  padding: 32px;
 
   border:
     1px solid
-    rgba(196, 154, 75, 0.26);
+    rgba(157, 111, 35, .34);
 
   border-radius:
-    20px;
+    18px 4px 18px 4px;
 
   background:
-    rgba(255, 255, 255, 0.52);
-
-  box-shadow:
-    0 10px 25px
-    rgba(49, 62, 70, 0.06);
+    rgba(255, 249, 232, .72);
 }
 
 .detail-grid article > span {
-
-  display: block;
-
-  margin-bottom:
-    10px;
-
-  font-size:
-    2rem;
-}
-
-.detail-grid h3 {
-
-  color:
-    var(--navy);
+  font-size: 2rem;
 }
 
 .detail-grid p {
-
-  color:
-    var(--muted);
+  color: var(--muted);
 }
 
 .detail-grid strong,
 .detail-grid small {
-
   display: block;
 
-  margin-top:
-    10px;
+  margin-top: 10px;
 }
 
 .detail-grid small {
-
-  color:
-    var(--muted);
-
-  line-height:
-    1.5;
+  color: var(--muted);
 }
 
 .detail-grid a {
+  display: inline-block;
 
-  display:
-    inline-block;
+  margin-top: 18px;
 
-  margin-top:
-    18px;
-
-  color:
-    var(--burgundy);
+  color: var(--burgundy);
 
   font-weight: 700;
 
@@ -762,237 +586,133 @@ p {
 }
 
 
-/* =========================================================
-   GODPARENT NOTE
-========================================================= */
-
-.godparent-note {
-
-  margin-top:
-    20px;
-
-  padding:
-    14px 16px;
-
-  border:
-    1px solid
-    #d9bd7c;
-
-  border-radius:
-    14px;
-
-  background:
-
-    linear-gradient(
-      135deg,
-      #fff9ea,
-      #f3ead2
-    );
-
-  text-align: center;
-}
-
-.godparent-note strong {
-
-  margin:
-    0 0 7px;
-
-  color:
-    #8a5a16;
-
-  font-size:
-    0.88rem;
-}
-
-.godparent-note p {
-
-  margin: 0;
-
-  color:
-    #5e5548;
-
-  font-size:
-    0.82rem;
-
-  line-height:
-    1.55;
-}
-
-.godparent-note p b {
-
-  color:
-    var(--navy);
-}
-
-
-/* =========================================================
-   BIRTHDAY TIME
-========================================================= */
-
-.birthday-time {
-
-  margin:
-    18px 0 16px;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  gap: 7px;
-
-  color:
-    var(--navy);
-}
-
-.birthday-time span {
-
-  font-size:
-    1rem;
-}
-
-.birthday-time strong {
-
-  margin: 0;
-
-  color:
-    var(--navy);
-
-  font-size:
-    1rem;
-
-  font-weight: 800;
-}
-
-
-/* =========================================================
-   QR SECTION
-========================================================= */
+/* ---------- QR SECTION ---------- */
 
 .qr-section {
-
   display: grid;
 
   grid-template-columns:
-    minmax(220px, 0.7fr)
+    minmax(220px, .7fr)
     minmax(0, 1.3fr);
 
   align-items: center;
 
   gap:
-    clamp(
-      28px,
-      5vw,
-      60px
-    );
+    clamp(28px, 5vw, 60px);
 }
 
-.qr-card {
+.qr-copy {
+  min-width: 0;
+}
 
+.qr-card.qr-card-with-photo {
   width: 100%;
 
-  max-width:
-    720px;
+  max-width: 720px;
 
   justify-self: end;
 
   padding:
-    28px;
+    clamp(22px, 4vw, 34px);
+
+  overflow: hidden;
 
   border:
     1px solid
-    rgba(196, 154, 75, 0.55);
+    rgba(184, 137, 47, .65);
 
   border-radius:
-    28px;
+    28px 6px 28px 6px;
 
   background:
-
     linear-gradient(
       145deg,
-      #fffdf8,
-      #f7edd8
+      #fffaf0,
+      #f7edd4
     );
 
   box-shadow:
-    var(--shadow-soft);
+    0 18px 45px
+    rgba(41, 29, 12, .14);
 }
 
 .qr-photo-layout {
-
   display: grid;
 
   grid-template-columns:
-    1fr 1fr;
+    minmax(0, 1fr)
+    minmax(0, 1fr);
 
   align-items: center;
 
-  gap: 24px;
+  gap:
+    clamp(14px, 3vw, 34px);
 }
 
 
-/* =========================================================
-   MARCUS IMAGE
-========================================================= */
+/* Marcus */
 
 .qr-marcus-side {
-
   position: relative;
+
+  min-width: 0;
 
   text-align: center;
 }
 
 .qr-marcus-image {
-
   display: block;
 
   width: 100%;
 
-  max-width:
-    245px;
+  max-width: 245px;
 
-  height:
-    260px;
+  height: 260px;
 
-  margin:
-    0 auto;
+  margin: 0 auto;
 
-  object-fit:
-    contain;
+  object-fit: contain;
 
   object-position:
     center bottom;
 
+  background: transparent;
+
+  border: 0;
+
   filter:
     drop-shadow(
       0 12px 12px
-      rgba(38, 55, 70, 0.13)
+      rgba(38, 55, 70, .13)
     );
 }
 
-.qr-marcus-text strong {
+.qr-marcus-text {
+  margin-top: 6px;
+}
 
+.qr-marcus-text strong {
   display: block;
 
-  color:
-    var(--navy);
+  margin: 0;
+
+  color: #10264a;
 
   font-family:
     "Cormorant Garamond",
     serif;
 
-  font-size:
-    2.1rem;
+  font-size: 2.1rem;
+
+  font-weight: 600;
+
+  line-height: 1;
 }
 
 .qr-name-divider {
+  width: 210px;
 
-  width:
-    210px;
-
-  max-width:
-    90%;
+  max-width: 90%;
 
   margin:
     10px auto 8px;
@@ -1003,59 +723,59 @@ p {
 
   gap: 8px;
 
-  color:
-    var(--gold);
+  color: #c28e31;
 }
 
 .qr-name-divider span {
-
   height: 1px;
 
   flex: 1;
 
-  background:
-    var(--gold);
+  background: #c28e31;
+}
+
+.qr-name-divider b {
+  font-size: .85rem;
+
+  font-weight: 400;
 }
 
 .qr-marcus-text > span {
+  display: block;
 
-  color:
-    var(--gold-dark);
+  color: #b68129;
 
   font-family:
     "Cinzel",
     serif;
 
-  font-size:
-    0.65rem;
+  font-size: .65rem;
 
   font-weight: 700;
 
-  letter-spacing:
-    0.13em;
+  letter-spacing: .14em;
 
-  text-transform:
-    uppercase;
+  line-height: 1.5;
+
+  text-transform: uppercase;
 }
 
 .qr-photo-decor {
-
   position: absolute;
 
   inset: 0;
 
   z-index: -1;
+
+  pointer-events: none;
 }
 
 .qr-photo-decor .spark {
-
   position: absolute;
 
-  color:
-    var(--gold);
+  color: #c28e31;
 
-  font-size:
-    1.4rem;
+  font-size: 1.4rem;
 }
 
 .spark-a {
@@ -1074,13 +794,12 @@ p {
 }
 
 
-/* =========================================================
-   QR CODE
-========================================================= */
+/* QR */
 
 .qr-code-side {
-
   width: 100%;
+
+  min-width: 0;
 
   display: flex;
 
@@ -1092,18 +811,12 @@ p {
 }
 
 .qr-code-frame {
-
   width:
-    min(
-      100%,
-      250px
-    );
+    min(100%, 250px);
 
-  aspect-ratio:
-    1 / 1;
+  aspect-ratio: 1 / 1;
 
-  padding:
-    12px;
+  padding: 12px;
 
   display: grid;
 
@@ -1111,100 +824,119 @@ p {
 
   overflow: hidden;
 
-  background:
-    #fff;
+  background: #fff;
 
   border:
-    1px solid
-    var(--gold);
+    1px solid #d7aa54;
 
-  border-radius:
-    14px;
+  border-radius: 14px;
+
+  box-shadow:
+    0 8px 20px
+    rgba(38, 31, 21, .08);
 }
 
 #qrcode {
-
   width: 100%;
+
   height: 100%;
 
-  display: grid !important;
+  display: grid;
 
-  place-items:
-    center !important;
-
-  overflow: hidden;
+  place-items: center;
 }
 
-#qrcode canvas {
+/*
+  Important:
+  app.js removes the duplicate QRCode.js image when
+  a canvas exists. These rules simply scale whichever
+  single QR element remains.
+*/
 
+#qrcode canvas {
   display: block !important;
 
   width: 100% !important;
 
   height: auto !important;
 
-  max-width:
-    100% !important;
+  max-width: 100% !important;
 
-  max-height:
-    100% !important;
+  max-height: 100% !important;
+
+  margin: 0 auto !important;
 }
 
+/* QRCode.js may create an extra <img>. app.js removes it,
+   but this CSS also hides it as a safety fallback. */
 #qrcode > img:not(.qr-fallback-image) {
-
-  display:
-    none !important;
+  display: none !important;
 }
 
 #qrcode > img.qr-fallback-image {
+  display: block !important;
 
-  display:
-    block !important;
+  width: 100% !important;
 
-  width:
-    100% !important;
+  height: auto !important;
 
-  height:
-    auto !important;
+  max-width: 100% !important;
+
+  margin: 0 auto !important;
 }
 
 .scan-row {
+  width:
+    min(100%, 250px);
 
-  margin-top:
-    14px;
+  margin-top: 14px;
 
   display: flex;
 
   align-items: center;
+  justify-content: center;
 
   gap: 8px;
 
-  color:
-    var(--gold);
+  color: #c28e31;
 }
 
 .scan-title {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 40px;
+
+  margin: 0;
 
   padding:
     8px 20px;
 
-  border-radius:
-    999px;
+  border-radius: 999px;
 
   background:
-    #dbeaf6;
+    linear-gradient(
+      90deg,
+      #dceaf7,
+      #c9dcf1
+    );
 
-  color:
-    var(--navy);
+  color: #10264a;
 
-  font-size:
-    0.9rem;
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size: .9rem;
 
   font-weight: 800;
+
+  white-space: nowrap;
 }
 
 .text-btn {
-
   border: 0;
 
   background: none;
@@ -1213,169 +945,141 @@ p {
 }
 
 .qr-download {
+  margin-top: 9px;
 
-  margin-top:
-    9px;
+  padding: 6px;
 
-  color:
-    var(--burgundy);
+  display: inline-flex;
 
-  font-size:
-    0.78rem;
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  color: #8b2035;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  font-size: .78rem;
 
   font-weight: 700;
 }
 
 
-/* =========================================================
-   EXTRAS
-========================================================= */
+/* ---------- EXTRA BUTTONS ---------- */
 
 .extra-grid {
-
   display: grid;
 
   grid-template-columns:
-    repeat(
-      5,
-      1fr
-    );
+    repeat(5, 1fr);
 
   gap: 12px;
 }
 
 .extra {
+  min-height: 110px;
 
-  min-height:
-    110px;
-
-  padding:
-    18px;
+  padding: 18px;
 
   display: flex;
 
   flex-direction: column;
 
   align-items: center;
-
   justify-content: center;
 
   gap: 10px;
 
+  color: var(--ink);
+
   border:
     1px solid
-    rgba(196, 154, 75, 0.28);
+    rgba(157, 111, 35, .34);
 
   border-radius:
-    18px;
+    18px 4px 18px 4px;
 
   background:
-    rgba(255, 255, 255, 0.52);
+    rgba(255, 249, 232, .72);
+
+  font: inherit;
 
   text-decoration: none;
 
   cursor: pointer;
-
-  transition:
-    0.2s ease;
-}
-
-.extra:hover {
-
-  transform:
-    translateY(-3px);
 }
 
 .extra span {
-
-  font-size:
-    0.8rem;
+  font-size: .8rem;
 
   font-weight: 700;
 }
 
 
-/* =========================================================
-   FOOTER
-========================================================= */
+/* ---------- FOOTER ---------- */
 
 footer {
-
   padding:
     50px 20px;
 
   text-align: center;
 
-  color:
-    #766c5b;
+  color: #d6c6a4;
 
   background:
-    rgba(255, 249, 236, 0.62);
+    rgba(6, 10, 22, .72);
 
   border-top:
     1px solid
-    rgba(196, 154, 75, 0.28);
+    rgba(184, 137, 47, .42);
 }
 
 footer small {
-
   display: block;
 
-  max-width:
-    680px;
+  max-width: 680px;
 
-  margin:
-    auto;
+  margin: auto;
 
-  line-height:
-    1.6;
+  line-height: 1.6;
 }
 
 
-/* =========================================================
-   GIFT MODAL
-========================================================= */
+/* ---------- GIFT MODAL ---------- */
 
 .modal-overlay {
-
   position: fixed;
 
   inset: 0;
 
-  z-index:
-    9999;
+  z-index: 9999;
 
-  padding:
-    20px;
+  padding: 20px;
 
   display: flex;
 
   align-items: center;
-
   justify-content: center;
 
   background:
-    rgba(36, 52, 66, 0.48);
+    rgba(8, 13, 27, .7);
 
   backdrop-filter:
     blur(6px);
 }
 
 .gift-modal-content {
-
   position: relative;
 
   width:
-    min(
-      100%,
-      430px
-    );
+    min(100%, 430px);
 
-  max-height:
-    90vh;
+  max-height: 90vh;
 
-  overflow-y:
-    auto;
+  overflow-y: auto;
 
   padding:
     40px 28px 30px;
@@ -1384,26 +1088,19 @@ footer small {
 
   border:
     1px solid
-    rgba(196, 154, 75, 0.42);
+    rgba(184, 137, 47, .5);
 
   border-radius:
-    28px;
+    28px 6px 28px 6px;
 
-  background:
-
-    linear-gradient(
-      145deg,
-      #fffdf8,
-      #f8efd9
-    );
+  background: #fffaf0;
 
   box-shadow:
     0 25px 70px
-    rgba(49, 62, 70, 0.22);
+    rgba(0, 0, 0, .3);
 }
 
 .modal-close {
-
   position: absolute;
 
   top: 14px;
@@ -1412,22 +1109,24 @@ footer small {
   width: 36px;
   height: 36px;
 
+  display: grid;
+
+  place-items: center;
+
   border: 0;
 
-  border-radius:
-    50%;
+  border-radius: 50%;
 
-  background:
-    transparent;
+  background: transparent;
 
-  font-size:
-    28px;
+  color: var(--ink);
+
+  font-size: 28px;
 
   cursor: pointer;
 }
 
 .gift-icon {
-
   width: 70px;
   height: 70px;
 
@@ -1438,18 +1137,14 @@ footer small {
 
   place-items: center;
 
-  border-radius:
-    50%;
+  border-radius: 50%;
 
-  background:
-    #f7ead7;
+  background: #f7ead7;
 
-  font-size:
-    34px;
+  font-size: 34px;
 }
 
 .gift-list {
-
   margin:
     22px 0;
 
@@ -1461,9 +1156,7 @@ footer small {
 }
 
 .gift-item {
-
-  padding:
-    14px;
+  padding: 14px;
 
   display: flex;
 
@@ -1472,37 +1165,32 @@ footer small {
   gap: 14px;
 
   border:
-    1px solid
-    var(--line);
+    1px solid #eadfce;
 
-  border-radius:
-    14px;
+  border-radius: 14px;
 
-  background:
-    rgba(255, 255, 255, 0.52);
+  background: #fffaf3;
 }
 
 .gift-item-icon {
-
   width: 44px;
   height: 44px;
+
+  flex:
+    0 0 44px;
 
   display: grid;
 
   place-items: center;
 
-  border-radius:
-    50%;
+  border-radius: 50%;
 
-  background:
-    #f7ead7;
+  background: #f7ead7;
 
-  font-size:
-    21px;
+  font-size: 21px;
 }
 
 .gift-item-info {
-
   display: flex;
 
   flex-direction: column;
@@ -1511,182 +1199,39 @@ footer small {
 }
 
 .gift-item-info span {
+  color: var(--muted);
 
-  color:
-    #6b665d;
+  font-size: 13px;
 
-  font-size:
-    13px;
+  line-height: 1.4;
 }
 
+.online-registry {
+  margin:
+    18px 0 12px;
+}
 
 /* =========================================================
-   RSVP FORM COMPATIBILITY
+   TABLET — CLEAN RESPONSIVE RULES
 ========================================================= */
 
-.form-shell {
+@media (max-width: 900px) {
 
-  width:
-    min(
-      760px,
-      92%
-    );
-
-  margin:
-    0 auto;
-
-  padding:
-    70px 0;
-}
-
-.rsvp-form {
-
-  padding:
-    30px;
-
-  border:
-    1px solid
-    var(--gold);
-
-  border-radius:
-    24px;
-
-  background:
-    var(--paper);
-
-  box-shadow:
-    var(--shadow-card);
-}
-
-.rsvp-form label {
-
-  display: block;
-
-  margin-bottom:
-    18px;
-
-  font-weight: 700;
-}
-
-.rsvp-form input,
-.rsvp-form textarea,
-.rsvp-form select {
-
-  width: 100%;
-
-  margin-top:
-    8px;
-
-  padding:
-    14px 15px;
-
-  border:
-    1px solid
-    var(--line);
-
-  border-radius:
-    12px;
-
-  background:
-    white;
-}
-
-.rsvp-form textarea {
-
-  min-height:
-    110px;
-
-  resize:
-    vertical;
-}
-
-.rsvp-form fieldset {
-
-  margin:
-    22px 0;
-
-  padding:
-    18px;
-
-  border:
-    1px solid
-    var(--line);
-
-  border-radius:
-    14px;
-}
-
-.choice {
-
-  display:
-    flex !important;
-
-  align-items:
-    center;
-
-  gap:
-    10px;
-}
-
-.choice input {
-
-  width:
-    auto !important;
-
-  margin:
-    0 !important;
-}
-
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media (
-  max-width: 760px
-) {
+  .section {
+    width: calc(100% - 28px);
+  }
 
   .detail-grid {
-
-    grid-template-columns:
-      1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
-
-  .count-grid {
-
-    grid-template-columns:
-      repeat(
-        2,
-        1fr
-      );
+  .detail-grid article:last-child {
+    grid-column: 1 / -1;
   }
-
-
-  .qr-section {
-
-    grid-template-columns:
-      1fr;
-
-    text-align:
-      center;
-  }
-
-
-  .qr-card {
-
-    justify-self:
-      center;
-  }
-
 
   .extra-grid {
-
     grid-template-columns:
-      repeat(
-        2,
-        1fr
-      );
+      repeat(3, minmax(0, 1fr));
   }
 }
 
@@ -1695,159 +1240,527 @@ footer small {
    MOBILE
 ========================================================= */
 
-@media (
-  max-width: 600px
-) {
+@media (max-width: 760px) {
+
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  body {
+    background-attachment: scroll;
+  }
 
   .section {
+    width: calc(100% - 20px);
 
-    width:
-      calc(
-        100% - 24px
-      );
+    margin: 14px auto;
 
-    padding:
-      60px 0;
+    padding: 42px 18px;
+
+    border-radius: 24px 5px 24px 5px;
   }
 
+
+  /* ---------- HERO ---------- */
 
   .hero {
+    min-height: auto;
 
-    width:
-      calc(
-        100% - 24px
-      );
+    margin: 10px auto;
 
-    min-height:
-      calc(
-        100svh - 24px
-      );
+    padding-top: 56px;
 
-    margin:
-      12px auto;
+    padding-bottom: 56px;
 
-    padding-left:
-      18px;
-
-    padding-right:
-      18px;
-
-    border-radius:
-      28px;
+    overflow: hidden;
   }
-
 
   .hero h1 {
+    width: 100%;
+
+    max-width: 100%;
+
+    padding: 0 2px;
 
     font-size:
-      clamp(
-        2.5rem,
-        12vw,
-        3.8rem
-      );
+      clamp(2.25rem, 10.8vw, 3.7rem);
+
+    line-height: 1.06;
+
+    letter-spacing: -0.02em;
+
+    overflow-wrap: normal;
+
+    word-break: normal;
   }
 
-
-  .opening-card {
-
-    padding:
-      48px 22px;
+  .hero em {
+    display: inline;
   }
 
-
-  .opening-card h1 {
+  .name {
+    margin: 18px 0;
 
     font-size:
-      clamp(
-        3.2rem,
-        16vw,
-        5rem
-      );
+      clamp(1.9rem, 8vw, 2.75rem);
+
+    line-height: 1.1;
   }
 
+  .hero-copy {
+    width: 100%;
+
+    max-width: 560px;
+
+    margin-left: auto;
+
+    margin-right: auto;
+
+    font-size: 1rem;
+
+    line-height: 1.68;
+  }
+
+  .date-pill {
+    width: min(100%, 360px);
+
+    font-size: 0.9rem;
+  }
+
+  .actions {
+    width: 100%;
+  }
+
+
+  /* ---------- COUNTDOWN ---------- */
+
+  .count-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 10px;
+
+    margin-top: 22px;
+  }
+
+  .count-grid div {
+    padding: 18px 8px;
+  }
+
+  .count-grid b {
+    font-size: 2rem;
+  }
+
+  .count-grid span {
+    font-size: 0.68rem;
+  }
+
+
+  /* ---------- DETAILS ---------- */
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+
+    gap: 14px;
+
+    margin-top: 26px;
+  }
+
+  .detail-grid article,
+  .detail-grid article:last-child {
+    grid-column: auto;
+  }
+
+  .detail-grid article {
+    padding: 24px 18px;
+  }
+
+  .detail-grid article > span {
+    font-size: 1.7rem;
+  }
+
+  .detail-grid h3 {
+    font-size: 1.55rem;
+  }
+
+  .detail-grid p {
+    font-size: 0.95rem;
+  }
+
+  .detail-grid strong {
+    font-size: 0.92rem;
+  }
+
+  .detail-grid small {
+    font-size: 0.82rem;
+  }
+
+  .detail-grid a {
+    font-size: 0.84rem;
+  }
+
+
+  /* ---------- QR SECTION ---------- */
+
+  .qr-section {
+    grid-template-columns: 1fr;
+
+    gap: 26px;
+  }
+
+  .qr-copy {
+    text-align: center;
+  }
+
+  .qr-copy p {
+    max-width: 520px;
+
+    margin-left: auto;
+
+    margin-right: auto;
+  }
+
+  .qr-card.qr-card-with-photo {
+    width: 100%;
+
+    max-width: 590px;
+
+    justify-self: center;
+
+    padding: 18px 12px;
+  }
 
   .qr-photo-layout {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(0, 1fr);
 
-    gap:
-      8px;
+    gap: 12px;
   }
-
-
-  .qr-card {
-
-    padding:
-      16px 8px;
-  }
-
 
   .qr-marcus-image {
+    max-width: 175px;
 
-    max-width:
-      145px;
-
-    height:
-      170px;
+    height: 190px;
   }
-
 
   .qr-marcus-text strong {
-
-    font-size:
-      1.2rem;
+    font-size: 1.4rem;
   }
-
 
   .qr-marcus-text > span {
+    font-size: 0.48rem;
 
-    font-size:
-      0.42rem;
+    letter-spacing: 0.08em;
   }
-
 
   .qr-code-frame {
+    width: min(100%, 185px);
 
-    width:
-      145px;
-
-    padding:
-      7px;
+    padding: 8px;
   }
 
+  #qrcode {
+    width: 100% !important;
+
+    height: 100% !important;
+
+    overflow: hidden !important;
+  }
+
+  #qrcode canvas,
+  #qrcode > img.qr-fallback-image {
+    width: 100% !important;
+
+    height: auto !important;
+
+    max-width: 100% !important;
+
+    margin: 0 auto !important;
+  }
+
+  .scan-row {
+    width: min(100%, 185px);
+  }
 
   .scan-title {
+    min-height: 34px;
 
-    padding:
-      6px 10px;
+    padding: 7px 10px;
 
+    font-size: 0.7rem;
+  }
+
+  .qr-download {
+    font-size: 0.64rem;
+  }
+
+
+  /* ---------- EXTRA BUTTONS ---------- */
+
+  .extra-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 10px;
+  }
+
+  .extra {
+    min-height: 96px;
+
+    padding: 14px 10px;
+  }
+
+  .extra span {
+    font-size: 0.74rem;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .section {
+    width: calc(100% - 14px);
+
+    margin: 10px auto;
+
+    padding: 32px 12px;
+  }
+
+
+  /* ---------- HERO ---------- */
+
+  .hero {
+    padding-top: 42px;
+
+    padding-bottom: 42px;
+  }
+
+  .eyebrow {
+    font-size: 0.62rem;
+
+    letter-spacing: 0.17em;
+  }
+
+  .hero h1 {
     font-size:
-      0.6rem;
+      clamp(1.95rem, 10vw, 2.9rem);
+
+    line-height: 1.06;
   }
 
-
-  .godparent-note p {
-
+  .name {
     font-size:
-      0.78rem;
+      clamp(1.65rem, 7.6vw, 2.2rem);
+  }
+
+  .hero-copy {
+    font-size: 0.93rem;
+
+    line-height: 1.62;
+  }
+
+  .actions {
+    gap: 8px;
+  }
+
+  .actions .btn {
+    flex: 1 1 135px;
+
+    min-height: 44px;
+
+    padding: 11px 14px;
+
+    font-size: 0.82rem;
   }
 
 
-  .birthday-time {
+  /* ---------- COUNTDOWN ---------- */
 
-    margin:
-      16px 0;
+  .count-grid {
+    gap: 8px;
+  }
+
+  .count-grid div {
+    padding: 15px 6px;
+  }
+
+  .count-grid b {
+    font-size: 1.7rem;
+  }
+
+  .count-grid span {
+    font-size: 0.59rem;
   }
 
 
-  .birthday-time strong {
+  /* ---------- DETAILS ---------- */
 
+  .details h2,
+  .qr-copy h2 {
     font-size:
-      0.95rem;
+      clamp(1.85rem, 8.5vw, 2.45rem);
   }
 
+  .detail-grid article {
+    padding: 20px 15px;
+  }
+
+  .detail-grid h3 {
+    font-size: 1.4rem;
+  }
+
+  .detail-grid p,
+  .detail-grid strong {
+    font-size: 0.88rem;
+  }
+
+  .detail-grid small,
+  .detail-grid a {
+    font-size: 0.76rem;
+  }
+
+
+  /* ---------- QR ---------- */
+
+  .qr-card.qr-card-with-photo {
+    padding: 14px 7px;
+  }
+
+  .qr-photo-layout {
+    gap: 7px;
+  }
+
+  .qr-marcus-image {
+    max-width: 125px;
+
+    height: 145px;
+  }
+
+  .qr-marcus-text strong {
+    font-size: 1.05rem;
+  }
+
+  .qr-name-divider {
+    margin: 5px auto 4px;
+  }
+
+  .qr-marcus-text > span {
+    font-size: 0.37rem;
+
+    letter-spacing: 0.05em;
+  }
+
+  .qr-code-frame {
+    width: min(100%, 135px);
+
+    padding: 5px;
+
+    border-radius: 9px;
+  }
+
+  .scan-row {
+    width: min(100%, 135px);
+
+    margin-top: 6px;
+  }
+
+  .scan-row > span {
+    display: none;
+  }
+
+  .scan-title {
+    width: 100%;
+
+    min-height: 28px;
+
+    padding: 5px;
+
+    font-size: 0.52rem;
+  }
+
+  .qr-download {
+    margin-top: 3px;
+
+    font-size: 0.47rem;
+  }
+
+
+  /* ---------- EXTRAS ---------- */
+
+  .extra {
+    min-height: 88px;
+
+    padding: 11px 8px;
+  }
+
+  .extra span {
+    font-size: 0.68rem;
+  }
+
+
+  /* ---------- MODAL ---------- */
 
   .gift-modal-content {
+    padding: 34px 18px 22px;
+  }
+}
 
-    padding:
-      36px 20px 24px;
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .section {
+    width: calc(100% - 10px);
+
+    padding-left: 10px;
+
+    padding-right: 10px;
+  }
+
+  .hero h1 {
+    font-size: 1.82rem;
+  }
+
+  .name {
+    font-size: 1.55rem;
+  }
+
+  .hero-copy {
+    font-size: 0.88rem;
+  }
+
+  .qr-photo-layout {
+    gap: 4px;
+  }
+
+  .qr-marcus-image {
+    max-width: 108px;
+
+    height: 128px;
+  }
+
+  .qr-code-frame {
+    width: min(100%, 118px);
+  }
+
+  .scan-row {
+    width: min(100%, 118px);
+  }
+
+  .scan-title {
+    font-size: 0.46rem;
+  }
+
+  .qr-download {
+    font-size: 0.43rem;
   }
 }
